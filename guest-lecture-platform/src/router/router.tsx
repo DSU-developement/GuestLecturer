@@ -2,14 +2,15 @@
 
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LoginPage from '../pages/login'; // Adjust the path as per your project structure
+import LoginPage from '../pages/login'; 
+import  Lecturer from '../pages/hod';
 
 const AppRouter: React.FC = () => {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<LoginPage />} />
-        {/* Add more Route components for other paths */}
+        <Route path="/hod" element={<Lecturer />} />
       </Routes>
     </Router>
   );
