@@ -1,10 +1,15 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import Pagination from "../components/pagination"; // Assume you have a Pagination component
-import { Lecturer } from "../components/type"; // Assume you have defined a Lecturer type
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Pagination from '../components/pagination';
+import { Lecturer } from '../components/type';
 
-const Table: React.FC<{ data: Lecturer[] }> = ({ data }) => {
-  const [currentPage, setCurrentPage] = useState(1);
+interface Props {
+  data: Lecturer[];
+  authorized?: boolean; // Make authorized prop optional
+}
+
+const Table: React.FC<Props> = ({ data, authorized = true }) => { // Default to true if not provided
+  const [currentPage, setCurrentPage] = React.useState(1);
   const itemsPerPage = 5;
 
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -30,6 +35,11 @@ const Table: React.FC<{ data: Lecturer[] }> = ({ data }) => {
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
                   </th>
+                  {authorized && ( // Render the "Edit" column if authorized
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Edit
+                    </th>
+                  )}
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
@@ -46,6 +56,11 @@ const Table: React.FC<{ data: Lecturer[] }> = ({ data }) => {
                         {lecturer.status}
                       </Link>
                     </td>
+                    {authorized && ( // Conditionally render the "Edit" button
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <button className="text-indigo-600 hover:text-indigo-900">Edit</button>
+                      </td>
+                    )}
                   </tr>
                 ))}
               </tbody>
