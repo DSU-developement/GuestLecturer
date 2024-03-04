@@ -1,236 +1,61 @@
-import React, { useState } from 'react';
-import Table from '../components/table';
-import { FaEdit } from "react-icons/fa";
-import Button from '../components/button';
-import Teacher from '../components/teacher/lecturer';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Pagination from "../components/pagination"; // Assume you have a Pagination component
+import { Lecturer } from "../components/type"; // Assume you have defined a Lecturer type
 
-type Props = {};
+const Table: React.FC<{ data: Lecturer[] }> = ({ data }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
-interface DataType {
-  key: React.Key;
-  lecturerName: string;
-  lecturerPhoneNumber: string;
-  lecturerEmail: string;
-  lecturerSchools: string;
-  lecturerDept: string;
-  lecturerSubject: string;
-  lecturerSem_year: string;
-  lecturerClasses: string;
-  lecturerHours: string;
-  lecturerRate: string;
-  lecturerAmount: string;
-  lecturerRemarks: string;
-  status: string;
-  lecturerDob: string,
-  lecturerQulifications: string,
-}
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
 
-const Lecturer = () => {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [selectedClass, setSelectedClass] = useState<DataType | undefined>(undefined)
-  const [formData, setFormData] = useState<Partial<DataType>>({
-    lecturerName: "",
-    lecturerPhoneNumber: "",
-    lecturerEmail: "",
-    lecturerQulifications: "",
-    lecturerSchools: "",
-    lecturerDept: "",
-    lecturerSubject: "",
-    lecturerSem_year: "",
-    lecturerClasses: "",
-    lecturerHours: "",
-    lecturerRate: "",
-    lecturerAmount: "",
-    lecturerRemarks: "",
-    status: "",
-  });
-
-  const onClickOk = () => {
-    console.log('Ok clicked');
-    setIsModalOpen(false);
-    console.log('Form data:', formData);
-    setFormData({
-      lecturerName: "",
-      lecturerPhoneNumber: "",
-      lecturerEmail: "",
-      lecturerQulifications: "",
-      lecturerSchools: "",
-      lecturerDept: "",
-      lecturerSubject: "",
-      lecturerSem_year: "",
-      lecturerClasses: "",
-      lecturerHours: "",
-      lecturerRate: "",
-      lecturerAmount: "",
-      lecturerRemarks: "",
-      status: "",
-    });
-  };
-
-  const onClickClose = () => {
-    console.log('Close clicked');
-    setIsModalOpen(false);
-    setSelectedClass(undefined);
-  };
-
-  const onClickAddClassButton = () => {
-    setIsModalOpen(true);
-  };
-  const handleEditClick = (classData:DataType) =>{
-    setIsModalOpen(true);
-    setSelectedClass(classData);
-  }
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const dataSource = [
-    {
-      key: "1",
-      lecturerName: "ABC",
-      lecturerPhoneNumber: "1234567890",
-      lecturerEmail: "abc@def.com",
-      lecturerQulifications: "M.Tech",
-      lecturerSchools: "Engineering",
-      lecturerDept: "CSE",
-      lecturerSubject: "Cloud Computing",
-      lecturerSem_year: "6,3",
-      lecturerClasses: "D",
-      lecturerHours: "4",
-      lecturerRate: "500",
-      lecturerAmount: "50000",
-      lecturerRemarks: "...",
-      status: "Accepted",
-    },
-  ];
-
-  const columns = [
-    {
-      title: 'Lecturer ID',
-      dataIndex: 'key',
-      key: 'key',
-    },
-    {
-      title: "Name",
-      dataIndex: "lecturerName",
-      key: "key",
-    },
-    {
-      title: "Phone number",
-      dataIndex: "lecturerPhoneNumber",
-      key: "key",
-    },
-    {
-      title: "Email",
-      dataIndex: "lecturerEmail",
-      key: "key",
-    },
-    {
-      title: "Qualifications",
-      dataIndex: "lecturerQulifications",
-      key: "key",
-    },
-    {
-      title: "Schools",
-      dataIndex: "lecturerSchools",
-      key: "key",
-    },
-    {
-      title: "Department",
-      dataIndex: "lecturerDept",
-      key: "key",
-    },
-    {
-      title: "Subject",
-      dataIndex: "lecturerSubject",
-      key: "key",
-    },
-    {
-      title: "Sem/Year",
-      dataIndex: "lecturerSem_year",
-      key: "key",
-    },
-    {
-      title: "Classes",
-      dataIndex: "lecturerClasses",
-      key: "key",
-    },
-    {
-      title: "Hours",
-      dataIndex: "lecturerHours",
-      key: "key",
-    },
-    {
-      title: "Rate",
-      dataIndex: "lecturerRate",
-      key: "key",
-    },
-    {
-      title: "Amount",
-      dataIndex: "lecturerAmount",
-      key: "key",
-    },
-    {
-      title: "Remarks",
-      dataIndex: "lecturerRemarks",
-      key: "key",
-    },
-    {
-      title: 'Status',
-      dataIndex: 'status',
-      key: 'status',
-      render: (d: any) => (
-        <div>
-          <Button state="success" className="border-0">
-            <div className="flex gap-2 items-center">Accepted</div>
-          </Button>
-        </div>
-      ),
-    },
-    {
-      title: 'Action',
-      render: (d: any) => (
-        <div>
-          <Button state='ghost' onClick={()=>handleEditClick(d)}>
-          <FaEdit />
-          </Button>
-        </div>
-      ),
-    },
-  ];
-
-  const rowSelection = {
-    onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
-      console.log(
-        `selectedRowKeys: ${selectedRowKeys}`,
-        'selectedRows: ',
-        selectedRows
-      );
-    },
-  };
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
-    <div>
-      <div className="mt-6">
-        <Table
-          rowSelection={{
-            type: 'checkbox',
-            ...rowSelection,
-          }}
-          dataSource={dataSource}
-          columns={columns}
-        />
+    <div className="flex flex-col mt-4">
+      <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+          <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    ID
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Name
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Status
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {currentItems.map((lecturer) => (
+                  <tr key={lecturer.key}>
+                    <td className="px-6 py-4 whitespace-nowrap">{lecturer.key}</td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <Link to={`/details/${lecturer.key}`} className="text-indigo-600 hover:text-indigo-900">
+                        {lecturer.lecturerName}
+                      </Link>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <Link to={`/details/${lecturer.key}`} className="text-indigo-600 hover:text-indigo-900">
+                        {lecturer.status}
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-      <Teacher
-        isOpen={isModalOpen}
-        onClose={onClickClose}
-        onSubmit={onClickOk}
-        classData={selectedClass}
-      />
+      <Pagination itemsPerPage={itemsPerPage} totalItems={data.length} paginate={paginate} />
     </div>
   );
 };
 
-export default Lecturer;
+export default Table;
