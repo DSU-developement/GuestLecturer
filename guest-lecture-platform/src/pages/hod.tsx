@@ -77,12 +77,6 @@ const Table: React.FC<Props> = ({ data, authorized = true }) => {
                         <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Actions
                         </th>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Accept
-                        </th>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Comment
-                        </th>
                       </>
                     )}
                   </tr>
@@ -103,13 +97,8 @@ const Table: React.FC<Props> = ({ data, authorized = true }) => {
                       </td>
                       {!authorized && (<>
                         <td className="px-6 py-4 whitespace-nowrap">
-                         <button className="text-blue-600 hover:text-blue-900 ml-2" onClick={() => handleComment(Number(lecturer.key))}>Comment</button>
-                        </td>
-                        <td>
-                          <button className="text-green-600 hover:text-green-900" onClick={() => handleAccept(Number(lecturer.key))}>Accept</button>
-                        </td>
-                        <td>
-                          <button className="text-blue-600 hover:text-green-900" onClick={() => handleAccept(Number(lecturer.key))}>Any Comments</button>
+                         <button className="text-blue-600 hover:text-blue-900 ml-2 p-2 bg-blue-400 text-white rounded-xl m-1" onClick={() => handleComment(Number(lecturer.key))}>Comment</button>
+                         <button className="text-green-600 hover:text-green-900 p-2 bg-green-400 text-white rounded-xl m-1" onClick={() => handleAccept(Number(lecturer.key))}>Accept</button>
                         </td>
                         </>
                       )}
