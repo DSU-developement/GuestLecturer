@@ -38,7 +38,7 @@ const AddLecturerModal: React.FC<AddLecturerModalProps> = ({ isOpen, onClose, on
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         onAddLecturer(formData);
-        onClose(); // Close the modal after submitting the form
+        onClose();
     };
 
     return (
