@@ -12,7 +12,7 @@ interface Props {
 
 const Table: React.FC<Props> = ({ data, authorized = true }) => { 
   const [currentPage, setCurrentPage] = React.useState(1);
-  const [isModalOpen, setIsModalOpen] = useState(false); // State for managing the modal
+  const [isModalOpen, setIsModalOpen] = useState(false); 
 
   const itemsPerPage = 5;
 
@@ -23,8 +23,15 @@ const Table: React.FC<Props> = ({ data, authorized = true }) => {
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   const handleAddLecturer = (lecturer: Lecturer) => {
-    // Add logic to handle adding lecturer
     console.log('Adding lecturer:', lecturer);
+  };
+
+  const handleAccept = (lecturerId: number) => {
+    console.log('Accepted lecturer with ID:', lecturerId);
+  };
+
+  const handleComment = (lecturerId: number) => {
+    console.log('Commented on lecturer with ID:', lecturerId);
   };
 
   return (
@@ -58,10 +65,25 @@ const Table: React.FC<Props> = ({ data, authorized = true }) => {
                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Status
                     </th>
-                    {authorized && (
-                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Edit
-                      </th>
+                    {authorized ? (
+                      <>
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Edit
+                        </th>
+                        
+                      </>
+                    ) : (
+                      <>
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Actions
+                        </th>
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Accept
+                        </th>
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Comment
+                        </th>
+                      </>
                     )}
                   </tr>
                 </thead>
@@ -79,10 +101,17 @@ const Table: React.FC<Props> = ({ data, authorized = true }) => {
                           {lecturer.status}
                         </Link>
                       </td>
-                      {authorized && ( 
+                      {!authorized && (<>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <button className="text-indigo-600 hover:text-indigo-900">Edit</button>
+                         <button className="text-blue-600 hover:text-blue-900 ml-2" onClick={() => handleComment(Number(lecturer.key))}>Comment</button>
                         </td>
+                        <td>
+                          <button className="text-green-600 hover:text-green-900" onClick={() => handleAccept(Number(lecturer.key))}>Accept</button>
+                        </td>
+                        <td>
+                          <button className="text-blue-600 hover:text-green-900" onClick={() => handleAccept(Number(lecturer.key))}>Any Comments</button>
+                        </td>
+                        </>
                       )}
                     </tr>
                   ))}

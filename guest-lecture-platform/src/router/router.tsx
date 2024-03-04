@@ -7,7 +7,7 @@ import SignupPage from '../pages/signupPage';
 import { lecturersData } from '../components/dummy'; 
 
 const AppRouter: React.FC = () => {
-  const isHOD = true; 
+  const isHOD = false; 
 
   return (
     <Router>
