@@ -1,4 +1,6 @@
 import React, { useState, FormEvent, ChangeEvent } from 'react';
+import bg from "./bg.jpeg";
+import { CgProfile } from "react-icons/cg";
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -22,10 +24,13 @@ const LoginPage = () => {
   };
 
   return (
-    <div >
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+    <div className="bg-dynamic h-screen " style={{ backgroundImage: `url("./bg.jpeg")` }}  >
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8" >
+      <div className="max-w-md w-full space-y-8 border border-gray-600 p-20 rounded-xl shadow-xl" >
         <div>
+        <div className='flex justify-center mb-4'>
+        <CgProfile className='text-6xl text-indigo-600' />
+        </div>
           <h2 className="text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
