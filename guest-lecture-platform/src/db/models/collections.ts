@@ -8,7 +8,8 @@ export  interface GuestLecturer {
     PhoneNo: number;
     Quallifications: string;
     Sem_year:string;
-    
+    Adharnumber: number;
+    PanNumber: string;
   }
   
   export interface HOD {
