@@ -47,7 +47,7 @@ const AddLecturerModal: React.FC<AddLecturerModalProps> = ({ isOpen, onClose, on
                 <div className="grid grid-cols-2 gap-4">
                     <div>
                         <label htmlFor="lecturerName">Name:</label>
-                        <input type="text" id="lecturerName" name="lecturerName"  value={formData.lecturerName} onChange={handleChange} required />
+                        <input className="border border-gray-600" type="text" id="lecturerName" name="lecturerName" value={formData.lecturerName} onChange={handleChange} required />
                     </div>
                     <div>
                         <label htmlFor="lecturerPhoneNumber">Phone Number:</label>
