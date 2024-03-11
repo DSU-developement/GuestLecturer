@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from '../components/modal';
 import { Lecturer } from '../components/type';
 
@@ -10,10 +10,10 @@ interface Props {
 }
 
 const EditModal: React.FC<Props> = ({ isOpen, onClose, onSubmit, lecturer }) => {
-  const [formData, setFormData] = useState<Lecturer | null>(lecturer);
+  const [formData, setFormData] = useState<Lecturer | null>(null);
 
-  // Ensure formData is set to lecturer when lecturer changes
-  React.useEffect(() => {
+  // Set formData to lecturer when lecturer prop changes
+  useEffect(() => {
     setFormData(lecturer);
   }, [lecturer]);
 
@@ -33,18 +33,78 @@ const EditModal: React.FC<Props> = ({ isOpen, onClose, onSubmit, lecturer }) => 
   return (
     <Modal isOpen={isOpen} onClose={onClose} >
       {formData && (
-        <div>
-          {/* Input fields for editing lecturer details */}
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">Name:</label>
-            <input type="text" name="lecturerName" value={formData.lecturerName} onChange={handleChange} className="border rounded-md p-2 w-full" />
+        <div className='flex'>
+          <div className="w-1/2 px-4">
+            {/* First Column */}
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">Name:</label>
+              <input type="text" name="lecturerName" value={formData.lecturerName} onChange={handleChange} className="border rounded-md p-2 w-full" />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">Phone Number:</label>
+              <input type="text" name="lecturerPhoneNumber" value={formData.lecturerPhoneNumber} onChange={handleChange} className="border rounded-md p-2 w-full" />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+              <input type="text" name="lecturerEmail" value={formData.lecturerEmail} onChange={handleChange} className="border rounded-md p-2 w-full" />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">Qualifications:</label>
+              <input type="text" name="lecturerQualifications" value={formData.lecturerQualifications} onChange={handleChange} className="border rounded-md p-2 w-full" />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">Schools:</label>
+              <input type="text" name="lecturerSchools" value={formData.lecturerSchools} onChange={handleChange} className="border rounded-md p-2 w-full" />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">Department:</label>
+              <input type="text" name="lecturerDept" value={formData.lecturerDept} onChange={handleChange} className="border rounded-md p-2 w-full" />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">Status:</label>
+              <input type="text" name="status" value={formData.status} onChange={handleChange} className="border rounded-md p-2 w-full" />
+            </div>
           </div>
-          {/* Add more input fields for other lecturer details */}
-          <button type="button" onClick={handleSubmit} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Save Changes
-          </button>
+          <div className="w-1/2 px-4">
+            {/* Second Column */}
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">Subject:</label>
+              <input type="text" name="lecturerSubject" value={formData.lecturerSubject} onChange={handleChange} className="border rounded-md p-2 w-full" />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">Semester/Year:</label>
+              <input type="text" name="lecturerSem_year" value={formData.lecturerSem_year} onChange={handleChange} className="border rounded-md p-2 w-full" />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">Classes:</label>
+              <input type="text" name="lecturerClasses" value={formData.lecturerClasses} onChange={handleChange} className="border rounded-md p-2 w-full" />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">Hours:</label>
+              <input type="text" name="lecturerHours" value={formData.lecturerHours} onChange={handleChange} className="border rounded-md p-2 w-full" />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">Rate:</label>
+              <input type="text" name="lecturerRate" value={formData.lecturerRate} onChange={handleChange} className="border rounded-md p-2 w-full" />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">Amount:</label>
+              <input type="text" name="lecturerAmount" value={formData.lecturerAmount} onChange={handleChange} className="border rounded-md p-2 w-full" />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">Remarks:</label>
+              <input type="text" name="lecturerRemarks" value={formData.lecturerRemarks} onChange={handleChange} className="border rounded-md p-2 w-full" />
+            </div>
+            
+          </div>
         </div>
       )}
+      <div className="flex justify-end">
+        {/* Save Changes Button */}
+        <button type="button" onClick={handleSubmit} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          Save Changes
+        </button>
+      </div>
     </Modal>
   );
 };
