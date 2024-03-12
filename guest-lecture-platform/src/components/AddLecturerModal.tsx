@@ -46,59 +46,59 @@ const AddLecturerModal: React.FC<AddLecturerModalProps> = ({ isOpen, onClose, on
             <form onSubmit={handleSubmit}>
                 <div className="grid grid-cols-2 gap-4">
                     <div>
-                        <label htmlFor="lecturerName">Name:</label>
-                        <input className="border border-gray-600" type="text" id="lecturerName" name="lecturerName" value={formData.lecturerName} onChange={handleChange} required />
+                        <label htmlFor="lecturerName">Name: </label>
+                        <input className="border border-gray-600 rounded-md px-2 py-0.5" type="text" id="lecturerName" name="lecturerName" value={formData.lecturerName} onChange={handleChange} required />
                     </div>
                     <div>
-                        <label htmlFor="lecturerPhoneNumber">Phone Number:</label>
-                        <input type="text" id="lecturerPhoneNumber" name="lecturerPhoneNumber" value={formData.lecturerPhoneNumber} onChange={handleChange} required />
+                        <label htmlFor="lecturerPhoneNumber">Phone Number: </label>
+                        <input className="border border-gray-600 rounded-md px-2 py-0.5" type="text" id="lecturerPhoneNumber" name="lecturerPhoneNumber" value={formData.lecturerPhoneNumber} onChange={handleChange} required />
                     </div>
                     <div>
-                        <label htmlFor="lecturerEmail">Email:</label>
-                        <input type="email" id="lecturerEmail" name="lecturerEmail" value={formData.lecturerEmail} onChange={handleChange} required />
+                        <label htmlFor="lecturerEmail">Email: </label>
+                        <input className="border border-gray-600 rounded-md px-3 py-0.5" type="email" id="lecturerEmail" name="lecturerEmail" value={formData.lecturerEmail} onChange={handleChange} required />
                     </div>
                     <div>
-                        <label htmlFor="lecturerQualifications">Qualifications:</label>
-                        <input type="text" id="lecturerQualifications" name="lecturerQualifications" value={formData.lecturerQualifications} onChange={handleChange} required />
+                        <label htmlFor="lecturerQualifications">Qualifications:  </label>
+                        <input className="border border-gray-600 rounded-md px-3 py-0.5" type="text" id="lecturerQualifications" name="lecturerQualifications" value={formData.lecturerQualifications} onChange={handleChange} required />
                     </div>
                     <div>
-                        <label htmlFor="lecturerSchools">Schools:</label>
-                        <input type="text" id="lecturerSchools" name="lecturerSchools" value={formData.lecturerSchools} onChange={handleChange} required />
+                        <label htmlFor="lecturerSchools">Schools: </label>
+                        <input className="border border-gray-600 rounded-md px-2 py-0.5" type="text" id="lecturerSchools" name="lecturerSchools" value={formData.lecturerSchools} onChange={handleChange} required />
                     </div>
                     <div>
-                        <label htmlFor="lecturerDept">Department:</label>
-                        <input type="text" id="lecturerDept" name="lecturerDept" value={formData.lecturerDept} onChange={handleChange} required />
+                        <label htmlFor="lecturerDept">Department: </label>
+                        <input className="border border-gray-600 rounded-md px-2 py-0.5" type="text" id="lecturerDept" name="lecturerDept" value={formData.lecturerDept} onChange={handleChange} required />
                     </div>
                     <div>
-                        <label htmlFor="lecturerSubject">Subject:</label>
-                        <input type="text" id="lecturerSubject" name="lecturerSubject" value={formData.lecturerSubject} onChange={handleChange} required />
+                        <label htmlFor="lecturerSubject">Subject: </label>
+                        <input className="border border-gray-600 rounded-md px-2 py-0.5" type="text" id="lecturerSubject" name="lecturerSubject" value={formData.lecturerSubject} onChange={handleChange} required />
                     </div>
                     <div>
-                        <label htmlFor="lecturerSem_year">Semester/Year:</label>
-                        <input type="text" id="lecturerSem_year" name="lecturerSem_year" value={formData.lecturerSem_year} onChange={handleChange} required />
+                        <label htmlFor="lecturerSem_year">Semester/Year: </label>
+                        <input className="border border-gray-600 rounded-md px-2 py-0.5" type="text" id="lecturerSem_year" name="lecturerSem_year" value={formData.lecturerSem_year} onChange={handleChange} required />
                     </div>
                     <div>
-                        <label htmlFor="lecturerClasses">Classes:</label>
-                        <input type="text" id="lecturerClasses" name="lecturerClasses" value={formData.lecturerClasses} onChange={handleChange} required />
+                        <label htmlFor="lecturerClasses">Classes: </label>
+                        <input className="border border-gray-600 rounded-md px-2 py-0.5" type="text" id="lecturerClasses" name="lecturerClasses" value={formData.lecturerClasses} onChange={handleChange} required />
                     </div>
                     <div>
-                        <label htmlFor="lecturerHours">Hours:</label>
-                        <input type="text" id="lecturerHours" name="lecturerHours" value={formData.lecturerHours} onChange={handleChange} required />
+                        <label htmlFor="lecturerHours">Hours: </label>
+                        <input className="border border-gray-600 rounded-md px-2 py-0.5" type="text" id="lecturerHours" name="lecturerHours" value={formData.lecturerHours} onChange={handleChange} required />
                     </div>
                     <div>
-                        <label htmlFor="lecturerRate">Rate:</label>
-                        <input type="text" id="lecturerRate" name="lecturerRate" value={formData.lecturerRate} onChange={handleChange} required />
+                        <label htmlFor="lecturerRate">Rate: </label>
+                        <input className="border border-gray-600 rounded-md px-2 py-0.5" type="text" id="lecturerRate" name="lecturerRate" value={formData.lecturerRate} onChange={handleChange} required />
                     </div>
                     <div>
-                        <label htmlFor="lecturerAmount">Amount:</label>
-                        <input type="text" id="lecturerAmount" name="lecturerAmount" value={formData.lecturerAmount} onChange={handleChange} required />
+                        <label htmlFor="lecturerAmount">Amount: </label>
+                        <input className="border border-gray-600 rounded-md px-2 py-0.5" type="text" id="lecturerAmount" name="lecturerAmount" value={formData.lecturerAmount} onChange={handleChange} required />
                     </div>
                     <div>
-                        <label htmlFor="lecturerRemarks">Remarks:</label>
-                        <textarea id="lecturerRemarks" name="lecturerRemarks" value={formData.lecturerRemarks} onChange={handleChange} required />
+                        <label htmlFor="lecturerRemarks">Remarks: </label>
+                        <textarea className="border border-gray-600 rounded-md px-2 py-0.5" id="lecturerRemarks" name="lecturerRemarks" value={formData.lecturerRemarks} onChange={handleChange} required />
                     </div>
                 </div>
-                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4">Submit</button>
+                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4 w-full md:w-auto mx-auto">Submit</button>
             </form>
         </Modal>
     );
