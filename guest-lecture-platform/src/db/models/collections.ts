@@ -10,7 +10,6 @@ export  interface GuestLecturer {
     Sem_year:string;
     Adharnumber: number;
     PanNumber: string;
-    
   }
   
   export interface HOD {

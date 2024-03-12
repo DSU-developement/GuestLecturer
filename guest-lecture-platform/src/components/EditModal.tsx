@@ -84,12 +84,31 @@ const EditModal: React.FC<Props> = ({ isOpen, onClose, onSubmit, lecturer }) => 
               <input type="text" name="lecturerHours" value={formData.lecturerHours} onChange={handleChange} className="border rounded-md p-2 w-full" />
             </div>
             <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">Start Date:</label>
+              <input type="date" name="lecturerStartDate" value={formData.lecturerStartDate} onChange={handleChange} className="border rounded-md p-2 w-full" />
+            </div>
+            <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2">Rate:</label>
               <input type="text" name="lecturerRate" value={formData.lecturerRate} onChange={handleChange} className="border rounded-md p-2 w-full" />
             </div>
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2">Amount:</label>
               <input type="text" name="lecturerAmount" value={formData.lecturerAmount} onChange={handleChange} className="border rounded-md p-2 w-full" />
+            </div>
+            <div className="mb-4">
+              <label>Account Details</label>
+              <label className="block text-gray-700 text-sm font-bold mb-2">A/C Number:</label>
+              <input type="text" name="accountNumber" value={formData.accountNumber} onChange={handleChange} className="border rounded-md p-2 w-full" />
+              <label className="block text-gray-700 text-sm font-bold mb-2">A/C Holder Name:</label>
+              <input type="text" name="accountHolderName" value={formData.accountHolderName} onChange={handleChange} className="border rounded-md p-2 w-full" />
+              <label className="block text-gray-700 text-sm font-bold mb-2">Bank Name:</label>
+              <input type="text" name="bankName" value={formData.bankName} onChange={handleChange} className="border rounded-md p-2 w-full" />
+              <label className="block text-gray-700 text-sm font-bold mb-2">Bank Branch:</label>
+              <input type="text" name="bankBranch" value={formData.bankBranch} onChange={handleChange} className="border rounded-md p-2 w-full" />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">PAN Card number:</label>
+              <input type="text" name="panCardNumber" value={formData.panCardNumber} onChange={handleChange} className="border rounded-md p-2 w-full" />
             </div>
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2">Remarks:</label>
