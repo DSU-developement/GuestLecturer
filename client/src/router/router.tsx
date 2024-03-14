@@ -1,13 +1,15 @@
-import React from 'react';
+import React , {useState} from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoginPage from '../pages/login'; 
 import Table from '../pages/hod';
 import DetailsPage from '../pages/details'; 
 import SignupPage from '../pages/signupPage';
 import { lecturersData } from '../components/dummy'; 
+import UserDetailsPage from '../pages/try';
 
 const AppRouter: React.FC = () => {
-  const isHOD =  false; 
+  const [isHOD , setisHOD] = useState<boolean>(false);
+  const [userDetails, setUserDetails] = useState<any>(null);
 
   return (
     <Router>

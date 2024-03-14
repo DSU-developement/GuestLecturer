@@ -37,7 +37,7 @@ app.get("/api", (req, res) => {
       }
   
       // Include the value of the 'hod' field in the response
-      res.json({ success: true, message: "Login successful", hod: user.hod });
+      res.json({ success: true, message: "Login successful", user: user});
     } catch (error) {
       console.error("Error logging in:", error.message);
       res.status(500).json({ success: false, message: "An error occurred while logging in" });
