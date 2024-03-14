@@ -5,6 +5,7 @@ const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [isHOD, setIsHOD] = useState(false); // State to track HOD status
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -29,9 +30,12 @@ const LoginPage = () => {
       const data = await response.json();
   
       if (response.ok) {
-        console.log(data.message); // Log success message from server
-        // Redirect to another page upon successful login
+        console.log(data.message);
+         console.log(data);
+        if(data.hod){
+        setIsHOD(data.hod);
         window.location.href = "/hod";
+        } 
       } else {
         throw new Error(data.message || "Login failed");
       }
