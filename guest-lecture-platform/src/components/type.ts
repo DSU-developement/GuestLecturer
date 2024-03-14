@@ -12,8 +12,15 @@ export interface Lecturer {
     lecturerSem_year: string;
     lecturerClasses: string;
     lecturerHours: string;
+    lecturerStartDate: string;
     lecturerRate: string;
     lecturerAmount: string;
+    lecturerDocs: string;
+    accountNumber: string;
+    accountHolderName: string;
+    bankName: string;
+    bankBranch: string;
+    panCardNumber: string;
     lecturerRemarks: string;
     status: string;
   }

@@ -21,8 +21,15 @@ const AddLecturerModal: React.FC<AddLecturerModalProps> = ({ isOpen, onClose, on
         lecturerSem_year: '',
         lecturerClasses: '',
         lecturerHours: '',
+        lecturerStartDate: '',
         lecturerRate: '',
         lecturerAmount: '',
+        lecturerDocs: '',
+        accountNumber: '',
+        accountHolderName: '',
+        bankName: '',
+        bankBranch: '',
+        panCardNumber: '',
         lecturerRemarks: '',
         status: '',
     });
@@ -86,12 +93,35 @@ const AddLecturerModal: React.FC<AddLecturerModalProps> = ({ isOpen, onClose, on
                         <input type="text" id="lecturerHours" name="lecturerHours" value={formData.lecturerHours} onChange={handleChange} required />
                     </div>
                     <div>
+                        <label htmlFor="lecturerStartDate">Start Date:</label>
+                        <input type="date" id="lecturerStartDate" name="lecturerStartDate" value={formData.lecturerStartDate} onChange={handleChange} required />
+                    </div>
+                    <div>
                         <label htmlFor="lecturerRate">Rate:</label>
                         <input type="text" id="lecturerRate" name="lecturerRate" value={formData.lecturerRate} onChange={handleChange} required />
                     </div>
                     <div>
                         <label htmlFor="lecturerAmount">Amount:</label>
                         <input type="text" id="lecturerAmount" name="lecturerAmount" value={formData.lecturerAmount} onChange={handleChange} required />
+                    </div>
+                    <div>
+                        <label htmlFor="lecturerDocs">Documents:</label>
+                        <input type="text" id="lecturerDocs" name="lecturerDocs" value={formData.lecturerDocs} onChange={handleChange} required />
+                    </div>
+                    <div>
+                        <label>Account Details</label>
+                        <label htmlFor="accountNumber">A/C Number:</label>
+                        <input type="text" id="accountNumber" name="accountNumber" value={formData.accountNumber} onChange={handleChange} required />
+                        <label htmlFor="accountHolderName">A/C Holder Name:</label>
+                        <input type="text" id="accountHolderName" name="accountHolderName" value={formData.accountHolderName} onChange={handleChange} required />
+                        <label htmlFor="bankName">Bank Name:</label>
+                        <input type="text" id="bankName" name="bankName" value={formData.bankName} onChange={handleChange} required />
+                        <label htmlFor="bankBranch">Bank Branch:</label>
+                        <input type="text" id="bankBranch" name="bankBranch" value={formData.bankBranch} onChange={handleChange} required />
+                    </div>
+                    <div>
+                        <label htmlFor="panCardNumber">PAN Card number:</label>
+                        <input type="text" id="panCardNumber" name="panCardNumber" value={formData.panCardNumber} onChange={handleChange} required />
                     </div>
                     <div>
                         <label htmlFor="lecturerRemarks">Remarks:</label>

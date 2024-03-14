@@ -12,8 +12,15 @@ export interface Lecturer {
     lecturerSem_year: string;
     lecturerClasses: string;
     lecturerHours: string;
+    lecturerStartDate: string;
     lecturerRate: string;
     lecturerAmount: string;
+    lecturerDocs: string;
+    accountNumber: string;
+    accountHolderName: string;
+    bankName: string;
+    bankBranch: string;
+    panCardNumber: string;
     lecturerRemarks: string;
     status: string;
   }
@@ -31,8 +38,15 @@ export interface Lecturer {
       lecturerSem_year: "Spring 2024",
       lecturerClasses: "CS101, CS201",
       lecturerHours: "20",
+      lecturerStartDate: "1/1/24",
       lecturerRate: "$50",
       lecturerAmount: "$1000",
+      lecturerDocs: 'Invoice',
+      accountNumber: '12345677654321',
+      accountHolderName: 'John Doe',
+      bankName: 'Canara Bank',
+      bankBranch: 'Thippasandra',
+      panCardNumber: '123456789',
       lecturerRemarks: "",
       status: "Pending"
     },
@@ -48,8 +62,15 @@ export interface Lecturer {
       lecturerSem_year: "Fall 2023",
       lecturerClasses: "PHY301",
       lecturerHours: "15",
+      lecturerStartDate: "1/1/24",
       lecturerRate: "$40",
       lecturerAmount: "$600",
+      lecturerDocs: 'Invoice',
+      accountNumber: '12345677654321',
+      accountHolderName: 'John Doe',
+      bankName: 'Canara Bank',
+      bankBranch: 'Thippasandra',
+      panCardNumber: '123456789',
       lecturerRemarks: "",
       status: "Accepted"
     },
@@ -65,8 +86,15 @@ export interface Lecturer {
       lecturerSem_year: "Fall 2023",
       lecturerClasses: "PHY301",
       lecturerHours: "15",
+      lecturerStartDate: "1/1/24",
       lecturerRate: "$40",
       lecturerAmount: "$600",
+      lecturerDocs: 'Invoice',
+      accountNumber: '12345677654321',
+      accountHolderName: 'John Doe',
+      bankName: 'Canara Bank',
+      bankBranch: 'Thippasandra',
+      panCardNumber: '123456789',
       lecturerRemarks: "",
       status: "Accepted"
     },
@@ -82,8 +110,15 @@ export interface Lecturer {
       lecturerSem_year: "Fall 2023",
       lecturerClasses: "PHY301",
       lecturerHours: "15",
+      lecturerStartDate: "1/1/24",
       lecturerRate: "$40",
       lecturerAmount: "$600",
+      lecturerDocs: 'Invoice',
+      accountNumber: '12345677654321',
+      accountHolderName: 'John Doe',
+      bankName: 'Canara Bank',
+      bankBranch: 'Thippasandra',
+      panCardNumber: '123456789',
       lecturerRemarks: "",
       status: "Accepted"
     },
@@ -99,8 +134,15 @@ export interface Lecturer {
       lecturerSem_year: "Fall 2023",
       lecturerClasses: "PHY301",
       lecturerHours: "15",
+      lecturerStartDate: "1/1/24",
       lecturerRate: "$40",
       lecturerAmount: "$600",
+      lecturerDocs: 'Invoice',
+      accountNumber: '12345677654321',
+      accountHolderName: 'John Doe',
+      bankName: 'Canara Bank',
+      bankBranch: 'Thippasandra',
+      panCardNumber: '123456789',
       lecturerRemarks: "",
       status: "Accepted"
     },
@@ -116,11 +158,17 @@ export interface Lecturer {
       lecturerSem_year: "Fall 2023",
       lecturerClasses: "PHY301",
       lecturerHours: "15",
+      lecturerStartDate: "1/1/24",
       lecturerRate: "$40",
       lecturerAmount: "$600",
+      lecturerDocs: 'Invoice',
+      accountNumber: '12345677654321',
+      accountHolderName: 'John Doe',
+      bankName: 'Canara Bank',
+      bankBranch: 'Thippasandra',
+      panCardNumber: '123456789',
       lecturerRemarks: "",
       status: "Accepted"
     },
-    // Add more dummy data as needed
   ];
   
