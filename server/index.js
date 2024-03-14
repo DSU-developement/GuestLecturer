@@ -1,7 +1,7 @@
 const connectDB = require('./config/db.js');
 const bodyParser = require("body-parser");
 const cors = require("cors");
-
+const User = require("./modals/User.js");
 
 
 connectDB();
@@ -27,13 +27,19 @@ app.get("/api", (req, res) => {
   });
 
   app.post("/api/login", async (req, res) => {
-    const dummyEmail = "test@example.com";
-    const dummyPassword = "password123";
+    try {
+      const { email, password } = req.body;
   
-    const { email, password } = req.body;
-    if (email === dummyEmail && password === dummyPassword) {
+      const user = await User.findOne({ email });
+  
+      if (!user || user.password !== password) {
+        return res.status(401).json({ success: false, message: "Invalid email or password" });
+      }
+  
       res.json({ success: true, message: "Login successful" });
-    } else {
-      res.status(401).json({ success: false, message: "Invalid email or password" });
+    } catch (error) {
+      console.error("Error logging in:", error.message);
+      res.status(500).json({ success: false, message: "An error occurred while logging in" });
     }
   });
+  
