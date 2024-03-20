@@ -5,7 +5,6 @@ import Table from '../pages/hod';
 import DetailsPage from '../pages/details';
 import SignupPage from '../pages/signupPage';
 import { lecturersData } from '../components/dummy';
-import UserDetailsPage from '../pages/try';
 import SignupPageLect from '../pages/guest-lecturesignup';
 import Higherups from '../pages/higherup';
 
