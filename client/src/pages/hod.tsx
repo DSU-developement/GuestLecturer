@@ -56,6 +56,7 @@ const Table: React.FC<Props> = ({ data}) => {
       <div className="flex justify-end">
          <Link to="/logout" className="text-white bg-green-500 px-4 py-2 rounded-md hover:bg-green-600 mr-2 mt-2">Logout</Link>
       </div>
+
         <div className="fixed bottom-4 right-4 flex items-center justify-end">
           <AddLecturerModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onAddLecturer={handleAddLecturer} /> 
           <div className="bg-blue-500 text-white py-2 px-4 rounded-md cursor-pointer flex items-center" onClick={() => setIsModalOpen(true)}>
@@ -65,11 +66,12 @@ const Table: React.FC<Props> = ({ data}) => {
             Add Lecturer
           </div>
         </div>
+        
       <div className="text-center font-bold text-3xl">Guest Lecture Details</div>
       <div className="flex flex-col mt-4">
-        <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div className=" m-3 ">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-            <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+            <div className="shadow  border-b border-gray-200 sm:rounded-lg">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>

@@ -77,7 +77,15 @@ const DetailsPage: React.FC<{ data: Lecturer[] }> = ({ data }) => {
           
             <div className=" grid grid-cols-2 p-3  rounded">
               <h3 className='font-mono font-black text-xl font-bold text-blue-500 col-span-2 text-center mb-3'>APPROVAL</h3>
-              <p className="text-xs font-extrabold md:text-base font-semibold">Status</p> 
+                 <p className="text-xs font-extrabold md:text-base font-semibold">HOD</p> 
+              <p className="text-xs md:text-base">{lecturer.status}</p>
+                 <p className="text-xs font-extrabold md:text-base font-semibold">DEAN</p> 
+              <p className="text-xs md:text-base">{lecturer.status}</p>
+                 <p className="text-xs font-extrabold md:text-base font-semibold">Vice Chanceler</p> 
+              <p className="text-xs md:text-base">{lecturer.status}</p>
+                 <p className="text-xs font-extrabold md:text-base font-semibold">Person2</p> 
+              <p className="text-xs md:text-base">{lecturer.status}</p>
+              <p className="text-xs font-extrabold md:text-base font-semibold">Final Status</p> 
               <p className="text-xs md:text-base">{lecturer.status}</p>
               <p className="text-xs font-extrabold md:text-base font-semibold">Remarks</p> 
               <p className="text-xs md:text-base">{lecturer.lecturerRemarks}</p>
