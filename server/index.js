@@ -47,7 +47,7 @@ app.get("/api", (req, res) => {
 
   app.post('/api/signup', async (req, res) => {
     try {
-      const { name, email, password, role, department } = req.body;
+      const { name, email, password, role, department,branch } = req.body;
       const existingUser = await User.findOne({ email });
       if (existingUser) {
         return res.status(400).json({ message: 'User with this email already exists' });
@@ -57,7 +57,8 @@ app.get("/api", (req, res) => {
         email,
         password,
         role,
-        department
+        department,
+        branch,
       });
       console.log(user);
       await user.save();

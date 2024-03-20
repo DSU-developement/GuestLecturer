@@ -6,6 +6,7 @@ const SignupPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('');
+  const [branch,setBranch] = useState('');
   const [department, setDepartment] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -19,7 +20,8 @@ const SignupPage = () => {
         email,
         password,
         role,
-        department
+        department,
+        branch
       });
       console.log(response.data);
       // Redirect to login page or another appropriate page after successful signup
@@ -60,6 +62,10 @@ const SignupPage = () => {
           <div className="mb-4">
             <label className="block mb-2">Password:</label>
             <input type="password" value={password} onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} required className="w-full px-3 py-2 border rounded" />
+          </div>
+          <div className="mb-4">
+            <label className="block mb-2">Branch:</label>
+            <input type="text" value={branch} onChange={(e: ChangeEvent<HTMLInputElement>) => setBranch(e.target.value)} required className="w-full px-3 py-2 border rounded" />
           </div>
           <div className="mb-4">
             <label className="block mb-2">Role:</label>

@@ -41,7 +41,7 @@ const SignupPageLect = () => {
         ...formData,
         qualifications: {
           ...formData.qualifications,
-          [name]: isChecked
+          [name.split('.')[1]]: isChecked
         }
       });
     } else if (name.includes('.')) {
@@ -60,13 +60,12 @@ const SignupPageLect = () => {
       });
     }
   };
-
+  
   const handleSignup = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      // Send signup data to backend
+
       await axios.post('/api/signup', formData);
-      // Redirect to login or another page
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response) {
@@ -84,7 +83,6 @@ const SignupPageLect = () => {
     <div className="container mx-auto">
       <h2 className="text-2xl font-bold mb-4">Signup</h2>
       <form onSubmit={handleSignup} className="space-y-4">
-        {/* Input fields for signup form */}
         <div>
           <label>Faculty Name:</label>
           <input type="text" name="facultyName" value={formData.facultyName} onChange={handleChange} required />
@@ -97,7 +95,6 @@ const SignupPageLect = () => {
           <label>Email:</label>
           <input type="email" name="email" value={formData.email} onChange={handleChange} required />
         </div>
-        {/* Checkbox for qualifications */}
         <div>
           <label>Qualifications:</label>
           <div>
