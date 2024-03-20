@@ -12,6 +12,7 @@ const SignupPage = () => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const roles = ['HOD', 'Dean', 'HR', 'Registrar', 'ViceChancellor', 'ProChanCellor', 'CFO', 'Guest Lecture'];
+  const school =['School of Health Sciences', 'School of Engineering', 'College of Journalism & Mass Communication',  'School of Basic & Applied Sciences', 'School of Commerce & Management', 'School of Law']
 
   const handleSignup = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,7 +23,7 @@ const SignupPage = () => {
         password,
         role,
         department,
-        branch
+        school
       });
       console.log(response.data);
       // Redirect to login page or another appropriate page after successful signup
@@ -40,6 +41,10 @@ const SignupPage = () => {
   };
 
   const handleRoleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setRole(e.target.value);
+  };
+
+  const handleSchoolChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setRole(e.target.value);
   };
 
@@ -67,10 +72,15 @@ const SignupPage = () => {
             <div>
               <label htmlFor='pwd' className="sr-only">Password:</label>
               <input id="pwd" type="password" placeholder='Password' value={password} onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" />
-            </div>
-            <div>
-              <label className="sr-only">Branch:</label>
-              <input type="text" placeholder='Branch' value={branch} onChange={(e: ChangeEvent<HTMLInputElement>) => setBranch(e.target.value)} required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none rounded-b-md focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" />
+            </div><br />
+            <div className='mb-2'>
+              <label className="sr-only">School:</label>
+              <select value={school} onChange={handleSchoolChange} required className="w-full px-3 py-2 border rounded">
+                <option value="">Select School</option>
+                {roles.map((r, index) => (
+                  <option key={index} value={r}>{r}</option>
+                ))}
+              </select>
             </div><br/>
             <div className='mb-2'>
               <label className="sr-only">Role:</label>
