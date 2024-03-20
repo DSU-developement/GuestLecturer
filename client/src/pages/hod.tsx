@@ -1,29 +1,28 @@
-// Table.tsx
-
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Pagination from '../components/pagination';
 import { Lecturer } from '../components/type';
-import AddLecturerModal from '../components/AddLecturerModal';
 import { useState } from 'react';
-import EditModal from '../components/EditModal'; // Import the EditModal component
+import EditModal from '../components/EditModal'; 
+import axios from 'axios';
 
 interface Props {
   data: Lecturer[];
 }
 
 const storedUserData = localStorage.getItem('token');
-
+var userId="";
 if (storedUserData) {
   const userData = JSON.parse(storedUserData);
-  console.log(userData);
+  const userId = userData['_id'];
+   console.log(userId);
 } else {
   console.error('User data not found in local storage');
 }
 
 const Table: React.FC<Props> = ({ data}) => { 
+  const [lectures, setLectures] = useState<Lecturer[]>([]);
   const [currentPage, setCurrentPage] = React.useState(1);
-  const [isModalOpen, setIsModalOpen] = useState(false); 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedLecturer, setSelectedLecturer] = useState<Lecturer | null>(null); 
 
@@ -35,9 +34,20 @@ const Table: React.FC<Props> = ({ data}) => {
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
-  const handleAddLecturer = (lecturer: Lecturer) => {
-    console.log('Adding lecturer:', lecturer);
-  };
+  useEffect(() => {
+    // Fetch lectures data when the component mounts
+    async function fetchLectures() {
+      try {
+        // Replace 'your_api_endpoint' with your actual API endpoint for fetching lectures
+        const response = await axios.get(`/${userId}`);
+        setLectures(response.data);
+      } catch (error) {
+        console.error('Error fetching lectures:', error);
+      }
+    }
+
+    fetchLectures(); // Call the fetchLectures function
+  }, []); 
 
   const handleEdit = (lecturer: Lecturer) => {
     setSelectedLecturer(lecturer);
