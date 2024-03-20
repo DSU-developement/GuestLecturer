@@ -10,6 +10,7 @@ const SignupPageLect = () => {
     facultyName: '',
     phone: '',
     email: '',
+    password: '',
     qualifications: {
       ug: false,
       pg: false,
@@ -32,7 +33,7 @@ const SignupPageLect = () => {
       bankBranch: ''
     },
     panCardNumber: '',
-    remarks: ''
+    remarks: {},
   });
 
   const [errorMessage, setErrorMessage] = useState('');
@@ -102,6 +103,9 @@ const SignupPageLect = () => {
               </div>
               <div className='m-2 p-2'>
                 <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="Email"  type="text" name='email' value={formData.email} onChange={handleChange} required />
+              </div>
+              <div className='m-2 p-2'>
+                <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="password" type="password" name="password" value={formData.password} onChange={handleChange} required />
               </div>
             </div>
             <div className='bg-gray-100 rounded border-l-8  p-3 flex flex-col justify-items-start flex-wrap items-center'>

@@ -32,8 +32,16 @@ const guestLectureSchema = new Schema({
     bankBranch: { type: String, required: true }
   },
   panCardNumber: { type: String, required: true },
+<<<<<<< HEAD
   remarks:[remarkSchema] ,
   hod_id:{type: Number},
+=======
+  remarks: {
+    type: [remarkSchema], 
+    required: false
+  },
+  hod_id:{type: String},
+>>>>>>> b3785ca3aa0eb1010838c2c2a79564a28cdb806e
   dean_id:{type: Number},
   approved: {
     hod: { type: Boolean, default: false },

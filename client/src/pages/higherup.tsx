@@ -8,7 +8,18 @@ import EditModal from '../components/EditModal';
 interface Props {
   data: Lecturer[]; 
 }
+const storedUserData = localStorage.getItem('token');
 
+if (storedUserData) {
+  // Parse the JSON string back into an object
+  const userData = JSON.parse(storedUserData);
+
+  // Now you can use userData object containing user details
+  console.log(userData);
+} else {
+  // Handle case where object is not found in local storage
+  console.error('User data not found in local storage');
+}
 const  Higherups: React.FC<Props> = ({ data}) => { 
   const [currentPage, setCurrentPage] = React.useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false); 

@@ -36,10 +36,9 @@ const LoginPage = () => {
   
       if (response.ok) {
         console.log(data.user.role);
-        localStorage.setItem('token', data.user);
+        localStorage.setItem('token', JSON.stringify(data.user));
         setUserDetails(data.user);
-        
-        // Redirect to appropriate page based on user role
+
         if (data.user.role === 'HOD') {
           setisHOD(true);
           window.location.href = `/hod`;
