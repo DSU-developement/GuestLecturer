@@ -95,7 +95,6 @@ app.get("/api", (req, res) => {
         panCardNumber,
         remarks
       } = req.body;
-  
       const existingUser = await guestLectureSchema.findOne({ email });
       if (existingUser) {
         return res.status(400).json({ message: 'User with this email already exists' });
@@ -120,7 +119,7 @@ app.get("/api", (req, res) => {
         panCardNumber,
         remarks
       });
-  
+      console.log(user)
       await user.save();
       res.status(201).json({ message: 'Guest lecture registered successfully' });
     } catch (error) {
