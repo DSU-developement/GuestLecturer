@@ -25,6 +25,7 @@ const Table: React.FC<Props> = ({ data}) => {
   const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+  
   const storedUserData = localStorage.getItem('token');
 
   var userId = ""; 
