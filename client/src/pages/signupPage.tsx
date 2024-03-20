@@ -1,5 +1,6 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
+import { CgProfile } from "react-icons/cg";
 
 const SignupPage = () => {
   const [name, setName] = useState('');
@@ -47,46 +48,51 @@ const SignupPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-green-200 flex justify-center items-center">
-      <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
-        <h2 className="text-2xl mb-4 text-blue-600">Signup</h2>
+    <div className="min-h-screen bg-gray-100 flex justify-center items-center" style={{ backgroundImage: `url("./bg.jpeg")` }}>
+      <div className="max-w-md w-full space-y-8 border border-gray-600 p-20 rounded-xl shadow-xl">
+        <div className='flex justify-center mb-4'>
+          <CgProfile className='text-6xl text-blue-600' />
+        </div>
+        <h2 className="text-4xl mb-4 text-center font-bold">Create an Account</h2>
         <form onSubmit={handleSignup}>
-          <div className="mb-4">
-            <label className="block mb-2">Name:</label>
-            <input type="text" value={name} onChange={(e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)} required className="w-full px-3 py-2 border rounded" />
-          </div>
-          <div className="mb-4">
-            <label className="block mb-2">Email:</label>
-            <input type="email" value={email} onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} required className="w-full px-3 py-2 border rounded" />
-          </div>
-          <div className="mb-4">
-            <label className="block mb-2">Password:</label>
-            <input type="password" value={password} onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} required className="w-full px-3 py-2 border rounded" />
-          </div>
-          <div className="mb-4">
-            <label className="block mb-2">Branch:</label>
-            <input type="text" value={branch} onChange={(e: ChangeEvent<HTMLInputElement>) => setBranch(e.target.value)} required className="w-full px-3 py-2 border rounded" />
-          </div>
-          <div className="mb-4">
-            <label className="block mb-2">Role:</label>
-            <select value={role} onChange={handleRoleChange} required className="w-full px-3 py-2 border rounded">
-              <option value="">Select Role</option>
-              {roles.map((r, index) => (
-                <option key={index} value={r}>{r}</option>
-              ))}
-            </select>
-          </div>
-          {role === 'Guest Lecture' ? (
-            <button type="button" onClick={redirectToGuestLectureSignup} className="bg-blue-500 text-white px-4 py-2 rounded">Continue as Guest Lecture</button>
-          ) : (
+          <div className='rounded-md shadow-sm -space-y-px'>
             <div>
-              <div className="mb-4">
-                <label className="block mb-2">Department:</label>
-                <input type="text" value={department} onChange={(e: ChangeEvent<HTMLInputElement>) => setDepartment(e.target.value)} className="w-full px-3 py-2 border rounded" />
-              </div>
-              <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded">Signup</button>
+              <label htmlFor='name' className="sr-only">Name:</label>
+              <input required id="name" placeholder="Name" type="text" value={name} className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" onChange={(e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)}/>
             </div>
-          )}
+            <div>
+              <label htmlFor='pwd' className="sr-only">Email:</label>
+              <input id="email" placeholder='Email address' type="email" value={email} className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} required />
+            </div>
+            <div>
+              <label htmlFor='pwd' className="sr-only">Password:</label>
+              <input id="pwd" type="password" placeholder='Password' value={password} onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" />
+            </div>
+            <div>
+              <label className="sr-only">Branch:</label>
+              <input type="text" placeholder='Branch' value={branch} onChange={(e: ChangeEvent<HTMLInputElement>) => setBranch(e.target.value)} required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none rounded-b-md focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" />
+            </div><br/>
+            <div className='mb-2'>
+              <label className="sr-only">Role:</label>
+              <select value={role} onChange={handleRoleChange} required className="w-full px-3 py-2 border rounded">
+                <option value="">Select Role</option>
+                {roles.map((r, index) => (
+                  <option key={index} value={r}>{r}</option>
+                ))}
+              </select>
+            </div><br/>
+            {role === 'Guest Lecture' ? (
+              <button type="button" onClick={redirectToGuestLectureSignup} className="bg-blue-500 text-white px-4 py-2 rounded">Continue as Guest Lecture</button>
+            ) : (
+              <div>
+                <div>
+                  <label className="sr-only">Department:</label>
+                  <input type="text" placeholder='Department' value={department} onChange={(e: ChangeEvent<HTMLInputElement>) => setDepartment(e.target.value)} className="w-full px-3 py-2 border rounded" />
+                </div>
+                <button type="submit" className="mx-auto bg-blue-500 text-white px-4 py-2 rounded mt-5">Signup</button>
+              </div>
+            )}
+          </div>
         </form>
         {errorMessage && <p className="text-red-500">{errorMessage}</p>}
       </div>

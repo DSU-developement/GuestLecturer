@@ -1,5 +1,6 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
+import { CgProfile } from "react-icons/cg";
 
 const SignupPageLect = () => {
   const [formData, setFormData] = useState({
@@ -80,98 +81,120 @@ const SignupPageLect = () => {
   };
 
   return (
-    <div className="container mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Signup</h2>
-      <form onSubmit={handleSignup} className="space-y-4">
-        <div>
-          <label>Faculty Name:</label>
-          <input type="text" name="facultyName" value={formData.facultyName} onChange={handleChange} required />
+    <div className='h-full flex flex-col bg-gray-100'>
+      <div className="md:max-w-4xl w-full container mx-auto p-6 rounded-xl m-6 bg-white" style={{ backgroundImage: `url("./bg.jpeg")` }}>
+        <div className='flex justify-center mb-4'>
+          <CgProfile className='text-6xl text-blue-600' />
         </div>
-        <div>
-          <label>Phone:</label>
-          <input type="text" name="phone" value={formData.phone} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>Email:</label>
-          <input type="email" name="email" value={formData.email} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>Qualifications:</label>
-          <div>
-            <label><input type="checkbox" name="qualifications.ug" checked={formData.qualifications.ug} onChange={handleChange} /> UG</label>
+        <h2 className="text-4xl mb-4 text-center font-bold">Create a new Guest Lecturer account </h2>
+        <form onSubmit={handleSignup} className="space-y-4 p-3">
+          <div className='grid grid-cols-2 gap-6'>
+            <div className='bg-gray-100 rounded border-l-8  p-3 flex flex-col justify-items-start flex-wrap items-center'>
+              <h2 className='font-mono font-black text-2xl w-full font-bold text-blue-500 col-span-2 text-center mb-3'>PERSONAL DETAILS</h2>
+              <div className='m-2 p-2'>
+                {/* <label>Name:</label> */}
+                <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="Name" type="text" name="facultyName" value={formData.facultyName} onChange={handleChange} required />
+              </div>
+              <div className='m-2 p-2'>
+                {/* <label>Phone:</label> */}
+                <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="Phone"value={formData.phone} onChange={handleChange} required />
+              </div>
+              <div className='m-2 p-2'>
+                {/* <label>Email:</label> */}
+                <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="Email" value={formData.email} onChange={handleChange} required />
+              </div>
+            </div>
+            <div className='bg-gray-100 rounded border-l-8  p-3 flex flex-col justify-items-start flex-wrap items-center'>
+              <h2 className='font-mono font-black text-2xl w-full border-sky-200 font-bold text-blue-500 col-span-2 text-center mb-3'>ACADEMIC DETAILS</h2>
+              <div className='p-2 flex flex-col'>
+                {/* <label className='text-center text-gray-500 text-l'>Qualifications</label> */}
+                <div className='flex'>
+                  <div className='m-3'>
+                    <label className='font-mono font-bold text-xl text-blue-600 m-1'> UG</label>
+                    <input className='w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600' type="checkbox" name="qualifications.ug" checked={formData.qualifications.ug} onChange={handleChange} />
+                  </div>
+                  <div className='m-3'>
+                    <label className='font-mono font-bold text-xl text-blue-600 m-1'> PG</label>
+                    <input className='w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600' type="checkbox" name="qualifications.pg" checked={formData.qualifications.pg} onChange={handleChange} />
+                  </div>
+                  <div className='m-3'>
+                    <label className='font-mono font-bold  text-xl text-blue-600 m-1'> PhD</label>
+                    <input className='w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600' type="checkbox" name="qualifications.phd" checked={formData.qualifications.phd} onChange={handleChange} />
+                  </div>
+                </div>
+              </div>
+              <div className='m-2 p-2'>
+                {/* <label>Schools/Deanery:</label> */}
+                <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="Schools/Deanery" type="text" name="schoolsDeanery" value={formData.schoolsDeanery} onChange={handleChange} />
+              </div>
+              <div className='m-2 p-2'>
+                {/* <label>Department:</label> */}
+                <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="Department" type="text" name="department" value={formData.department} onChange={handleChange} required />
+              </div>
+              <div className='m-2 p-2'>
+                {/* <label>Subject Name:</label> */}
+                <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="Subject Name" type="text" name="subjectName" value={formData.subjectName} onChange={handleChange} required />
+              </div>
+              <div className='m-2 p-2'>
+                {/* <label>Year & Semester:</label> */}
+                <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="Year and Semester" type="text" name="yearAndSemester" value={formData.yearAndSemester} onChange={handleChange} required />
+              </div>
+            </div>
+            <div className='bg-gray-100 rounded border-l-8  p-3 flex flex-col justify-items-start flex-wrap items-center'>
+              <h2 className='font-mono font-black text-2xl w-full border-sky-200 font-bold text-blue-500 col-span-2 text-center mb-3'>WORK DETAILS</h2>
+              <div className='m-2 p-2'>
+                {/* <label>No. of Sections to be handled:</label> */}
+                <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="Sections handled" type="number" name="sectionsHandled" value={formData.sectionsHandled} onChange={handleChange} required />
+              </div>
+              <div className='m-2 p-2 flex justify-center flex-wrap'>
+                {/* <label>Start Date: </label> */}
+                <input className='w-80 border-l-8 border-blue-600 rounded p-3' type="date" name="startDate" value={formData.startDate} onChange={handleChange} required />
+              </div>
+              <div className='m-2 p-2'>
+                {/* <label>No. of Hours:</label> */}
+                <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="No: of Hours" type="number" name="hours" value={formData.hours} onChange={handleChange} required />
+              </div>
+              <div className='m-2 p-2'>
+                {/* <label>Proposed Rate (Per Hour):</label> */}
+                <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="Proposed Rate" type="number" name="proposedRate" value={formData.proposedRate} onChange={handleChange} required />
+              </div>
+              <div className='m-2 p-2'>
+                {/* <label>Total Amount:</label> */}
+                <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="Total Amount" type="number" name="totalAmount" value={formData.totalAmount} onChange={handleChange} required />
+              </div>
+            </div>
+            <div className='bg-gray-100 rounded border-l-8  p-3 flex flex-col justify-items-start flex-wrap items-center'>
+              <h2 className='font-mono font-black text-2xl w-full border-sky-200 font-bold text-blue-500 col-span-2 text-center mb-3'>FINANCIAL DETAILS</h2>
+              <div className='m-2 p-2'>
+                {/* <label>Account Number:</label> */}
+                <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="A/C Number" type="text" name="accountDetails.accountNumber" value={formData.accountDetails.accountNumber} onChange={handleChange} required />
+              </div>
+              <div className='m-2 p-2'>
+                {/* <label>Account Holder Name:</label> */}
+                <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="A/C Holder Name" type="text" name="accountDetails.accountHolderName" value={formData.accountDetails.accountHolderName} onChange={handleChange} required />
+              </div>
+              <div className='m-2 p-2'>
+                {/* <label>Bank Name:</label> */}
+                <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="Bank name" type="text" name="accountDetails.bankName" value={formData.accountDetails.bankName} onChange={handleChange} required />
+              </div>
+              <div className='m-2 p-2'>
+                {/* <label>Bank Branch:</label> */}
+                <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="Bank Branch" type="text" name="accountDetails.bankBranch" value={formData.accountDetails.bankBranch} onChange={handleChange} required />
+              </div>
+              <div className='m-2 p-2'>
+                {/* <label>PAN Card Number:</label> */}
+                <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="PAN Card Number" type="text" name="panCardNumber" value={formData.panCardNumber} onChange={handleChange} required />
+              </div>
+            </div>
           </div>
-          <div>
-            <label><input type="checkbox" name="qualifications.pg" checked={formData.qualifications.pg} onChange={handleChange} /> PG</label>
+          <div className='flex justify-center items-center'>
+            <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Signup</button>
+            <button type="reset" className="m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Reset</button>
+            <button type="reset" className="m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Already have an account? Log In</button>
           </div>
-          <div>
-            <label><input type="checkbox" name="qualifications.phd" checked={formData.qualifications.phd} onChange={handleChange} /> PhD</label>
-          </div>
-        </div>
-        <div>
-          <label>Schools/Deanery:</label>
-          <input type="text" name="schoolsDeanery" value={formData.schoolsDeanery} onChange={handleChange} />
-        </div>
-        <div>
-          <label>Department:</label>
-          <input type="text" name="department" value={formData.department} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>Subject Name:</label>
-          <input type="text" name="subjectName" value={formData.subjectName} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>Year & Semester:</label>
-          <input type="text" name="yearAndSemester" value={formData.yearAndSemester} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>No. of Sections to be handled:</label>
-          <input type="number" name="sectionsHandled" value={formData.sectionsHandled} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>No. of Hours:</label>
-          <input type="number" name="hours" value={formData.hours} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>Start Date:</label>
-          <input type="date" name="startDate" value={formData.startDate} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>Proposed Rate (Per Hour):</label>
-          <input type="number" name="proposedRate" value={formData.proposedRate} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>Total Amount:</label>
-          <input type="number" name="totalAmount" value={formData.totalAmount} onChange={handleChange} required />
-        </div>
-
-
-        <div>
-          <label>Account Number:</label>
-          <input type="text" name="accountDetails.accountNumber" value={formData.accountDetails.accountNumber} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>Account Holder Name:</label>
-          <input type="text" name="accountDetails.accountHolderName" value={formData.accountDetails.accountHolderName} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>Bank Name:</label>
-          <input type="text" name="accountDetails.bankName" value={formData.accountDetails.bankName} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>Bank Branch:</label>
-          <input type="text" name="accountDetails.bankBranch" value={formData.accountDetails.bankBranch} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>PAN Card Number:</label>
-          <input type="text" name="panCardNumber" value={formData.panCardNumber} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>Remarks:</label>
-          <textarea name="remarks" value={formData.remarks} onChange={handleChange}></textarea>
-        </div>
-        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Signup</button>
-      </form>
-      {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+        </form>
+        {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+      </div>
     </div>
   );
 };
