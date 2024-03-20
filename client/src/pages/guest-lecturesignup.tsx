@@ -3,6 +3,9 @@ import axios from 'axios';
 import { CgProfile } from "react-icons/cg";
 
 const SignupPageLect = () => {
+  const goBack = () => {
+    window.history.back();
+  };
   const [formData, setFormData] = useState({
     facultyName: '',
     phone: '',
@@ -97,11 +100,11 @@ const SignupPageLect = () => {
               </div>
               <div className='m-2 p-2'>
                 {/* <label>Phone:</label> */}
-                <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="Phone"value={formData.phone} onChange={handleChange} required />
+                <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="Phone" type="text" name='phone' value={formData.phone} onChange={handleChange} required />
               </div>
               <div className='m-2 p-2'>
                 {/* <label>Email:</label> */}
-                <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="Email" value={formData.email} onChange={handleChange} required />
+                <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="Email"  type="text" name='email' value={formData.email} onChange={handleChange} required />
               </div>
             </div>
             <div className='bg-gray-100 rounded border-l-8  p-3 flex flex-col justify-items-start flex-wrap items-center'>
@@ -188,13 +191,15 @@ const SignupPageLect = () => {
             </div>
           </div>
           <div className='flex justify-center items-center'>
-            <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Signup</button>
-            <button type="reset" className="m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Reset</button>
-            <button type="reset" className="m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Already have an account? Log In</button>
+            <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
+            <button onClick={goBack} className="text-xs md:text-base ml-2 bg-blue-500 hover:bg-blue-700 text-white font-extrabold py-2 px-4 rounded">
+          Back
+        </button>
           </div>
         </form>
         {errorMessage && <p className="text-red-500">{errorMessage}</p>}
       </div>
+      
     </div>
   );
 };
