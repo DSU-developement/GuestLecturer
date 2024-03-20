@@ -2,16 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Pagination from '../components/pagination';
 import { Lecturer } from '../components/type';
-import AddLecturerModal from '../components/AddLecturerModal';
 import { useState } from 'react';
-import EditModal from '../components/EditModal'; // Import the EditModal component
+import EditModal from '../components/EditModal'; 
 
 interface Props {
-  data: Lecturer[];
-  authorized?: boolean; 
+  data: Lecturer[]; 
 }
 
-const  Higherups: React.FC<Props> = ({ data, authorized = true }) => { 
+const  Higherups: React.FC<Props> = ({ data}) => { 
   const [currentPage, setCurrentPage] = React.useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false); 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
