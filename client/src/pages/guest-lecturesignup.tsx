@@ -33,7 +33,7 @@ const SignupPageLect = () => {
       bankBranch: ''
     },
     panCardNumber: '',
-    remarks: ''
+    remarks: {},
   });
 
   const [errorMessage, setErrorMessage] = useState('');
