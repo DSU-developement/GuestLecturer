@@ -24,13 +24,7 @@ const AppRouter: React.FC = () => {
         <Route path="/hod" element={authenticated ? <Table data={lecturersData} /> : <LoginPage />} />
         <Route path="/details/:id" element={authenticated ?<DetailsPage data={lecturersData} /> : <LoginPage />} />
         <Route path='/guest' element={authenticated ? <Higherups data={lecturersData}/> : <LoginPage />} />
-        {authenticated ? (
-          <>
-            <Route path='/signup/guest-lecture' element={<SignupPageLect />} />
-          </>
-        ) : (
-          <Route path='/signup/guest-lecture' element={<LoginPage />} />
-        )}
+        <Route path='/guest-lecture' element={<SignupPageLect />} />
       </Routes>
     </Router>
   );

@@ -58,13 +58,14 @@ const Table: React.FC<Props> = ({ data}) => {
       </div>
 
         <div className="fixed bottom-4 right-4 flex items-center justify-end">
-          <AddLecturerModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onAddLecturer={handleAddLecturer} /> 
-          <div className="bg-blue-500 text-white py-2 px-4 rounded-md cursor-pointer flex items-center" onClick={() => setIsModalOpen(true)}>
+        <Link to="/guest-lecture" className="bg-blue-500 text-white py-2 px-4 rounded-md cursor-pointer flex items-center">
+          <div className="bg-blue-500 text-white py-2 px-4 rounded-md cursor-pointer flex items-center" >
             <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path>
             </svg>
             Add Lecturer
           </div>
+          </Link>
         </div>
         
       <div className="text-center font-bold text-3xl">Guest Lecture Details</div>
