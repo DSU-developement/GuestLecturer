@@ -39,7 +39,7 @@ const Table: React.FC<Props> = ({ data}) => {
     async function fetchLectures() {
       try {
         // Replace 'your_api_endpoint' with your actual API endpoint for fetching lectures
-        const response = await axios.get(`/${userId}`);
+        const response = await axios.get(`/lecture/${userId}`);
         setLectures(response.data);
       } catch (error) {
         console.error('Error fetching lectures:', error);
