@@ -60,7 +60,7 @@ app.get("/api", (req, res) => {
             password,
             role,
             department,
-            branch,
+            school,
         });
 
         await user.save();
@@ -127,4 +127,22 @@ app.get("/api", (req, res) => {
       console.error(error.message);
       res.status(500).json({ message: 'Internal server error' });
     }
+  });
+
+    app.put('/editDetails/:id', async (req, res) => {
+      const { id } = req.params;
+      const updateFields = req.body; // Assuming request body contains the updated fields
+    
+      try {
+        // Find the lecturer by ID and update the specified fields
+        const updatedLecturer = await guestLectureSchema.findByIdAndUpdate(id, updateFields, {
+          new: true, // Return the updated document
+        });
+        res.json(updatedLecturer); // Return the updated lecturer
+      } catch (error) {
+        console.error('Error updating lecturer:', error);
+        res.status(500).json({ error: 'Error updating lecturer details' });
+      }
+    
+
   });
