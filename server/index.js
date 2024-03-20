@@ -66,10 +66,9 @@ app.get("/api", (req, res) => {
         await user.save();
 
         // Generate JWT token
-        const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '1h' });
 
         // Send JWT token in response
-        res.status(201).json({ message: 'User registered successfully', token });
+        res.status(201).json({ message: 'User registered successfully', user });
     } catch (error) {
         console.error(error.message);
         res.status(500).json({ message: 'Internal server error' });
