@@ -7,7 +7,7 @@ const userSchema = new Schema({
   password: { type: String, required: true },
   role: { type: String, enum: ['HOD', 'Dean', 'HR', 'Registrar','ViceChancellor','ProChanCellor','CFO'], required: true },
   department: { type: String },
-  branch: {type:String , required: true}
+  school: {type:String , enum:['School of Health Sciences', 'School of Engineering', 'College of Journalism & Mass Communication',  'School of Basic & Applied Sciences', 'School of Commerce & Management', 'School of Law']}
 });
 
 
