@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 const remarkSchema = new mongoose.Schema({
   from: { type: String, required: true },
   text: { type: String, required: true },
-  isSolved: { type: Boolean, default: false }
 });
 
 const guestLectureSchema = new Schema({
@@ -34,7 +33,7 @@ const guestLectureSchema = new Schema({
   },
   panCardNumber: { type: String, required: true },
   remarks:[remarkSchema] ,
-  dept_id:{type: Number},
+  hod_id:{type: Number},
   dean_id:{type: Number},
   approved: {
     hod: { type: Boolean, default: false },

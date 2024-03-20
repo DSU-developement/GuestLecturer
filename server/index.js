@@ -2,7 +2,7 @@ const connectDB = require('./config/db.js');
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const User = require("./modals/User.js");
-const guestLectureSchema = require('./modals/guestlecture.js');
+const guestLecture = require('./modals/guestlecture.js');
 
 
 connectDB();
@@ -74,59 +74,66 @@ app.get("/api", (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 });
-  app.post('/api/sigupLecture', async (req, res) => {
-    try {
-      const {
-        facultyName,
-        phone,
-        email,
-        password,
-        qualifications,
-        schoolsDeanery,
-        department,
-        subjectName,
-        yearAndSemester,
-        sectionsHandled,
-        hours,
-        startDate,
-        proposedRate,
-        totalAmount,
-        accountDetails,
-        panCardNumber,
-        remarks
-      } = req.body;
-      const existingUser = await guestLectureSchema.findOne({ email });
-      if (existingUser) {
-        return res.status(400).json({ message: 'User with this email already exists' });
-      }
-  
-      const user = new guestLectureSchema({
-        facultyName,
-        phone,
-        email,
-        password,
-        qualifications,
-        schoolsDeanery,
-        department,
-        subjectName,
-        yearAndSemester,
-        sectionsHandled,
-        hours,
-        startDate,
-        proposedRate,
-        totalAmount,
-        accountDetails,
-        panCardNumber,
-        remarks
-      });
-      console.log(user)
-      await user.save();
-      res.status(201).json({ message: 'Guest lecture registered successfully' });
-    } catch (error) {
-      console.error(error.message);
-      res.status(500).json({ message: 'Internal server error' });
+app.post('/api/signupLecturer', async (req, res) => {
+  try {
+    const {
+      facultyName,
+      phone,
+      email,
+      password,
+      qualifications,
+      schoolsDeanery,
+      department,
+      subjectName,
+      yearAndSemester,
+      sectionsHandled,
+      hours,
+      startDate,
+      proposedRate,
+      totalAmount,
+      accountDetails,
+      panCardNumber,
+      hod_id,
+      dean_id,
+     
+    } = req.body;
+
+    const existingUser = await guestLecture.findOne({ email });
+
+    if (existingUser) {
+      return res.status(400).json({ message: 'User with this email already exists' });
     }
-  });
+
+    const user = new guestLecture({
+      facultyName,
+      phone,
+      email,
+      password,
+      qualifications,
+      schoolsDeanery,
+      department,
+      subjectName,
+      yearAndSemester,
+      sectionsHandled,
+      hours,
+      startDate,
+      proposedRate,
+      totalAmount,
+      accountDetails,
+      panCardNumber,
+      remarks,
+      hod_id,
+      dean_id,
+      approved
+    });
+
+    await user.save();
+    res.status(201).json({ message: 'Guest lecture registered successfully' });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
     app.put('/editDetails/:id', async (req, res) => {
       const { id } = req.params;
@@ -134,7 +141,7 @@ app.get("/api", (req, res) => {
     
       try {
         // Find the lecturer by ID and update the specified fields
-        const updatedLecturer = await guestLectureSchema.findByIdAndUpdate(id, updateFields, {
+        const updatedLecturer = await guestLecture.findByIdAndUpdate(id, updateFields, {
           new: true, // Return the updated document
         });
         res.json(updatedLecturer); // Return the updated lecturer
