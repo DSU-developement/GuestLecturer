@@ -6,6 +6,7 @@ const SignupPageLect = () => {
     facultyName: '',
     phone: '',
     email: '',
+    password: '',
     qualifications: {
       ug: false,
       pg: false,
@@ -65,7 +66,7 @@ const SignupPageLect = () => {
     e.preventDefault();
     try {
 
-      await axios.post('/api/signup', formData);
+      await axios.post('/api/sigupLecture', formData);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response) {
@@ -94,6 +95,10 @@ const SignupPageLect = () => {
         <div>
           <label>Email:</label>
           <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+        </div>
+        <div>
+          <label>password:</label>
+          <input type="password" name="password" value={formData.password} onChange={handleChange} required />
         </div>
         <div>
           <label>Qualifications:</label>

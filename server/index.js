@@ -68,3 +68,57 @@ app.get("/api", (req, res) => {
       res.status(500).json({ message: 'Internal server error' });
     }
   });
+  app.post('/api/sigupLecture', async (req, res) => {
+    try {
+      const {
+        facultyName,
+        phone,
+        email,
+        password,
+        qualifications,
+        schoolsDeanery,
+        department,
+        subjectName,
+        yearAndSemester,
+        sectionsHandled,
+        hours,
+        startDate,
+        proposedRate,
+        totalAmount,
+        accountDetails,
+        panCardNumber,
+        remarks
+      } = req.body;
+  
+      const existingUser = await guestLectureSchema.findOne({ email });
+      if (existingUser) {
+        return res.status(400).json({ message: 'User with this email already exists' });
+      }
+  
+      const user = new guestLectureSchema({
+        facultyName,
+        phone,
+        email,
+        password,
+        qualifications,
+        schoolsDeanery,
+        department,
+        subjectName,
+        yearAndSemester,
+        sectionsHandled,
+        hours,
+        startDate,
+        proposedRate,
+        totalAmount,
+        accountDetails,
+        panCardNumber,
+        remarks
+      });
+  
+      await user.save();
+      res.status(201).json({ message: 'Guest lecture registered successfully' });
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
