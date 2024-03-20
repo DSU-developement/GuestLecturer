@@ -3,6 +3,9 @@ import axios from 'axios';
 import { CgProfile } from "react-icons/cg";
 
 const SignupPageLect = () => {
+  const goBack = () => {
+    window.history.back();
+  };
   const [formData, setFormData] = useState({
     facultyName: '',
     phone: '',
@@ -189,10 +192,14 @@ const SignupPageLect = () => {
           </div>
           <div className='flex justify-center items-center'>
             <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
+            <button onClick={goBack} className="text-xs md:text-base ml-2 bg-blue-500 hover:bg-blue-700 text-white font-extrabold py-2 px-4 rounded">
+          Back
+        </button>
           </div>
         </form>
         {errorMessage && <p className="text-red-500">{errorMessage}</p>}
       </div>
+      
     </div>
   );
 };
