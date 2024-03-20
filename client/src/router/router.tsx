@@ -18,7 +18,7 @@ const AppRouter: React.FC = () => {
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path='/signup' element={<SignupPage />} />
-        <Route path="/hod" element={<Table data={lecturersData} authorized={isHOD} />} />
+        <Route path="/hod" element={<Table data={lecturersData}/>} />
         <Route path="/details/:id" element={<DetailsPage data={lecturersData} />} /> 
         <Route path='/signup/guest-lecture' element={<SignupPageLect/>}/>
         <Route path='/guest' element={<Higherups data={lecturersData} authorized={isHOD} />}/>
