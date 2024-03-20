@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Pagination from '../components/pagination';
 import { Lecturer } from '../components/type';
 import { useState } from 'react';
 import EditModal from '../components/EditModal'; 
+import axios from 'axios';
 
 interface Props {
   data: Lecturer[]; 
@@ -21,6 +22,7 @@ if (storedUserData) {
   console.error('User data not found in local storage');
 }
 const  Higherups: React.FC<Props> = ({ data}) => { 
+  const [lectures, setLectures] = useState<Lecturer[]>([]);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false); 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -34,9 +36,29 @@ const  Higherups: React.FC<Props> = ({ data}) => {
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
-  const handleAddLecturer = (lecturer: Lecturer) => {
-    console.log('Adding lecturer:', lecturer);
-  };
+  var userId = ""; 
+
+if (storedUserData) {
+  const userData = JSON.parse(storedUserData);
+  userId = userData['_id']; 
+} else {
+  console.error('User data not found in local storage');
+}
+
+
+useEffect(() => {
+  async function fetchLectures() {
+    try {
+      const response = await axios.get(`/lecture/${userId}`);
+      setLectures(response.data);
+    } catch (error) {
+      console.error('Error fetching lectures:', error);
+    }
+  }
+
+  fetchLectures(); 
+}, []);
+console.log(lectures)
 
   const handleEdit = (lecturer: Lecturer) => {
     setSelectedLecturer(lecturer);
