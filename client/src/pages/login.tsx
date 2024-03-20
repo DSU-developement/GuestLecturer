@@ -12,7 +12,7 @@ const LoginPage = () => {
     setEmail(e.target.value);
   };
 
-  const handleSignup =()=>{
+  const handleSignup = () => {
     window.location.href = '/signup';
   }
 
@@ -35,18 +35,19 @@ const LoginPage = () => {
       const data = await response.json();
   
       if (response.ok) {
-        console.log(data.message);
-         console.log(data);
-         console.log(data.user);
-          setUserDetails(data.user.email); 
-          console.log(data.user.hod);
-          if(data.user.hod){
-            setisHOD(true);
+        // Store JWT token in local storage
+        localStorage.setItem('token', data.token);
+        console.log(data.token);
+        // Store user details in state
+        setUserDetails(data.user);
+        
+        // Redirect to appropriate page based on user role
+        if (data.user.hod) {
+          setisHOD(true);
           window.location.href = `/hod`;
-          }
-          else{
-            window.location.href = `/hod`;
-          }
+        } else {
+          window.location.href = `/guest`;
+        }
       } else {
         throw new Error(data.message || "Login failed");
       }

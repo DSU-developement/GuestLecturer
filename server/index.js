@@ -2,6 +2,7 @@ const connectDB = require('./config/db.js');
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const User = require("./modals/User.js");
+const jwt = require('jsonwebtoken');
 const guestLectureSchema = require('./modals/guestlecture.js');
 
 
@@ -29,45 +30,55 @@ app.get("/api", (req, res) => {
 
   app.post("/api/login", async (req, res) => {
     try {
-      const { email, password } = req.body;
-  
-      const user = await User.findOne({ email });
-  
-      if (!user || user.password !== password) {
-        return res.status(401).json({ success: false, message: "Invalid email or password" });
-      }
-  
-      // Include the value of the 'hod' field in the response
-      res.json({ success: true, message: "Login successful", user: user});
+        const { email, password } = req.body;
+
+        const user = await User.findOne({ email });
+
+        if (!user || user.password !== password) {
+            return res.status(401).json({ success: false, message: "Invalid email or password" });
+        }
+
+        // Generate JWT token
+        const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '1h' });
+
+        // Send JWT token and user details in response
+        res.json({ success: true, message: "Login successful", token, user });
     } catch (error) {
-      console.error("Error logging in:", error.message);
-      res.status(500).json({ success: false, message: "An error occurred while logging in" });
+        console.error("Error logging in:", error.message);
+        res.status(500).json({ success: false, message: "An error occurred while logging in" });
     }
-  });
+});
 
   app.post('/api/signup', async (req, res) => {
     try {
-      const { name, email, password, role, department,branch } = req.body;
-      const existingUser = await User.findOne({ email });
-      if (existingUser) {
-        return res.status(400).json({ message: 'User with this email already exists' });
-      }
-      const user = new User({
-        name,
-        email,
-        password,
-        role,
-        department,
-        branch,
-      });
-      console.log(user);
-      await user.save();
-      res.status(201).json({ message: 'User registered successfully' });
+        const { name, email, password, role, department, branch } = req.body;
+        const existingUser = await User.findOne({ email });
+        
+        if (existingUser) {
+            return res.status(400).json({ message: 'User with this email already exists' });
+        }
+        
+        const user = new User({
+            name,
+            email,
+            password,
+            role,
+            department,
+            branch,
+        });
+
+        await user.save();
+
+        // Generate JWT token
+        const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '1h' });
+
+        // Send JWT token in response
+        res.status(201).json({ message: 'User registered successfully', token });
     } catch (error) {
-      console.error(error.message);
-      res.status(500).json({ message: 'Internal server error' });
+        console.error(error.message);
+        res.status(500).json({ message: 'Internal server error' });
     }
-  });
+});
   app.post('/api/sigupLecture', async (req, res) => {
     try {
       const {

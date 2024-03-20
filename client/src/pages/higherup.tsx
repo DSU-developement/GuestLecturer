@@ -13,7 +13,7 @@ interface Props {
   authorized?: boolean; 
 }
 
-const Table: React.FC<Props> = ({ data, authorized = true }) => { 
+const  Higherups: React.FC<Props> = ({ data, authorized = true }) => { 
   const [currentPage, setCurrentPage] = React.useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false); 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -142,4 +142,4 @@ const Table: React.FC<Props> = ({ data, authorized = true }) => {
   );
 };
 
-export default Table;
+export default  Higherups;
