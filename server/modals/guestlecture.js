@@ -37,7 +37,7 @@ const guestLectureSchema = new Schema({
     type: [remarkSchema], 
     required: false
   },
-  hod_id:{type: Number},
+  hod_id:{type: String},
   dean_id:{type: Number},
   approved: {
     hod: { type: Boolean, default: false },

@@ -146,4 +146,16 @@ app.get("/api", (req, res) => {
 
   });
 
+  app.get('/lecture/:hod_id', async (req, res) => {
+    try {
+      const hodId = req.params.hod_id;
+      const lectures = await guestLectureSchema.find({ hod_id: hodId });
+      res.json(lectures);
+    } catch (error) {
+      console.error('Error fetching lectures:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+  
+
   module.exports = app; 

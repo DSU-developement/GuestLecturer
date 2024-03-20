@@ -10,15 +10,7 @@ interface Props {
   data: Lecturer[];
 }
 
-const storedUserData = localStorage.getItem('token');
-var userId="";
-if (storedUserData) {
-  const userData = JSON.parse(storedUserData);
-  const userId = userData['_id'];
-   console.log(userId);
-} else {
-  console.error('User data not found in local storage');
-}
+
 
 const Table: React.FC<Props> = ({ data}) => { 
   const [lectures, setLectures] = useState<Lecturer[]>([]);
@@ -33,21 +25,31 @@ const Table: React.FC<Props> = ({ data}) => {
   const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+  const storedUserData = localStorage.getItem('token');
 
-  useEffect(() => {
-    // Fetch lectures data when the component mounts
-    async function fetchLectures() {
-      try {
-        // Replace 'your_api_endpoint' with your actual API endpoint for fetching lectures
-        const response = await axios.get(`/lecture/${userId}`);
-        setLectures(response.data);
-      } catch (error) {
-        console.error('Error fetching lectures:', error);
-      }
+  var userId = ""; 
+
+if (storedUserData) {
+  const userData = JSON.parse(storedUserData);
+  userId = userData['_id']; 
+} else {
+  console.error('User data not found in local storage');
+}
+
+
+useEffect(() => {
+  async function fetchLectures() {
+    try {
+      const response = await axios.get(`/lecture/${userId}`);
+      setLectures(response.data);
+    } catch (error) {
+      console.error('Error fetching lectures:', error);
     }
+  }
 
-    fetchLectures(); // Call the fetchLectures function
-  }, []); 
+  fetchLectures(); 
+}, []);
+console.log(lectures)
 
   const handleEdit = (lecturer: Lecturer) => {
     setSelectedLecturer(lecturer);
