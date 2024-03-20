@@ -2,7 +2,7 @@ const connectDB = require('./config/db.js');
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const User = require("./modals/User.js");
-const guestLecture = require('./modals/guestlecture.js');
+const GuestLecture = require('./modals/guestlecture.js');
 
 
 connectDB();
@@ -45,8 +45,8 @@ app.get("/api", (req, res) => {
     }
 });
 
-  app.post('/api/signup', async (req, res) => {
-    try {
+app.post('/api/signup', async (req, res) => {
+  try {
         const { name, email, password, role, department, school } = req.body;
         const existingUser = await User.findOne({ email });
         
@@ -74,7 +74,9 @@ app.get("/api", (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 });
-app.post('/api/signupLecturer', async (req, res) => {
+
+
+app.post('/api/sigupLecture', async (req, res) => {
   try {
     const {
       facultyName,
@@ -95,16 +97,18 @@ app.post('/api/signupLecturer', async (req, res) => {
       panCardNumber,
       hod_id,
       dean_id,
+      remarks,
+      approved,
      
     } = req.body;
 
-    const existingUser = await guestLecture.findOne({ email });
+    const existingUser = await GuestLecture.findOne({ email });
 
     if (existingUser) {
       return res.status(400).json({ message: 'User with this email already exists' });
     }
 
-    const user = new guestLecture({
+    const user = new GuestLecture({
       facultyName,
       phone,
       email,
@@ -135,7 +139,7 @@ app.post('/api/signupLecturer', async (req, res) => {
   }
 });
 
-    app.put('/editDetails/:id', async (req, res) => {
+app.put('/editDetails/:id', async (req, res) => {
       const { id } = req.params;
       const updateFields = req.body; // Assuming request body contains the updated fields
     

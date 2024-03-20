@@ -34,6 +34,7 @@ const SignupPageLect = () => {
     },
     panCardNumber: '',
     remarks: {},
+    approved:{},
   });
 
   const [errorMessage, setErrorMessage] = useState('');
@@ -61,7 +62,8 @@ const SignupPageLect = () => {
     } else {
       setFormData({
         ...formData,
-        [name]: value
+        [name]: value,
+        remarks:{},approved:{},
       });
     }
   };

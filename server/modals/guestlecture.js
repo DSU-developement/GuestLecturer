@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const remarkSchema = new mongoose.Schema({
-  from: { type: String, required: true },
-  text: { type: String, required: true },
+  from: { type: String},
+  text: { type: String},
 });
 
 const guestLectureSchema = new Schema({
