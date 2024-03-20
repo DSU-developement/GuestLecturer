@@ -6,6 +6,7 @@ import DetailsPage from '../pages/details';
 import SignupPage from '../pages/signupPage';
 import { lecturersData } from '../components/dummy'; 
 import UserDetailsPage from '../pages/try';
+import SignupPageLect from '../pages/guest-lecturesignup';
 
 const AppRouter: React.FC = () => {
   const [isHOD , setisHOD] = useState<boolean>(false);
@@ -18,6 +19,7 @@ const AppRouter: React.FC = () => {
         <Route path='/signup' element={<SignupPage />} />
         <Route path="/hod" element={<Table data={lecturersData} authorized={isHOD} />} />
         <Route path="/details/:id" element={<DetailsPage data={lecturersData} />} /> 
+        <Route path='/signup/guest-lecture' element={<SignupPageLect/>}/>
       </Routes>
     </Router>
   );

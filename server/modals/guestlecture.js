@@ -19,7 +19,6 @@ const guestLectureSchema = new Schema({
   startDate: { type: Date, required: true },
   proposedRate: { type: Number, required: true },
   totalAmount: { type: Number, required: true },
-  documents: { type: String }, // Assuming file paths or URLs will be stored
   accountDetails: {
     accountNumber: { type: String, required: true, minlength: 14, maxlength: 14 },
     accountHolderName: { type: String, required: true },
