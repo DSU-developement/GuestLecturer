@@ -12,6 +12,15 @@ interface Props {
   data: Lecturer[];
 }
 
+const storedUserData = localStorage.getItem('token');
+
+if (storedUserData) {
+  const userData = JSON.parse(storedUserData);
+  console.log(userData);
+} else {
+  console.error('User data not found in local storage');
+}
+
 const Table: React.FC<Props> = ({ data}) => { 
   const [currentPage, setCurrentPage] = React.useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false); 
