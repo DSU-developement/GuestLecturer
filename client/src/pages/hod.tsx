@@ -56,11 +56,8 @@ console.log(lectures)
     setIsEditModalOpen(true);
   };
 
-  // Define the handleEditSubmit function to handle editing lecturer details
   const handleEditSubmit = (editedLecturer: Lecturer) => {
-    // Here you can implement the logic to submit the edited lecturer details
     console.log('Edited lecturer:', editedLecturer);
-    // Close the edit modal
     setIsEditModalOpen(false);
   };
 
