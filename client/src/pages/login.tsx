@@ -35,14 +35,12 @@ const LoginPage = () => {
       const data = await response.json();
   
       if (response.ok) {
-        // Store JWT token in local storage
-        localStorage.setItem('token', data.token);
-        console.log(data.token);
-        // Store user details in state
+        console.log(data.user.role);
+        localStorage.setItem('token', data.user);
         setUserDetails(data.user);
         
         // Redirect to appropriate page based on user role
-        if (data.user.hod) {
+        if (data.user.role === 'HOD') {
           setisHOD(true);
           window.location.href = `/hod`;
         } else {

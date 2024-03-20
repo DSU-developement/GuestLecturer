@@ -2,7 +2,6 @@ const connectDB = require('./config/db.js');
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const User = require("./modals/User.js");
-const jwt = require('jsonwebtoken');
 const guestLectureSchema = require('./modals/guestlecture.js');
 
 
@@ -38,11 +37,8 @@ app.get("/api", (req, res) => {
             return res.status(401).json({ success: false, message: "Invalid email or password" });
         }
 
-        // Generate JWT token
-        const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '1h' });
 
-        // Send JWT token and user details in response
-        res.json({ success: true, message: "Login successful", token, user });
+        res.json({ success: true, message: "Login successful",user });
     } catch (error) {
         console.error("Error logging in:", error.message);
         res.status(500).json({ success: false, message: "An error occurred while logging in" });
