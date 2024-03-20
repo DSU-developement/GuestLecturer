@@ -2,6 +2,7 @@ const connectDB = require('./config/db.js');
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const User = require("./modals/User.js");
+const guestLectureSchema = require('./modals/guestlecture.js');
 
 
 connectDB();
@@ -41,5 +42,28 @@ app.get("/api", (req, res) => {
     } catch (error) {
       console.error("Error logging in:", error.message);
       res.status(500).json({ success: false, message: "An error occurred while logging in" });
+    }
+  });
+
+  app.post('/api/signup', async (req, res) => {
+    try {
+      const { name, email, password, role, department } = req.body;
+      const existingUser = await User.findOne({ email });
+      if (existingUser) {
+        return res.status(400).json({ message: 'User with this email already exists' });
+      }
+      const user = new User({
+        name,
+        email,
+        password,
+        role,
+        department
+      });
+      console.log(user);
+      await user.save();
+      res.status(201).json({ message: 'User registered successfully' });
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).json({ message: 'Internal server error' });
     }
   });
