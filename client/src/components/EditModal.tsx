@@ -118,7 +118,7 @@ const EditModal: React.FC<Props> = ({ isOpen, onClose, onSubmit, lecturer }) => 
           </div>
         </div>
       )}
-      <div className="flex justify-end">
+      <div className="flex">
         {/* Save Changes Button */}
         <button type="button" onClick={handleSubmit} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
           Save Changes

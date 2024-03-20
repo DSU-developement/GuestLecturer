@@ -16,13 +16,14 @@ const DetailsPage: React.FC<{ data: Lecturer[] }> = ({ data }) => {
   }
 
   return (
-    <div className="h-screen flex flex-col justify-center items-center bg-gray-100">
+    <div className=" flex flex-col justify-center items-center bg-gray-100">
       <div className="md:max-w-4xl w-full mx-auto bg-white shadow-lg p-8 rounded-md mt-8">
-        <div className=" mb-6 bg-gray-100">
-          <h1 className="text-blue-500 font-mono font-extrabold shadow-inner shadow-sky-300 text-5xl text-center font-semibold mb-4 border-solid border-2 border-blue-500 rounded-md p-5 uppercase">{lecturer.lecturerName}</h1>
-        </div>
-        <div className="grid grid-cols-2 gap-2">
-            <div className="grid grid-cols-2 border-l-8 border-green-500 gap-2 p-3 bg-gray-100 rounded">
+      <div className="mb-6 rounded-md p-5">
+        <h1 className="text-4xl text-blue-500 font-bold text-center uppercase">{lecturer.lecturerName}</h1>
+      </div>
+        <div className="flex flex-row gap-2">
+          <div className='shadow flex flex-col w-1/2 m-2 '>
+            <div className="  gap-2 p-4  rounded">
               <h3 className='font-mono font-black text-xl font-bold text-blue-500 col-span-2 text-center mb-3'>BASIC DETAILS</h3>
               <p className="text-xs font-extrabold md:text-base font-semibold">Phone Number</p>
               <p className="text-xs md:text-base">{lecturer.lecturerPhoneNumber}</p>
@@ -39,7 +40,26 @@ const DetailsPage: React.FC<{ data: Lecturer[] }> = ({ data }) => {
               <p className="text-xs font-extrabold md:text-base font-semibold">Semester/Year</p>
               <p className="text-xs md:text-base">{lecturer.lecturerSem_year}</p>
             </div>
-            <div className="grid grid-cols-2 gap-2 border-l-8 border-green-500 p-3 bg-gray-100 rounded">
+            
+            <div className="grid grid-cols-2 gap-2   p-3 rounded">
+              <h3 className='font-mono font-black text-xl font-bold text-blue-500 col-span-2 text-center mb-3'>FINANCIAL DETAILS</h3> 
+              <p className="text-xs font-extrabold md:text-base font-semibold">A/C number</p> 
+              <p className="text-xs md:text-base">{lecturer.accountNumber}</p>
+              <p className="text-xs font-extrabold md:text-base font-semibold">A/C holder name</p> 
+              <p className="text-xs md:text-base">{lecturer.accountHolderName}</p>
+              <p className="text-xs font-extrabold md:text-base font-semibold">Bank name</p> 
+              <p className="text-xs md:text-base">{lecturer.bankName}</p>
+              <p className="text-xs font-extrabold md:text-base font-semibold">Bank branch</p> 
+              <p className="text-xs md:text-base">{lecturer.bankBranch}</p>
+              <p className="text-xs font-extrabold md:text-base font-semibold">PAN Card number</p> 
+              <p className="text-xs md:text-base">{lecturer.panCardNumber}</p>
+            </div>
+
+            </div>
+
+            <div className=" shadow flex-col w-1/2 m-2">
+              
+            <div className=" grid grid-cols-2 gap-2   p-3  rounded">
               <h3 className='font-mono font-black text-xl font-bold text-blue-500 col-span-2 text-center mb-3'>ADDITONAL DETAILS</h3>
               <p className="text-xs font-extrabold md:text-base font-semibold">Sections handled</p> 
               <p className="text-xs md:text-base">{lecturer.lecturerClasses}</p>
@@ -54,25 +74,23 @@ const DetailsPage: React.FC<{ data: Lecturer[] }> = ({ data }) => {
               <p className="text-xs font-extrabold md:text-base font-semibold">Documents Uploaded</p> 
               <p className="text-xs md:text-base">{lecturer.lecturerDocs}</p>
             </div>
-            <div className="grid grid-cols-2 gap-2 border-l-8 border-green-500 p-3 bg-gray-100 rounded">
-              <h3 className='font-mono font-black text-xl font-bold text-blue-500 col-span-2 text-center mb-3'>FINANCIAL DETAILS</h3> 
-              <p className="text-xs font-extrabold md:text-base font-semibold">A/C number</p> 
-              <p className="text-xs md:text-base">{lecturer.accountNumber}</p>
-              <p className="text-xs font-extrabold md:text-base font-semibold">A/C holder name</p> 
-              <p className="text-xs md:text-base">{lecturer.accountHolderName}</p>
-              <p className="text-xs font-extrabold md:text-base font-semibold">Bank name</p> 
-              <p className="text-xs md:text-base">{lecturer.bankName}</p>
-              <p className="text-xs font-extrabold md:text-base font-semibold">Bank branch</p> 
-              <p className="text-xs md:text-base">{lecturer.bankBranch}</p>
-              <p className="text-xs font-extrabold md:text-base font-semibold">PAN Card number</p> 
-              <p className="text-xs md:text-base">{lecturer.panCardNumber}</p>
-            </div>
-            <div className="grid grid-cols-2 gap-2 border-l-8 border-green-500 p-3 bg-gray-100 rounded">
-              <h3 className='font-mono font-black text-xl font-bold text-blue-500 col-span-2 text-center'>APPROVAL</h3>
+          
+            <div className=" grid grid-cols-2 p-3  rounded">
+              <h3 className='font-mono font-black text-xl font-bold text-blue-500 col-span-2 text-center mb-3'>APPROVAL</h3>
+                 <p className="text-xs font-extrabold md:text-base font-semibold">HOD</p> 
+              <p className="text-xs md:text-base">{lecturer.status}</p>
+                 <p className="text-xs font-extrabold md:text-base font-semibold">DEAN</p> 
+              <p className="text-xs md:text-base">{lecturer.status}</p>
+                 <p className="text-xs font-extrabold md:text-base font-semibold">Vice Chanceler</p> 
+              <p className="text-xs md:text-base">{lecturer.status}</p>
+                 <p className="text-xs font-extrabold md:text-base font-semibold">Person2</p> 
+              <p className="text-xs md:text-base">{lecturer.status}</p>
+              <p className="text-xs font-extrabold md:text-base font-semibold">Final Status</p> 
+              <p className="text-xs md:text-base">{lecturer.status}</p>
               <p className="text-xs font-extrabold md:text-base font-semibold">Remarks</p> 
               <p className="text-xs md:text-base">{lecturer.lecturerRemarks}</p>
-              <p className="text-xs font-extrabold md:text-base font-semibold">Status</p> 
-              <p className="text-xs md:text-base">{lecturer.status}</p>
+              
+            </div>
             </div>
         </div>
         <button onClick={goBack} className="text-xs md:text-base mt-4 bg-blue-500 hover:bg-blue-700 text-white font-extrabold py-2 px-4 rounded">

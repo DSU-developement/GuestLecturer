@@ -12,6 +12,10 @@ const LoginPage = () => {
     setEmail(e.target.value);
   };
 
+  const handleSignup = () => {
+    window.location.href = '/signup';
+  }
+
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
@@ -31,18 +35,17 @@ const LoginPage = () => {
       const data = await response.json();
   
       if (response.ok) {
-        console.log(data.message);
-         console.log(data);
-         console.log(data.user);
-          setUserDetails(data.user.email); 
-          console.log(data.user.hod);
-          if(data.user.hod){
-            setisHOD(true);
+        console.log(data.user.role);
+        localStorage.setItem('token', data.user);
+        setUserDetails(data.user);
+        
+        // Redirect to appropriate page based on user role
+        if (data.user.role === 'HOD') {
+          setisHOD(true);
           window.location.href = `/hod`;
-          }
-          else{
-            window.location.href = `/hod`;
-          }
+        } else {
+          window.location.href = `/guest`;
+        }
       } else {
         throw new Error(data.message || "Login failed");
       }
@@ -101,12 +104,19 @@ const LoginPage = () => {
             {errorMessage && (
               <div className="text-red-500 text-center">{errorMessage}</div>
             )}
-            <div>
+            <div className='flex'>
               <button
                 type="submit"
                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                Sign in
+                Login
+              </button>
+              <button
+              type='button'
+              onClick={handleSignup}
+                className="group  ml-2 relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                SignUp
               </button>
             </div>
           </form>
