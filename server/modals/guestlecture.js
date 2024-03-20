@@ -33,7 +33,10 @@ const guestLectureSchema = new Schema({
     bankBranch: { type: String, required: true }
   },
   panCardNumber: { type: String, required: true },
-  remarks:[remarkSchema] ,
+  remarks: {
+    type: [remarkSchema], 
+    required: false
+  },
   dept_id:{type: Number},
   dean_id:{type: Number},
   approved: {
