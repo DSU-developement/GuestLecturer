@@ -7,12 +7,12 @@ const SignupPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('');
-  const [branch,setBranch] = useState('');
+  const [school,setSchool] = useState('');
   const [department, setDepartment] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   const roles = ['HOD', 'Dean', 'HR', 'Registrar', 'ViceChancellor', 'ProChanCellor', 'CFO', 'Guest Lecture'];
-  const school =['School of Health Sciences', 'School of Engineering', 'College of Journalism & Mass Communication',  'School of Basic & Applied Sciences', 'School of Commerce & Management', 'School of Law']
+  const schools =['School of Health Sciences', 'School of Engineering', 'College of Journalism & Mass Communication',  'School of Basic & Applied Sciences', 'School of Commerce & Management', 'School of Law']
 
   const handleSignup = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -45,7 +45,7 @@ const SignupPage = () => {
   };
 
   const handleSchoolChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setRole(e.target.value);
+    setSchool(e.target.value);
   };
 
   const redirectToGuestLectureSignup = () => {
@@ -77,7 +77,7 @@ const SignupPage = () => {
               <label className="sr-only">School:</label>
               <select value={school} onChange={handleSchoolChange} required className="w-full px-3 py-2 border rounded">
                 <option value="">Select School</option>
-                {roles.map((r, index) => (
+                {schools.map((r, index) => (
                   <option key={index} value={r}>{r}</option>
                 ))}
               </select>

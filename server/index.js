@@ -47,7 +47,7 @@ app.get("/api", (req, res) => {
 
   app.post('/api/signup', async (req, res) => {
     try {
-        const { name, email, password, role, department, branch } = req.body;
+        const { name, email, password, role, department, school } = req.body;
         const existingUser = await User.findOne({ email });
         
         if (existingUser) {
@@ -55,12 +55,12 @@ app.get("/api", (req, res) => {
         }
         
         const user = new User({
-            name,
-            email,
-            password,
-            role,
-            department,
-            school,
+          name,
+          email,
+          password,
+          role,
+          department,
+          school
         });
 
         await user.save();
