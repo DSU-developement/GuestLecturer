@@ -76,7 +76,7 @@ app.post('/api/signup', async (req, res) => {
 });
 
 
-app.post('/api/sigupLecture', async (req, res) => {
+app.post('/api/signupLecturer', async (req, res) => {
   try {
     const {
       facultyName,
@@ -132,7 +132,7 @@ app.post('/api/sigupLecture', async (req, res) => {
     });
 
     await user.save();
-    res.status(201).json({ message: 'Guest lecture registered successfully' });
+    res.status(201).json({ message: 'User registered successfully', user });
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ message: 'Internal server error' });

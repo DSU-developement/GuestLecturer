@@ -72,7 +72,7 @@ const SignupPageLect = () => {
     e.preventDefault();
     try {
 
-      await axios.post('/api/sigupLecture', formData);
+      await axios.post('/api/signupLecturer', formData);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response) {

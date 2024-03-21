@@ -169,7 +169,7 @@ const AddLecturerModal = () => {
             <div>
                 <label>Account Details</label>
                 <label htmlFor="accountNumber">A/C Number:</label>
-                <input type="text" id="accountNumber" name="accountNumber" value={formData.accountDetails.accountNumber} onChange={handleChange} required />
+                <input type="text" id="accountNumber" name="accountDetails.accountNumber" value={formData.accountDetails.accountNumber} onChange={handleChange} required />
                 <label htmlFor="accountHolderName">A/C Holder Name:</label>
                 <input type="text" id="accountHolderName" name="accountHolderName" value={formData.accountDetails.accountHolderName} onChange={handleChange} required />
                 <label htmlFor="bankName">Bank Name:</label>
