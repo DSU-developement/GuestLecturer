@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import axios from 'axios';
 import { CgProfile } from "react-icons/cg";
 
@@ -38,6 +38,7 @@ const SignupPageLect = () => {
   });
 
   const [errorMessage, setErrorMessage] = useState('');
+  const [submitted, setSubmitted] = useState(false);
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
   
@@ -73,6 +74,7 @@ const SignupPageLect = () => {
     try {
 
       await axios.post('/api/signupLecturer', formData);
+      setSubmitted(true);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response) {
@@ -85,7 +87,14 @@ const SignupPageLect = () => {
       }
     }
   };
-
+  useEffect(() => {
+    if (submitted) {
+      // Redirect to /hod
+      setTimeout(() => {
+        window.location.href = '/hod';
+      }, 3000); // Redirect after 3 seconds
+    }
+  }, [submitted]);
   return (
     <div className='h-full flex flex-col bg-gray-100'>
       <div className="md:max-w-4xl w-full container mx-auto p-6 rounded-xl m-6 bg-white" style={{ backgroundImage: `url("./bg.jpeg")` }}>

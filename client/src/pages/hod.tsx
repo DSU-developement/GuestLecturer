@@ -32,6 +32,7 @@ const Table: React.FC<Props> = ({ data}) => {
 
 if (storedUserData) {
   const userData = JSON.parse(storedUserData);
+  console.log(userData);
   userId = userData['_id']; 
 } else {
   console.error('User data not found in local storage');
