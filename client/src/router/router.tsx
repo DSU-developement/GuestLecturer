@@ -21,10 +21,10 @@ const AppRouter: React.FC = () => {
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path='/signup' element={<SignupPage />} />
-        <Route path="/hod" element={authenticated ? <Table data={lecturersData} /> : <LoginPage />} />
+        <Route path="/hod" element={authenticated ? <Table/> : <LoginPage />} />
         <Route path="/details/:id" element={authenticated ?<DetailsPage data={lecturersData} /> : <LoginPage />} />
         <Route path='/guest' element={authenticated ? <Higherups data={lecturersData}/> : <LoginPage />} />
-        <Route path='/guest-lecture' element={<SignupPageLect />} />
+        <Route path='/add-lecture' element={<SignupPageLect />} />
       </Routes>
     </Router>
   );
