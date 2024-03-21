@@ -26,7 +26,7 @@ const guestLectureSchema = new Schema({
   proposedRate: { type: Number, required: true },
   totalAmount: { type: Number, required: true },
   accountDetails: {
-    accountNumber: { type: String, required: true, minlength: 14, maxlength: 14 },
+    accountNumber: { type: String, required: true },
     accountHolderName: { type: String, required: true },
     bankName: { type: String, required: true },
     bankBranch: { type: String, required: true }

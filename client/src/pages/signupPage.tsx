@@ -7,12 +7,20 @@ const SignupPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('');
-  const [school,setSchool] = useState('');
+  const [schoolId, setSchoolId] = useState('');
+  const [schoolName, setSchoolName] = useState('');
   const [department, setDepartment] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   const roles = ['HOD', 'Dean', 'HR', 'Registrar', 'ViceChancellor', 'ProChanCellor', 'CFO', 'Guest Lecture'];
-  const schools =['School of Health Sciences', 'School of Engineering', 'College of Journalism & Mass Communication',  'School of Basic & Applied Sciences', 'School of Commerce & Management', 'School of Law']
+  const schools = [
+    { id: '1234', name: 'School of Health Sciences' },
+    { id: '5678', name: 'School of Engineering' },
+    { id: '91011', name: 'College of Journalism & Mass Communication' },
+    { id: '121314', name: 'School of Basic & Applied Sciences' },
+    { id: '151617', name: 'School of Commerce & Management' },
+    { id: '181920', name: 'School of Law' }
+  ];
 
   const handleSignup = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,7 +31,7 @@ const SignupPage = () => {
         password,
         role,
         department,
-        school
+        school: { id: schoolId, name: schoolName }
       });
       console.log(response.data);
       // Redirect to login page or another appropriate page after successful signup
@@ -45,7 +53,11 @@ const SignupPage = () => {
   };
 
   const handleSchoolChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSchool(e.target.value);
+    const selectedSchool = schools.find(school => school.name === e.target.value);
+    if (selectedSchool) {
+      setSchoolId(selectedSchool.id);
+      setSchoolName(selectedSchool.name);
+    }
   };
 
   const redirectToGuestLectureSignup = () => {
@@ -75,10 +87,10 @@ const SignupPage = () => {
             </div><br />
             <div className='mb-2'>
               <label className="sr-only">School:</label>
-              <select value={school} onChange={handleSchoolChange} required className="w-full px-3 py-2 border rounded">
+              <select value={schoolName} onChange={handleSchoolChange} required className="w-full px-3 py-2 border rounded">
                 <option value="">Select School</option>
-                {schools.map((r, index) => (
-                  <option key={index} value={r}>{r}</option>
+                {schools.map((school, index) => (
+                  <option key={index} value={school.name}>{school.name}</option>
                 ))}
               </select>
             </div><br/>

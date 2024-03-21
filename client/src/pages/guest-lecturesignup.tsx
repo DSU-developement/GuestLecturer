@@ -6,6 +6,16 @@ const SignupPageLect = () => {
   const goBack = () => {
     window.history.back();
   };
+
+  const storedUserData = localStorage.getItem('token');
+  var userId = ""; 
+  if (storedUserData) {
+    const userData = JSON.parse(storedUserData);
+    console.log(userData);
+    userId = userData['_id']; 
+  } else {
+    console.error('User data not found in local storage');
+  }
   const [formData, setFormData] = useState({
     facultyName: '',
     phone: '',
@@ -35,6 +45,8 @@ const SignupPageLect = () => {
     panCardNumber: '',
     remarks: {},
     approved:{},
+    hod_id: userId,
+    dean_id: '',
   });
 
   const [errorMessage, setErrorMessage] = useState('');
