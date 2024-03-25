@@ -69,7 +69,7 @@ const Table: React.FC = () => {
         </Link>
       </div>
 
-      <div className="text-center font-bold text-3xl">Guest Lecture Details</div>
+      <div className="text-center font-bold text-3xl">GUEST FACULTY HONORARIUM INITIATION</div>
       <div className="flex flex-col mt-4">
         <div className=" m-3 ">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
