@@ -9,6 +9,7 @@ const Table: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedLecturer, setSelectedLecturer] = useState<any | null>(null);
+  const [selectedLecturerDetails, setSelectedLecturerDetails] = useState<any | null>(null);
 
   const itemsPerPage = 5;
 
@@ -44,20 +45,13 @@ const Table: React.FC = () => {
 
   const handleEdit = (lecturer: any) => {
     setSelectedLecturer(lecturer);
+    setSelectedLecturerDetails(lecturer); // Setting selected lecturer details
     setIsEditModalOpen(true);
   };
 
   const handleEditSubmit = (editedLecturer: any) => {
     console.log('Edited lecturer:', editedLecturer);
     setIsEditModalOpen(false);
-  };
-
-  const handleAccept = (lecturerId: number) => {
-    console.log('Accepted lecturer with ID:', lecturerId);
-  };
-
-  const handleComment = (lecturerId: number) => {
-    console.log('Commented on lecturer with ID:', lecturerId);
   };
 
   return (
@@ -98,26 +92,26 @@ const Table: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                                {currentItems.map((lecturer, index) => (
-                  <tr key={lecturer._id}>
-                    <td className="px-6 py-4 whitespace-nowrap ">{index + 1}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <Link to={`/details/${lecturer._id}`} className="text-indigo-600 hover:text-indigo-900">
-                        {lecturer.facultyName}
-                      </Link>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      {/* <Link to={`/details/${lecturer._id}`} className="text-indigo-600 hover:text-indigo-900">
-                        {lecturer.status}
-                      </Link> */}<h1>HI</h1>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <button className="text-blue-600 hover:text-blue-900 ml-2 p-2 pl-3 pr-3 bg-blue-400 text-white rounded-xl m-1" onClick={() => handleEdit(lecturer)}>
-                        Edit
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                  {currentItems.map((lecturer, index) => (
+                    <tr key={lecturer._id}>
+                      <td className="px-6 py-4 whitespace-nowrap text-gray-300">{index + 1}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <Link to={`/details/${lecturer._id}`} className="text-indigo-600 hover:text-indigo-900">
+                          {lecturer.facultyName}
+                        </Link>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <Link to={`/details/${lecturer._id}`} className="text-indigo-600 hover:text-indigo-900">
+                          {lecturer.status}
+                        </Link>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <button className="text-blue-600 hover:text-blue-900 ml-2 p-2 pl-3 pr-3 bg-blue-400 text-white rounded-xl m-1" onClick={() => handleEdit(lecturer)}>
+                          Edit
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
@@ -125,7 +119,14 @@ const Table: React.FC = () => {
         </div>
         <Pagination itemsPerPage={itemsPerPage} totalItems={lectures.length} paginate={paginate} />
       </div>
-      <EditModal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} lecturer={selectedLecturer} onSubmit={handleEditSubmit} />
+      {selectedLecturerDetails && (
+        <EditModal
+          isOpen={isEditModalOpen}
+          onClose={() => setIsEditModalOpen(false)}
+          lecturer={selectedLecturerDetails}
+          onSubmit={handleEditSubmit}
+        />
+      )}
     </div>
   );
 };
