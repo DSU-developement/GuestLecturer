@@ -98,26 +98,26 @@ const Table: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {currentItems.map((lecturer) => (
-                    <tr key={lecturer._id}>
-                      <td className="px-6 py-4 whitespace-nowrap text-gray-300">{lecturer._id}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <Link to={`/details/${lecturer._id}`} className="text-indigo-600 hover:text-indigo-900">
-                          {lecturer.facultyName}
-                        </Link>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <Link to={`/details/${lecturer._id}`} className="text-indigo-600 hover:text-indigo-900">
-                          {lecturer.status}
-                        </Link>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <button className="text-blue-600 hover:text-blue-900 ml-2 p-2 pl-3 pr-3 bg-blue-400 text-white rounded-xl m-1" onClick={() => handleEdit(lecturer)}>
-                          Edit
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                                {currentItems.map((lecturer, index) => (
+                  <tr key={lecturer._id}>
+                    <td className="px-6 py-4 whitespace-nowrap ">{index + 1}</td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <Link to={`/details/${lecturer._id}`} className="text-indigo-600 hover:text-indigo-900">
+                        {lecturer.facultyName}
+                      </Link>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {/* <Link to={`/details/${lecturer._id}`} className="text-indigo-600 hover:text-indigo-900">
+                        {lecturer.status}
+                      </Link> */}<h1>HI</h1>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <button className="text-blue-600 hover:text-blue-900 ml-2 p-2 pl-3 pr-3 bg-blue-400 text-white rounded-xl m-1" onClick={() => handleEdit(lecturer)}>
+                        Edit
+                      </button>
+                    </td>
+                  </tr>
+                ))}
                 </tbody>
               </table>
             </div>
