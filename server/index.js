@@ -168,5 +168,15 @@ app.put('/editDetails/:id', async (req, res) => {
     }
   });
   
-
+  app.delete('/lecture/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      await GuestLecture.findByIdAndDelete(id);
+      res.status(200).json({ message: 'Lecturer deleted successfully' });
+    } catch (error) {
+      console.error('Error deleting lecturer:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+  
   module.exports = app; 
