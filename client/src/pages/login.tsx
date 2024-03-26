@@ -1,12 +1,13 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { CgProfile } from "react-icons/cg";
+import bg from "../assets/maxresdefault.jpg";
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [userDetails, setUserDetails] = useState<any>(null);
-  const [isHOD , setisHOD] = useState<boolean>(false);
+  const [isHOD, setisHOD] = useState<boolean>(false);
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -22,7 +23,7 @@ const LoginPage = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  
+
     try {
       const response = await fetch("/api/login", {
         method: "POST",
@@ -31,9 +32,9 @@ const LoginPage = () => {
         },
         body: JSON.stringify({ email, password }),
       });
-  
+
       const data = await response.json();
-  
+
       if (response.ok) {
         console.log(data.user.role);
         localStorage.setItem('token', JSON.stringify(data.user));
@@ -60,9 +61,15 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="bg-dynamic h-screen " style={{ backgroundImage: `url("./bg.jpeg")` }}>
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-md w-full space-y-8 border border-gray-600 p-20 rounded-xl shadow-xl">
+    <div className="relative h-screen">
+      <img
+        src={ bg }
+        alt="Background"
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ zIndex: -1 }}
+      />
+      <div className="flex justify-center items-center h-full">
+        <div className="max-w-md w-full space-y-8 border border-gray-600 p-20 rounded-xl shadow-xl bg-white opacity-90">
           <div>
             <div className='flex justify-center mb-4'>
               <CgProfile className='text-6xl text-indigo-600' />
@@ -111,8 +118,8 @@ const LoginPage = () => {
                 Login
               </button>
               <button
-              type='button'
-              onClick={handleSignup}
+                type='button'
+                onClick={handleSignup}
                 className="group  ml-2 relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 SignUp
