@@ -2,6 +2,8 @@ const connectDB = require('./config/db.js');
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const User = require("./modals/User.js");
+const Hod = require("./modals/Hod.js");
+const Dean = require("./modals/Dean.js");
 const GuestLecture = require('./modals/guestlecture.js');
 
 
@@ -30,15 +32,51 @@ app.get("/api", (req, res) => {
   app.post("/api/login", async (req, res) => {
     try {
         const { email, password } = req.body;
-
-        const user = await User.findOne({ email });
+        console.log(email,password);
+        // Find the user by email
+        let user = await Hod.findOne({ email }); // Check if user is HOD
+        if (!user) {
+            user = await Dean.findOne({ email }); // Check if user is Dean
+        }
+        if (!user) {
+            user = await User.findOne({ email }); // Check if user is in the generic User model
+        }
+        
+        
 
         if (!user || user.password !== password) {
             return res.status(401).json({ success: false, message: "Invalid email or password" });
         }
 
+        // Determine the user's role
+        let role = '';
+        if (user.role === 'HR') {
+            role = 'HR';
+        } else if (user.role === 'Registrar') {
+            role = 'Registrar';
+        } else if (user.role === 'ViceChancellor') {
+            role = 'ViceChancellor';
+        } else if (user.role === 'ProChanCellor') {
+            role = 'ProChanCellor';
+        } else if (user.role === 'CFO') {
+            role = 'CFO';
+        } else {
+            // If not one of the predefined roles, check other models
+            if (await Dean.exists({ email })) {
+                role = 'Dean';
+            } else if (await Hod.exists({ email })) {
+                role = 'HOD';
+            } else if (await GuestLecture.exists({ email })) {
+                role = 'GuestLecture';
+            } else {
+                // No matching role found
+                return res.status(401).json({ success: false, message: "Invalid user role" });
+            }
+        }
 
-        res.json({ success: true, message: "Login successful",user });
+        // Return the successful login response with user details and role
+        res.json({ success: true, message: "Login successful", user, role });
+
     } catch (error) {
         console.error("Error logging in:", error.message);
         res.status(500).json({ success: false, message: "An error occurred while logging in" });
