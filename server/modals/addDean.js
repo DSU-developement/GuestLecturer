@@ -19,10 +19,9 @@ const connectToMongoDB = async () => {
 };
 
 // Function to add dean data to the database
-const addDeanData = async () => {
+ const addDeanData = async () => {
   try {
-    await connectToMongoDB(); // Establish MongoDB connection
-
+ 
     const deanData = [
       {
         school: "School of Health Sciences",
@@ -70,6 +69,6 @@ const addDeanData = async () => {
     mongoose.connection.close();
   }
 };
-
+module.exports = addDeanData;
 // Call the function to add dean data to the database
-addDeanData();
+
