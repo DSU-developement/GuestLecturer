@@ -207,6 +207,16 @@ app.put('/editDetails/:id', async (req, res) => {
       res.status(500).json({ message: 'Internal server error' });
     }
   });
+  app.get('/lecture/dean/:dean_id', async (req, res) => {
+    try {
+      const deanId = req.params.dean_id;
+      const lectures = await GuestLecture.find({ dean_id: deanId });
+      res.json(lectures);
+    } catch (error) {
+      console.error('Error fetching lectures:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
   
   app.delete('/lecture/:id', async (req, res) => {
     try {

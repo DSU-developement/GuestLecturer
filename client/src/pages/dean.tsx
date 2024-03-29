@@ -20,7 +20,9 @@ const DEAN: React.FC = () => {
 
   if (storedUserData) {
     const userData = JSON.parse(storedUserData);
+    console.log(userData);
     userId = userData['_id'];
+    console.log(userId);
   } else {
     console.error('User data not found in local storage');
   }
@@ -28,7 +30,8 @@ const DEAN: React.FC = () => {
   useEffect(() => {
     async function fetchLectures() {
       try {
-        const response = await axios.get(`/lecture/${userId}`);
+        const response = await axios.get(`/lecture/dean/${userId}`);
+        console.log(response.data);
         setLectures(response.data);
       } catch (error) {
         console.error('Error fetching lectures:', error);
