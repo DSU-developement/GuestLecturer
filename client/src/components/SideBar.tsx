@@ -19,14 +19,6 @@ const Sidebar: React.FC = () => {
               Accept Guest Lecture
             </Link>
           </li>
-          <li>
-            <Link
-              to="/accept-payments"
-              className="block py-2 px-4 rounded hover:bg-gray-700 transition duration-300"
-            >
-              Accept Payments
-            </Link>
-          </li>
         </ul>
       </div>
     </div>
