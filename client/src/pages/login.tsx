@@ -46,10 +46,9 @@ const LoginPage = () => {
         }else if(data.role === 'Dean'){
           window.location.href = `/dean`;
         }
-         else {
-          window.location.href = `/higherup`;
-          console.log(data.user.role);
-        }
+         else if(data.role === 'Registrar') {
+          window.location.href = `/registar`;
+         }
       } else {
         throw new Error(data.message || "Login failed");
       }

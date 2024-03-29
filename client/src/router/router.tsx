@@ -5,6 +5,7 @@ import Table from '../pages/hod';
 import SignupPage from '../pages/signupPage';
 import DEAN from '../pages/dean';
 import SignupPageLect from '../pages/guest-lecturesignup';
+import Resgistar from '../pages/higherup';
 
 const isAuthenticated = () => {
   const token = localStorage.getItem('token');
@@ -21,7 +22,7 @@ const AppRouter: React.FC = () => {
         <Route path='/signup' element={<SignupPage />} />
         <Route path="/hod" element={authenticated ? <Table/> : <LoginPage />} />
         <Route path="/dean" element={authenticated ? <DEAN/> : <LoginPage />} />
-
+        <Route path="/registar" element={authenticated ? <Resgistar/> : <LoginPage />} />
         <Route path='/add-lecture' element={<SignupPageLect />} />
       </Routes>
     </Router>
