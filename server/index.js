@@ -295,4 +295,37 @@ app.put('/editDetails/:id', async (req, res) => {
       res.status(500).json({ message: 'Internal server error' });
     }
   });
+
+
+
+  app.get('/vphr/approved-lectures', async (req, res) => {
+    try {
+      const approvedLectures = await GuestLecture.find({ 'approved.viceChancellor': true });
+      res.json(approvedLectures);
+    } catch (error) {
+      console.error('Error fetching approved lectures:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+  app.put('/lecture/accept/hr/:lecturerId', async (req, res) => {
+    const { lecturerId } = req.params;
+  
+    try {
+      const lecturer = await GuestLecture.findById(lecturerId);
+      if (!lecturer) {
+        return res.status(404).json({ message: 'Lecturer not found' });
+      }
+  
+      lecturer.approved.vpHR = true; // Update the approval status
+      await lecturer.save();
+  
+      res.json({ message: 'Lecturer approved successfully' });
+    } catch (error) {
+      console.error('Error accepting lecturer:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+
+
+
   module.exports = app; 

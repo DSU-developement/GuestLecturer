@@ -52,6 +52,9 @@ const LoginPage = () => {
          else if(data.role === 'ViceChancellor'){
           window.location.href = `/vicechancellor`;
          }
+         else if(data.role === 'HR'){
+          window.location.href = `/vphr`;
+         }
       } else {
         throw new Error(data.message || "Login failed");
       }
