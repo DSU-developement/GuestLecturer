@@ -9,10 +9,13 @@ const SignupPageLect = () => {
 
   const storedUserData = localStorage.getItem('token');
   var userId = ""; 
+  var deanid = "";
   if (storedUserData) {
     const userData = JSON.parse(storedUserData);
     console.log(userData);
     userId = userData['_id']; 
+    deanid = userData['deanId'];
+
   } else {
     console.error('User data not found in local storage');
   }
@@ -46,7 +49,7 @@ const SignupPageLect = () => {
     remarks: {},
     approved:{},
     hod_id: userId,
-    dean_id: '',
+    dean_id: deanid,
   });
 
   const [errorMessage, setErrorMessage] = useState('');

@@ -38,7 +38,7 @@ const guestLectureSchema = new Schema({
     required: false
   },
   hod_id:{type: String},
-  dean_id:{type: Number},
+  dean_id:{type: String},
   approved: {
     hod: { type: Boolean, default: false },
     dean: { type: Boolean, default: false },
