@@ -55,6 +55,9 @@ const LoginPage = () => {
          else if(data.role === 'HR'){
           window.location.href = `/vphr`;
          }
+         else if(data.role === 'HR'){
+          window.location.href = `/vphr`;
+         }
       } else {
         throw new Error(data.message || "Login failed");
       }
