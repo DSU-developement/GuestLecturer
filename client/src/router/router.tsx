@@ -5,7 +5,7 @@ import Table from '../pages/hod';
 import SignupPage from '../pages/signupPage';
 import DEAN from '../pages/dean';
 import SignupPageLect from '../pages/guest-lecturesignup';
-import Resgistar from '../pages/higherup';
+import Resgistar from '../pages/Registar';
 
 const isAuthenticated = () => {
   const token = localStorage.getItem('token');
