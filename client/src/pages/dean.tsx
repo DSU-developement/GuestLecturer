@@ -4,7 +4,7 @@ import { FaTrash } from 'react-icons/fa'; // Importing delete icon
 import EditModal from '../components/EditModal';
 import axios from 'axios';
 import Sidebar from '../components/SideBar';
-import Header from '../components/HeaderHod';
+import Header from '../components/CommonHeader';
 
 const DEAN: React.FC = () => {
   const [lectures, setLectures] = useState<any[]>([]);
@@ -47,7 +47,6 @@ const DEAN: React.FC = () => {
   const handleDelete = async (lecturerId: string) => {
     try {
       await axios.delete(`/lecture/${lecturerId}`);
-      // Remove the deleted lecturer from the state
       setLectures(prevState => prevState.filter(lecturer => lecturer._id !== lecturerId));
     } catch (error) {
       console.error('Error deleting lecturer:', error);
