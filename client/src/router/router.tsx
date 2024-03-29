@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginPage from '../pages/login';
 import Table from '../pages/hod';
 import SignupPage from '../pages/signupPage';
+import DEAN from '../pages/dean';
 import SignupPageLect from '../pages/guest-lecturesignup';
 
 const isAuthenticated = () => {
@@ -19,6 +20,8 @@ const AppRouter: React.FC = () => {
         <Route path="/" element={<LoginPage />} />
         <Route path='/signup' element={<SignupPage />} />
         <Route path="/hod" element={authenticated ? <Table/> : <LoginPage />} />
+        <Route path="/dean" element={authenticated ? <DEAN/> : <LoginPage />} />
+
         <Route path='/add-lecture' element={<SignupPageLect />} />
       </Routes>
     </Router>
