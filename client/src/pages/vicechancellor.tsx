@@ -4,14 +4,14 @@ import axios from 'axios';
 import Sidebar from '../components/SideBar';
 import Header from '../components/CommonHeader';
 
-const Registrar: React.FC = () => {
+const ViceChancellor: React.FC = () => {
   const [approvedLectures, setApprovedLectures] = useState<any[]>([]);
   const tableRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     async function fetchApprovedLectures() {
       try {
-        const response = await axios.get('/registar/approved-lectures');
+        const response = await axios.get('vicechancellor/approved-lectures');
         console.log(response.data);
         setApprovedLectures(response.data);
       } catch (error) {
@@ -24,7 +24,7 @@ const Registrar: React.FC = () => {
 
   const handleAccept = async (lecturerId: string) => {
     try {
-      await axios.put(`/lecture/accept/registar/${lecturerId}`);
+      await axios.put(`/lecture/accept/vicechancellor/${lecturerId}`);
       window.location.reload(); // Reload the page after accepting the lecturer
     } catch (error) {
       console.error('Error accepting lecturer:', error);
@@ -65,18 +65,18 @@ const Registrar: React.FC = () => {
                       <td className="px-6 py-4 whitespace-nowrap">
                         <button
                           className={`text-green-600 hover:text-green-900 ml-2 p-2 pl-3 pr-3 ${
-                            lecturer.approved.registrar ? 'bg-gray-400 text-gray-600 cursor-not-allowed' : 'bg-green-400 text-white hover:bg-green-500'
+                            lecturer.approved.viceChancellor ? 'bg-gray-400 text-gray-600 cursor-not-allowed' : 'bg-green-400 text-white hover:bg-green-500'
                           } rounded-xl m-1`}
                           onClick={() => handleAccept(lecturer._id)}
-                          disabled={lecturer.approved.registrar}
+                          disabled={lecturer.approved.viceChancellor}
                         >
-                          {lecturer.approved.registrar ? 'Accepted' : 'Accept'}
+                          {lecturer.approved.viceChancellor ? 'Accepted' : 'Accept'}
                         </button>
                         <button
                           className={`text-blue-600 hover:text-blue-900 ml-2 p-2 pl-3 pr-3 ${
-                            lecturer.approved.registrar ? 'bg-gray-400 text-gray-600 cursor-not-allowed' : 'bg-blue-400 text-white hover:bg-blue-500'
+                            lecturer.approved.viceChancellor ? 'bg-gray-400 text-gray-600 cursor-not-allowed' : 'bg-blue-400 text-white hover:bg-blue-500'
                           } rounded-xl m-1`}
-                          disabled={lecturer.approved.registrar}
+                          disabled={lecturer.approved.viceChancellor}
                         >
                           Comment
                         </button>
@@ -95,4 +95,4 @@ const Registrar: React.FC = () => {
   );
 };
 
-export default Registrar;
+export default ViceChancellor;
