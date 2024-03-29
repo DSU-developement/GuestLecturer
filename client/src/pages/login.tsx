@@ -36,15 +36,19 @@ const LoginPage = () => {
       const data = await response.json();
 
       if (response.ok) {
-        console.log(data.user.role);
+        console.log(data.role);
         localStorage.setItem('token', JSON.stringify(data.user));
         setUserDetails(data.user);
 
-        if (data.user.role === 'HOD') {
+        if (data.role === 'HOD') {
           setisHOD(true);
           window.location.href = `/hod`;
-        } else {
-          window.location.href = `/guest`;
+        }else if(data.role === 'Dean'){
+          window.location.href = `/dean`;
+        }
+         else {
+          window.location.href = `/higherup`;
+          console.log(data.user.role);
         }
       } else {
         throw new Error(data.message || "Login failed");

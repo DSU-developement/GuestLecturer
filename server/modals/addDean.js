@@ -18,7 +18,7 @@ const connectToMongoDB = async () => {
   }
 };
 
-// Function to add dean data to the database
+
  const addDeanData = async () => {
   try {
  
