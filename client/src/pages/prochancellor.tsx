@@ -65,18 +65,18 @@ const Prochancellor: React.FC = () => {
                       <td className="px-6 py-4 whitespace-nowrap">
                       <button
                           className={`text-green-600 hover:text-green-900 ml-2 p-2 pl-3 pr-3 ${
-                            lecturer.approved.prochancellor ? 'bg-gray-400 text-gray-600 cursor-not-allowed' : 'bg-green-400 text-white hover:bg-green-500'
+                            lecturer.approved.proChancellor ? 'bg-gray-400 text-gray-600 cursor-not-allowed' : 'bg-green-400 text-white hover:bg-green-500'
                           } rounded-xl m-1`}
                           onClick={() => handleAccept(lecturer._id)}
-                          disabled={lecturer.approved.prochancellor}
+                          disabled={lecturer.approved.proChancellor}
                         >
-                          {lecturer.approved.prochancellor ? 'Accepted' : 'Accept'}
+                          {lecturer.approved.proChancellor? 'Accepted' : 'Accept'}
                         </button>
                         <button
                           className={`text-blue-600 hover:text-blue-900 ml-2 p-2 pl-3 pr-3 ${
-                            lecturer.approved.prochancellor ? 'bg-gray-400 text-gray-600 cursor-not-allowed' : 'bg-blue-400 text-white hover:bg-blue-500'
+                            lecturer.approved.proChancellor ? 'bg-gray-400 text-gray-600 cursor-not-allowed' : 'bg-blue-400 text-white hover:bg-blue-500'
                           } rounded-xl m-1`}
-                          disabled={lecturer.approved.prochancellor}
+                          disabled={lecturer.approved.proChancellor}
                         >
                           Comment
                         </button>

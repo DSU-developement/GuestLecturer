@@ -58,8 +58,8 @@ app.get("/api", (req, res) => {
             role = 'Registrar';
         } else if (user.role === 'ViceChancellor') {
             role = 'ViceChancellor';
-        } else if (user.role === 'ProChanCellor') {
-            role = 'ProChanCellor';
+        } else if (user.role === 'ProChancellor') {
+            role = 'ProChancellor';
         } else if (user.role === 'CFO') {
             role = 'CFO';
         } else {
@@ -346,7 +346,7 @@ app.put('/editDetails/:id', async (req, res) => {
         return res.status(404).json({ message: 'Lecturer not found' });
       }
   
-      lecturer.approved.proChancellor = true; // Update the approval status
+      lecturer.approved.proChancellor= true; // Update the approval status
       await lecturer.save();
   
       res.json({ message: 'Lecturer approved successfully' });
