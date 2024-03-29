@@ -35,9 +35,11 @@ const DEAN: React.FC = () => {
     fetchLectures();
   }, []);
 
-  const handleAccept = async (lecturer: any) => {
+  const handleAccept = async (lecturerId: string) => {
     try {
-      // Handle the accept action here
+      await axios.put(`/lecture/accept/${lecturerId}`);
+      // Optionally, you can update your local state or perform any other actions after accepting the lecturer
+      window.location.reload(); // Reload the page after accepting the lecturer
     } catch (error) {
       console.error('Error accepting lecturer:', error);
     }
@@ -97,8 +99,24 @@ const DEAN: React.FC = () => {
                         <Link to={`/details/${lecturer._id}`} className="text-indigo-600 hover:text-indigo-900">{lecturer.status}</Link>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <button className="text-green-600 hover:text-green-900 ml-2 p-2 pl-3 pr-3 bg-green-400 text-white rounded-xl m-1" onClick={() => handleAccept(lecturer)}>Accept</button>
-                        <button className="text-blue-600 hover:text-blue-900 ml-2 p-2 pl-3 pr-3 bg-blue-400 text-white rounded-xl m-1" onClick={() => handleComment(lecturer)}>Comment</button>
+                      <button
+                        className={`text-green-600 hover:text-green-900 ml-2 p-2 pl-3 pr-3 ${
+                          lecturer.approved.dean ? 'bg-gray-400 text-gray-600 cursor-not-allowed' : 'bg-green-400 text-white hover:bg-green-500'
+                        } rounded-xl m-1`}
+                        onClick={() => handleAccept(lecturer._id)}
+                        disabled={lecturer.approved.dean}
+                          >
+                        {lecturer.approved.dean ? 'Accepted' : 'Accept'}
+                        </button>
+                        <button
+                          className={`text-blue-600 hover:text-blue-900 ml-2 p-2 pl-3 pr-3 ${
+                            lecturer.approved.dean ? 'bg-gray-400 text-gray-600 cursor-not-allowed' : 'bg-blue-400 text-white hover:bg-blue-500'
+                          } rounded-xl m-1`}
+                          onClick={() => handleComment(lecturer._id)}
+                          disabled={lecturer.approved.dean}
+                        >
+                          {lecturer.approved.dean ? 'Comment' : 'Comment'}
+                        </button>
                       </td>
                     </tr>
                   ))}

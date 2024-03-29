@@ -228,5 +228,17 @@ app.put('/editDetails/:id', async (req, res) => {
       res.status(500).json({ message: 'Internal server error' });
     }
   });
+
+  app.put('/lecture/accept/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const updatedLecturer = await GuestLecture.findByIdAndUpdate(id, { 'approved.dean': true }, { new: true });
+      res.json(updatedLecturer);
+    } catch (error) {
+      console.error('Error accepting lecturer:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+  
   
   module.exports = app; 

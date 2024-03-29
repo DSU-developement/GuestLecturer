@@ -40,7 +40,6 @@ const guestLectureSchema = new Schema({
   hod_id:{type: String},
   dean_id:{type: String},
   approved: {
-    hod: { type: Boolean, default: false },
     dean: { type: Boolean, default: false },
     registrar: { type: Boolean, default: false },
     viceChancellor: { type: Boolean, default: false },
