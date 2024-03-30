@@ -94,6 +94,10 @@ const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, lecturer, onSubm
                         <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
                         <input type="email" name="email" id="email" value={editedLecturer.email} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                       </div>
+                      <div className="col-span-6">
+                        <label htmlFor="subjectName" className="block text-sm font-medium text-gray-700">subjectName</label>
+                        <input type="subjectName" name="subjectName" id="subjectName" value={editedLecturer.subjectName} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                      </div>
                       {/* Add other input fields for lecturer details */}
                     </div>
                   </div>
