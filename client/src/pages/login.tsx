@@ -38,6 +38,7 @@ const LoginPage = () => {
       if (response.ok) {
         console.log(data.role);
         localStorage.setItem('token', JSON.stringify(data.user,data.role));
+        localStorage.setItem('role', JSON.stringify(data.role));
         setUserDetails(data.user);
 
         if (data.role === 'HOD') {

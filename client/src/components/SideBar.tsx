@@ -3,6 +3,24 @@ import { Link } from 'react-router-dom';
 import Collegelogo from "../assets/collegelogo.png";
 
 const Sidebar: React.FC = () => {
+
+  const storedUserData = localStorage.getItem('role');
+  var role = ""; 
+  if (storedUserData) {
+    role = JSON.parse(storedUserData);
+    console.log(role);
+  } else {
+    console.error('User role not found in local storage');
+  }
+
+  // Define the default payment path
+  let paymentPath = '/hodPayment';
+
+  // Change payment path based on the role
+  if (role === 'Dean') {
+    paymentPath = '/deanPayment';
+  }
+
   return (
     <div className="bg-gray-800 text-white w-62 h-screen flex flex-col">
       <div className="p-4">
@@ -17,6 +35,12 @@ const Sidebar: React.FC = () => {
               className="block py-2 px-4 rounded hover:bg-gray-700 transition duration-300"
             >
               Accept Guest Lecture
+            </Link>
+            <Link
+              to={paymentPath} // Use the dynamic payment path
+              className="block py-2 px-4 rounded hover:bg-gray-700 transition duration-300"
+            >
+              Accept Payment
             </Link>
           </li>
         </ul>
