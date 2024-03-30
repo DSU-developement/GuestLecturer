@@ -1,7 +1,7 @@
 import React from 'react';
 import { CgProfile } from 'react-icons/cg';
-import Sidebar from '../../components/SideBar';
-import Header from '../../components/CommonHeader';
+import Sidebar from '../../components/guestSidebar';
+import Header from '../../components/guestlecHeader';
 
 const GuestDash: React.FC = () => {
   const storedUserData = localStorage.getItem('token');
