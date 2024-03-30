@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Sidebar from '../components/SideBar';
-import Header from '../components/CommonHeader';
+import Sidebar from '../../components/SideBar';
+import Header from '../../components/CommonHeader';
 
 const VpHr: React.FC = () => {
   const [approvedLectures, setApprovedLectures] = useState<any[]>([]);

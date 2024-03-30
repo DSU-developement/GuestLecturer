@@ -1,12 +1,18 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { FaTrash } from 'react-icons/fa'; // Importing delete icon
+import EditModal from '../../components/EditModal';
 import axios from 'axios';
-import Sidebar from '../components/SideBar';
-import Header from '../components/CommonHeader';
+import Sidebar from '../../components/SideBar';
+import Header from '../../components/HeaderHod';
 
-const DEAN: React.FC = () => {
+const Table: React.FC = () => {
   const [lectures, setLectures] = useState<any[]>([]);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedLecturer, setSelectedLecturer] = useState<any | null>(null);
+  const [selectedLecturerDetails, setSelectedLecturerDetails] = useState<any | null>(null);
   const [visibleRows, setVisibleRows] = useState(5); // Number of rows to display initially
+
   const tableRef = useRef<HTMLDivElement>(null);
 
   const storedUserData = localStorage.getItem('token');
@@ -14,7 +20,6 @@ const DEAN: React.FC = () => {
 
   if (storedUserData) {
     const userData = JSON.parse(storedUserData);
-    console.log(userData);
     userId = userData['_id'];
   } else {
     console.error('User data not found in local storage');
@@ -23,7 +28,7 @@ const DEAN: React.FC = () => {
   useEffect(() => {
     async function fetchLectures() {
       try {
-        const response = await axios.get(`/lecture/dean/${userId}`);
+        const response = await axios.get(`/lecture/${userId}`);
         setLectures(response.data);
       } catch (error) {
         console.error('Error fetching lectures:', error);
@@ -33,22 +38,25 @@ const DEAN: React.FC = () => {
     fetchLectures();
   }, []);
 
-  const handleAccept = async (lecturerId: string) => {
+  const handleEdit = (lecturer: any) => {
+    setSelectedLecturer(lecturer);
+    setSelectedLecturerDetails(lecturer); // Setting selected lecturer details
+    setIsEditModalOpen(true);
+  };
+
+  const handleDelete = async (lecturerId: string) => {
     try {
-      await axios.put(`/lecture/accept/${lecturerId}`);
-      // Optionally, you can update your local state or perform any other actions after accepting the lecturer
-      window.location.reload(); // Reload the page after accepting the lecturer
+      await axios.delete(`/lecture/${lecturerId}`);
+      // Remove the deleted lecturer from the state
+      setLectures(prevState => prevState.filter(lecturer => lecturer._id !== lecturerId));
     } catch (error) {
-      console.error('Error accepting lecturer:', error);
+      console.error('Error deleting lecturer:', error);
     }
   };
 
-  const handleComment = async (lecturer: any) => {
-    try {
-      // Handle the comment action here
-    } catch (error) {
-      console.error('Error commenting on lecturer:', error);
-    }
+  const handleEditSubmit = (editedLecturer: any) => {
+    console.log('Edited lecturer:', editedLecturer);
+    setIsEditModalOpen(false);
   };
 
   const handleScroll = () => {
@@ -83,7 +91,7 @@ const DEAN: React.FC = () => {
                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th> {/* Changed the header */}
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
@@ -97,23 +105,9 @@ const DEAN: React.FC = () => {
                         <Link to={`/details/${lecturer._id}`} className="text-indigo-600 hover:text-indigo-900">{lecturer.status}</Link>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                      <button
-                        className={`text-green-600 hover:text-green-900 ml-2 p-2 pl-3 pr-3 ${
-                          lecturer.approved.dean ? 'bg-gray-400 text-gray-600 cursor-not-allowed' : 'bg-green-400 text-white hover:bg-green-500'
-                        } rounded-xl m-1`}
-                        onClick={() => handleAccept(lecturer._id)}
-                        disabled={lecturer.approved.dean}
-                          >
-                        {lecturer.approved.dean ? 'Accepted' : 'Accept'}
-                        </button>
-                        <button
-                          className={`text-blue-600 hover:text-blue-900 ml-2 p-2 pl-3 pr-3 ${
-                            lecturer.approved.dean ? 'bg-gray-400 text-gray-600 cursor-not-allowed' : 'bg-blue-400 text-white hover:bg-blue-500'
-                          } rounded-xl m-1`}
-                          onClick={() => handleComment(lecturer._id)}
-                          disabled={lecturer.approved.dean}
-                        >
-                          {lecturer.approved.dean ? 'Comment' : 'Comment'}
+                        <button className="text-blue-600 hover:text-blue-900 ml-2 p-2 pl-3 pr-3 bg-blue-400 text-white rounded-xl m-1" onClick={() => handleEdit(lecturer)}>Edit</button>
+                        <button className="text-red-600 hover:text-red-900 ml-2 p-2 pl-3 pr-3 bg-red-400 text-white rounded-xl m-1" onClick={() => handleDelete(lecturer._id)}> {/* Added delete button */}
+                          <FaTrash />
                         </button>
                       </td>
                     </tr>
@@ -125,9 +119,17 @@ const DEAN: React.FC = () => {
           {/* Scrollbar */}
           <div className="absolute top-0 right-0 bg-gray-200 w-2 bottom-0" style={{ zIndex: 10 }} />
         </div>
+        {selectedLecturerDetails && (
+          <EditModal
+            isOpen={isEditModalOpen}
+            onClose={() => setIsEditModalOpen(false)}
+            lecturer={selectedLecturerDetails}
+            onSubmit={handleEditSubmit}
+          />
+        )}
       </div>
     </div>
   );
 };
 
-export default DEAN;
+export default Table;

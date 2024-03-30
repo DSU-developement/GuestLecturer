@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginPage from '../pages/login';
-import Table from '../pages/hod';
-import SignupPage from '../pages/signupPage';
-import DEAN from '../pages/dean';
-import SignupPageLect from '../pages/guest-lecturesignup';
-import Resgistar from '../pages/Registar';
-import ViceChancellor from '../pages/vicechancellor';
-import VpHr from '../pages/vpHr';
-import Prochancellor from '../pages/prochancellor';
+import Table from '../pages/AcceptingSystem/hod';
+import SignupPage from '../pages/AcceptingSystem/signupPage';
+import DEAN from '../pages/AcceptingSystem/dean';
+import SignupPageLect from '../pages/AcceptingSystem/guest-lecturesignup';
+import Resgistar from '../pages/AcceptingSystem/Registar';
+import ViceChancellor from '../pages/AcceptingSystem/vicechancellor';
+import VpHr from '../pages/AcceptingSystem/vpHr';
+import Prochancellor from '../pages/AcceptingSystem/prochancellor';
 
 const isAuthenticated = () => {
   const token = localStorage.getItem('token');
