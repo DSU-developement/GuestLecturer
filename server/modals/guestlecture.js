@@ -19,19 +19,19 @@ const guestLectureSchema = new Schema({
   schoolsDeanery: { type: String },
   department: { type: String, required: true },
   subjectName: { type: String, required: true },
-  yearAndSemester: { type: String, required: true },
+  yearAndSemester: { type: String, required: false },
   sectionsHandled: { type: Number, required: true },
-  hours: { type: Number, required: true },
+  hours: { type: Number, required: false },
   startDate: { type: Date, required: true },
   proposedRate: { type: Number, required: true },
   totalAmount: { type: Number, required: true },
   accountDetails: {
-    accountNumber: { type: String, required: true },
-    accountHolderName: { type: String, required: true },
-    bankName: { type: String, required: true },
-    bankBranch: { type: String, required: true }
+    accountNumber: { type: String, required: false },
+    accountHolderName: { type: String, required: false },
+    bankName: { type: String, required: false },
+    bankBranch: { type: String, required: false }
   },
-  panCardNumber: { type: String, required: true },
+  panCardNumber: { type: String, required: false },
 
   remarks: {
     type: [remarkSchema], 

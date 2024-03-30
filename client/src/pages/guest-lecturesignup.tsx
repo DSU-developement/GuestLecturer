@@ -183,24 +183,6 @@ const SignupPageLect = () => {
                 <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="Total Amount" type="number" name="totalAmount" value={formData.totalAmount} onChange={handleChange} required />
               </div>
             </div>
-            <div className='bg-gray-100 rounded border-l-8  p-3 flex flex-col justify-items-start flex-wrap items-center'>
-              <h2 className='font-mono font-black text-2xl w-full border-sky-200 font-bold text-blue-500 col-span-2 text-center mb-3'>FINANCIAL DETAILS</h2>
-              <div className='m-2 p-2'>
-                <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="A/C Number" type="text" name="accountDetails.accountNumber" value={formData.accountDetails.accountNumber} onChange={handleChange} required />
-              </div>
-              <div className='m-2 p-2'>
-                <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="A/C Holder Name" type="text" name="accountDetails.accountHolderName" value={formData.accountDetails.accountHolderName} onChange={handleChange} required />
-              </div>
-              <div className='m-2 p-2'>
-                <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="Bank name" type="text" name="accountDetails.bankName" value={formData.accountDetails.bankName} onChange={handleChange} required />
-              </div>
-              <div className='m-2 p-2'>
-                <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="Bank Branch" type="text" name="accountDetails.bankBranch" value={formData.accountDetails.bankBranch} onChange={handleChange} required />
-              </div>
-              <div className='m-2 p-2'>
-                <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="PAN Card Number" type="text" name="panCardNumber" value={formData.panCardNumber} onChange={handleChange} required />
-              </div>
-            </div>
           </div>
           <div className='flex justify-center items-center'>
             <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
