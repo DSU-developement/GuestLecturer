@@ -410,5 +410,28 @@ app.get('/getLecturerDetails/:id', async (req, res) => {
 });
 
 
+app.put('/api/updatePaymentRequest/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // Find the lecturer by ID
+    const lecturer = await GuestLecture.findById(id);
+    if (!lecturer) {
+      return res.status(404).json({ message: 'Lecturer not found' });
+    }
+
+    // Update PaymentRequest status to true
+    lecturer.PaymentRequest = true;
+
+    // Save the updated lecturer details
+    await lecturer.save();
+
+    res.json({ message: 'Payment request updated successfully' });
+  } catch (error) {
+    console.error('Error updating payment request:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 
   module.exports = app; 

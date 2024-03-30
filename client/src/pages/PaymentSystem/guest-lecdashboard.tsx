@@ -10,9 +10,7 @@ const GuestDash: React.FC = () => {
   var id = ""; 
   if (storedUserData) {
     const userData = JSON.parse(storedUserData);
-    console.log(userData);
     id= userData['_id']; 
-    console.log(id);
 
   } else {
     console.error('User data not found in local storage');
