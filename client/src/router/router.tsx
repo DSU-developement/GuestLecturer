@@ -10,6 +10,7 @@ import ViceChancellor from '../pages/AcceptingSystem/vicechancellor';
 import VpHr from '../pages/AcceptingSystem/vpHr';
 import Prochancellor from '../pages/AcceptingSystem/prochancellor';
 import FinancialDetailsPage from '../pages/PaymentSystem/guest-lec';
+import GuestDash from '../pages/PaymentSystem/guest-lecdashboard';
 
 const isAuthenticated = () => {
   const token = localStorage.getItem('token');
@@ -32,6 +33,7 @@ const AppRouter: React.FC = () => {
         <Route path="/prochancellor" element={authenticated ? <Prochancellor/> : <LoginPage />} />
         <Route path='/add-lecture' element={<SignupPageLect />} />
         <Route path='/finance' element={authenticated ? <FinancialDetailsPage/> : <LoginPage />} />
+        <Route path='/dashboard' element={authenticated ? <GuestDash/> : <LoginPage />} />
       </Routes>
     </Router>
   );

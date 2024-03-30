@@ -61,6 +61,9 @@ const LoginPage = () => {
          else if(data.role === 'ProChancellor'){
           window.location.href = `/prochancellor`;
          }
+         else if(data.role === 'GuestLecture'){
+          window.location.href = `/dashboard`;
+         }
       } else {
         throw new Error(data.message || "Login failed");
       }

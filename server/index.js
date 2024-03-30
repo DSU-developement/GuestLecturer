@@ -43,7 +43,10 @@ app.get("/api", (req, res) => {
         if (!user) {
             user = await User.findOne({ email }); // Check if user is in the generic User model
         }
-        
+        if (!user) {
+          user = await GuestLecture.findOne({ email }); // Check if user is in the generic User model
+      }
+      
         
 
         if (!user || user.password !== password) {
@@ -357,7 +360,7 @@ app.put('/editDetails/:id', async (req, res) => {
   });
 
 
-  
+
   app.put('/api/updateFinancialDetails', async (req, res) => {
     const { accountNumber, accountHolderName, bankName, bankBranch, panCardNumber, hod_id } = req.body;
   
