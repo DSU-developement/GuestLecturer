@@ -357,4 +357,32 @@ app.put('/editDetails/:id', async (req, res) => {
   });
 
 
+  
+  app.put('/api/updateFinancialDetails', async (req, res) => {
+    const { accountNumber, accountHolderName, bankName, bankBranch, panCardNumber, hod_id } = req.body;
+  
+    try {
+      const lecturer = await GuestLecture.findOne({ hod_id });
+      if (!lecturer) {
+        return res.status(404).json({ message: 'Lecturer not found' });
+      }
+  
+      // Update financial details
+      lecturer.accountDetails = {
+        accountNumber,
+        accountHolderName,
+        bankName,
+        bankBranch,
+      };
+      lecturer.panCardNumber = panCardNumber;
+  
+      await lecturer.save();
+  
+      res.json({ message: 'Financial details updated successfully' });
+    } catch (error) {
+      console.error('Error updating financial details:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+
   module.exports = app; 
