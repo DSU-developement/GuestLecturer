@@ -8,13 +8,12 @@ const FinancialDetailsPage: React.FC = () => {
   };
 
   const storedUserData = localStorage.getItem('token');
-  var userId = ""; 
-  var deanid = "";
+  var email = ""; 
   if (storedUserData) {
     const userData = JSON.parse(storedUserData);
     console.log(userData);
-    userId = userData['_id']; 
-    deanid = userData['deanId'];
+    email= userData['email']; 
+    console.log(email);
 
   } else {
     console.error('User data not found in local storage');
@@ -25,8 +24,7 @@ const FinancialDetailsPage: React.FC = () => {
     bankName: '',
     bankBranch: '',
     panCardNumber: '',
-    hod_id: userId,
-    dean_id: deanid,
+    email: email, 
   });
 
   const [errorMessage, setErrorMessage] = useState('');
@@ -62,7 +60,7 @@ const FinancialDetailsPage: React.FC = () => {
     if (submitted) {
       // Redirect to /hod after 3 seconds
       setTimeout(() => {
-        window.location.href = '/hod';
+        window.location.href = '/dashboard';
       }, 3000);
     }
   }, [submitted]);

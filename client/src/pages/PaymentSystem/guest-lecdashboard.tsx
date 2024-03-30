@@ -1,17 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { CgProfile } from 'react-icons/cg';
 import Sidebar from '../../components/guestSidebar';
 import Header from '../../components/guestlecHeader';
 
 const GuestDash: React.FC = () => {
+  const [lecturerData, setLecturerData] = useState<any>(null);
   const storedUserData = localStorage.getItem('token');
-  let lecturerData = null;
-
+  var id = ""; 
   if (storedUserData) {
-    lecturerData = JSON.parse(storedUserData);
+    const userData = JSON.parse(storedUserData);
+    console.log(userData);
+    id= userData['_id']; 
+    console.log(id);
+
   } else {
     console.error('User data not found in local storage');
   }
+
+  useEffect(() => {
+    const fetchLecturerDetails = async () => {
+      try {
+        if (id) {
+          const response = await axios.get(`/getLecturerDetails/${id}`);
+          setLecturerData(response.data);
+        } else {
+          console.error('User data not found in local storage');
+        }
+      } catch (error) {
+        console.error('Error fetching lecturer details:', error);
+      }
+    };
+
+    fetchLecturerDetails();
+  }, []); // Empty dependency array ensures this effect runs only once on mount
 
   return (
     <div className="flex h-screen">
@@ -36,10 +58,9 @@ const GuestDash: React.FC = () => {
               <p className="text-lg">Total Amount: {lecturerData.totalAmount}</p>
               <p className="text-lg">PAN Card Number: {lecturerData.panCardNumber}</p>
               <p className="text-lg">Account Number: {lecturerData.accountDetails.accountNumber || 'Update'}</p>
-                <p className="text-lg">Account Holder Name: {lecturerData.accountDetails.accountHolderName || 'Update'}</p>
-                <p className="text-lg">BankName: {lecturerData.accountDetails.bankName || 'Update'}</p>   
-                <p className="text-lg">Bank Branch: {lecturerData.accountDetails.bankBranch || 'Update'}</p> 
-             
+              <p className="text-lg">Account Holder Name: {lecturerData.accountDetails.accountHolderName || 'Update'}</p>
+              <p className="text-lg">BankName: {lecturerData.accountDetails.bankName || 'Update'}</p>   
+              <p className="text-lg">Bank Branch: {lecturerData.accountDetails.bankBranch || 'Update'}</p> 
             </>
           )}
         </div>

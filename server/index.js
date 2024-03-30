@@ -362,30 +362,53 @@ app.put('/editDetails/:id', async (req, res) => {
 
 
   app.put('/api/updateFinancialDetails', async (req, res) => {
-    const { accountNumber, accountHolderName, bankName, bankBranch, panCardNumber, hod_id } = req.body;
+    const { accountNumber, accountHolderName, bankName, bankBranch, panCardNumber, email } = req.body;
   
-    try {
-      const lecturer = await GuestLecture.findOne({ hod_id });
-      if (!lecturer) {
-        return res.status(404).json({ message: 'Lecturer not found' });
-      }
-  
-      // Update financial details
-      lecturer.accountDetails = {
-        accountNumber,
-        accountHolderName,
-        bankName,
-        bankBranch,
-      };
-      lecturer.panCardNumber = panCardNumber;
-  
-      await lecturer.save();
-  
-      res.json({ message: 'Financial details updated successfully' });
-    } catch (error) {
-      console.error('Error updating financial details:', error);
-      res.status(500).json({ message: 'Internal server error' });
+    // Validate required fields
+    if (!accountNumber || !accountHolderName || !bankName || !bankBranch || !panCardNumber || !email) {
+        return res.status(400).json({ message: 'All fields are required' });
     }
-  });
+
+    try {
+        const lecturer = await GuestLecture.findOne({ email });
+        if (!lecturer) {
+            return res.status(404).json({ message: 'Lecturer not found' });
+        }
+        
+        // Update financial details
+        lecturer.accountDetails = {
+            accountNumber,
+            accountHolderName,
+            bankName,
+            bankBranch,
+        };
+        lecturer.panCardNumber = panCardNumber;
+  
+        await lecturer.save();
+  
+        res.json({ message: 'Financial details updated successfully' });
+    } catch (error) {
+        console.error('Error updating financial details:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+
+app.get('/getLecturerDetails/:id', async (req, res) => {
+  const userId = req.params.id;
+  console.log(userId);
+  try {
+    const lecturer = await GuestLecture.findOne({ _id: userId }); // Assuming the user ID is stored in hod_id
+    if (!lecturer) {
+      return res.status(404).json({ message: 'Lecturer not found' });
+    }
+    res.json(lecturer);
+  } catch (error) {
+    console.error('Error fetching lecturer details:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
 
   module.exports = app; 
