@@ -77,13 +77,13 @@ const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, lecturer, onSubm
                 {/* Modal header */}
                 <div className="sm:flex sm:items-start">
                   {/* Modal title */}
-                  <h3 className="text-lg leading-6 font-medium text-gray-900">Edit Lecturer Details</h3>
+                  <h3 className="text-lg leading-6 font-medium text-gray-900 text-center">Edit Lecturer Details</h3>
                   {/* Modal content */}
                   <div className="mt-2">
-                    <div className="grid grid-cols-6 gap-6">
+                    <div className="grid grid-cols-2 gap-6">
                       {/* Input fields for editing lecturer details */}
                       <div className="col-span-6">
-                        <label htmlFor="facultyName" className="block text-sm font-medium text-gray-700">Name</label>
+                        <label htmlFor="facultyName" className="block text-sm font-medium text-gray-700 mt-3">Name</label>
                         <input type="text" name="facultyName" id="facultyName" value={editedLecturer.facultyName} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                       </div>
                       <div className="col-span-6">
@@ -95,8 +95,40 @@ const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, lecturer, onSubm
                         <input type="email" name="email" id="email" value={editedLecturer.email} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                       </div>
                       <div className="col-span-6">
-                        <label htmlFor="subjectName" className="block text-sm font-medium text-gray-700">subjectName</label>
+                        <label htmlFor="schoolsDeanery" className="block text-sm font-medium text-gray-700">School's Deanery</label>
+                        <input type="schoolsDeanery" name="schoolsDeanery" id="schoolsDeanery" value={editedLecturer.schoolsDeanery} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                      </div>
+                      <div className="col-span-6">
+                        <label htmlFor="department" className="block text-sm font-medium text-gray-700">Department</label>
+                        <input type="department" name="department" id="department" value={editedLecturer.department} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                      </div>
+                      <div className="col-span-6">
+                        <label htmlFor="subjectName" className="block text-sm font-medium text-gray-700">Sbject Name</label>
                         <input type="subjectName" name="subjectName" id="subjectName" value={editedLecturer.subjectName} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                      </div>
+                      <div className="col-span-6">
+                        <label htmlFor="yearAndSemester" className="block text-sm font-medium text-gray-700">Year And Semester</label>
+                        <input type="yearAndSemester" name="yearAndSemester" id="yearAndSemester" value={editedLecturer.yearAndSemester} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                      </div>
+                      <div className="col-span-6">
+                        <label htmlFor="sectionsHandled" className="block text-sm font-medium text-gray-700">Section's Handled</label>
+                        <input type="sectionsHandled" name="sectionsHandled" id="sectionsHandled" value={editedLecturer.sectionsHandled} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                      </div>
+                      <div className="col-span-6">
+                        <label htmlFor="hours" className="block text-sm font-medium text-gray-700">Hours</label>
+                        <input type="hours" name="hours" id="hours" value={editedLecturer.hours} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                      </div>
+                      <div className="col-span-6">
+                        <label htmlFor="startDate" className="block text-sm font-medium text-gray-700">Start Date</label>
+                        <input type="startDate" name="startDate" id="startDate" value={editedLecturer.hours} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                      </div>
+                      <div className="col-span-6">
+                        <label htmlFor="proposedRate" className="block text-sm font-medium text-gray-700">Proposed Rate</label>
+                        <input type="proposedRate" name="proposedRate" id="proposedRate" value={editedLecturer.proposedRate} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                      </div>
+                      <div className="col-span-6">
+                        <label htmlFor="totalAmount" className="block text-sm font-medium text-gray-700">Total Amount</label>
+                        <input type="totalAmount" name="totalAmount" id="totalAmount" value={editedLecturer.hours} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                       </div>
                       {/* Add other input fields for lecturer details */}
                     </div>
