@@ -13,6 +13,24 @@ const Sidebar: React.FC = () => {
     console.error('User role not found in local storage');
   }
 
+
+  let acceptPath='/hod';
+  if (role === 'Dean') {
+    acceptPath='/dean'
+  }
+  else if (role === 'Registrar'){
+    acceptPath='/registar'
+  }
+  else if (role === 'ViceChancellor'){
+    acceptPath='/vicechancellor'
+  }
+  else if (role === 'HR'){
+    acceptPath='/vphr'
+  }
+  else if (role === 'ProChancellor'){
+    acceptPath='/prochancellor'
+  }
+
   // Define the default payment path
   let paymentPath = '/hodPayment';
 
@@ -31,7 +49,7 @@ const Sidebar: React.FC = () => {
         <ul className="space-y-2">
           <li>
             <Link
-              to="/add-guest-lecture"
+              to={acceptPath}
               className="block py-2 px-4 rounded hover:bg-gray-700 transition duration-300"
             >
               Accept Guest Lecture
