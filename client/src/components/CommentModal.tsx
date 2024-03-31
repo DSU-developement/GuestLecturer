@@ -25,6 +25,8 @@ const CommentModal: React.FC<CommentModalProps> = ({ isOpen, onClose, lecturerId
       await axios.put(`/lecture/remarks/${lecturerId}`, { from: role,to: recipient, text: comment });
       // Optionally, you can update local state or perform any other actions after adding the remark
       onClose();
+      setRecipient('');
+    setComment('');
     } catch (error) {
       console.error('Error adding remark:', error);
     }
