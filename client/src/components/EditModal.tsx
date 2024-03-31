@@ -75,24 +75,64 @@ const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, lecturer, onSubm
             <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
               <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 {/* Modal header */}
-                <div className="sm:flex sm:items-start">
+                <div className="bg-white rounded-lg ">
                   {/* Modal title */}
-                  <h3 className="text-lg leading-6 font-medium text-gray-900">Edit Lecturer Details</h3>
+                  <h3 className="text-center text-lg leading-6 font-medium text-gray-900 mb-4">Edit Lecturer Details</h3>
                   {/* Modal content */}
-                  <div className="mt-2">
-                    <div className="grid grid-cols-6 gap-6">
+                  <div className="mt-2 sm:mt-0 sm:ml-4">
+                    <div className="grid grid-cols-2 gap-6">
                       {/* Input fields for editing lecturer details */}
+                      <div>
                       <div className="col-span-6">
-                        <label htmlFor="facultyName" className="block text-sm font-medium text-gray-700">Name</label>
-                        <input type="text" name="facultyName" id="facultyName" value={editedLecturer.facultyName} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                        <label htmlFor="facultyName" className="block text-sm font-medium text-gray-700 mt-3">Name</label>
+                        <input type="text" name="facultyName" id="facultyName" value={editedLecturer.facultyName} onChange={handleChange} className="bg-blue-50 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 " />
                       </div>
                       <div className="col-span-6">
-                        <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Phone</label>
-                        <input type="text" name="phone" id="phone" value={editedLecturer.phone} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                        <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mt-3">Phone</label>
+                        <input type="text" name="phone" id="phone" value={editedLecturer.phone} onChange={handleChange} className="bg-blue-50 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300" />
                       </div>
                       <div className="col-span-6">
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-                        <input type="email" name="email" id="email" value={editedLecturer.email} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mt-3">Email</label>
+                        <input type="email" name="email" id="email" value={editedLecturer.email} onChange={handleChange} className="bg-blue-50 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300" />
+                      </div>
+                      <div className="col-span-6">
+                        <label htmlFor="schoolsDeanery" className="block text-sm font-medium text-gray-700 mt-3">School's Deanery</label>
+                        <input type="schoolsDeanery" name="schoolsDeanery" id="schoolsDeanery" value={editedLecturer.schoolsDeanery} onChange={handleChange} className="bg-blue-50 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300" />
+                      </div>
+                      <div className="col-span-6">
+                        <label htmlFor="department" className="block text-sm font-medium text-gray-700 mt-3">Department</label>
+                        <input type="department" name="department" id="department" value={editedLecturer.department} onChange={handleChange} className="bg-blue-50 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300" />
+                      </div>
+                      <div className="col-span-6">
+                        <label htmlFor="subjectName" className="block text-sm font-medium text-gray-700 mt-3">Sbject Name</label>
+                        <input type="subjectName" name="subjectName" id="subjectName" value={editedLecturer.subjectName} onChange={handleChange} className="bg-blue-50 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300d" />
+                      </div>
+                      </div>
+                      <div>
+                      <div className="col-span-6">
+                        <label htmlFor="yearAndSemester" className="block text-sm font-medium text-gray-700 mt-3">Year And Semester</label>
+                        <input type="yearAndSemester" name="yearAndSemester" id="yearAndSemester" value={editedLecturer.yearAndSemester} onChange={handleChange} className="bg-blue-50 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300" />
+                      </div>
+                      <div className="col-span-6">
+                        <label htmlFor="sectionsHandled" className="block text-sm font-medium text-gray-700 mt-3">Section's Handled</label>
+                        <input type="sectionsHandled" name="sectionsHandled" id="sectionsHandled" value={editedLecturer.sectionsHandled} onChange={handleChange} className="bg-blue-50 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 " />
+                      </div>
+                      <div className="col-span-6">
+                        <label htmlFor="hours" className="block text-sm font-medium text-gray-700 mt-3">Hours</label>
+                        <input type="hours" name="hours" id="hours" value={editedLecturer.hours} onChange={handleChange} className="bg-blue-50 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 " />
+                      </div>
+                      <div className="col-span-6">
+                        <label htmlFor="startDate" className="block text-sm font-medium text-gray-700 mt-3">Start Date</label>
+                        <input type="startDate" name="startDate" id="startDate" value={editedLecturer.hours} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 bg-blue-50" />
+                      </div>
+                      <div className="col-span-6">
+                        <label htmlFor="proposedRate" className="block text-sm font-medium text-gray-700 mt-3">Proposed Rate</label>
+                        <input type="proposedRate" name="proposedRate" id="proposedRate" value={editedLecturer.proposedRate} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 bg-blue-50" />
+                      </div>
+                      <div className="col-span-6">
+                        <label htmlFor="totalAmount" className="block text-sm font-medium text-gray-700 mt-3">Total Amount</label>
+                        <input type="totalAmount" name="totalAmount" id="totalAmount" value={editedLecturer.hours} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 bg-blue-50" />
+                      </div>
                       </div>
                       {/* Add other input fields for lecturer details */}
                     </div>
