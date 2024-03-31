@@ -80,6 +80,13 @@ const Table: React.FC = () => {
     }
   };
 
+
+  const getStatus = (lecturer: any) => {
+    // Check if all approvals are true
+    const allApproved = Object.values(lecturer.approved).every((approval: any) => approval as boolean);
+    return allApproved ? 'Accepted' : 'Pending';
+  };
+
   return (
     <div className="flex h-screen">
       <Sidebar />
@@ -114,9 +121,7 @@ const Table: React.FC = () => {
                          {lecturer.facultyName}
                        </button>
                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <Link to={`/details/${lecturer._id}`} className="text-indigo-600 hover:text-indigo-900">{lecturer.status}</Link>
-                      </td>
+                     <td className="px-6 py-4 whitespace-nowrap">{getStatus(lecturer)}</td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <button className="text-blue-600 hover:text-blue-900 ml-2 p-2 pl-3 pr-3 bg-blue-400 text-white rounded-xl m-1" onClick={() => handleEdit(lecturer)}>Edit</button>
                         <button className="text-red-600 hover:text-red-900 ml-2 p-2 pl-3 pr-3 bg-red-400 text-white rounded-xl m-1" onClick={() => handleDelete(lecturer._id)}> {/* Added delete button */}
