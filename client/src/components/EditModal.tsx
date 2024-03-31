@@ -83,7 +83,7 @@ const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, lecturer, onSubm
                     <div className="grid grid-cols-6 gap-6">
                       {/* Input fields for editing lecturer details */}
                       <div className="col-span-6">
-                        <label htmlFor="facultyName" className="block text-sm font-medium text-gray-700">Name</label>
+                        <label htmlFor="facultyName" className="block text-sm font-medium text-gray-700 mt-2">Name</label>
                         <input type="text" name="facultyName" id="facultyName" value={editedLecturer.facultyName} onChange={handleChange} className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                       </div>
                       <div className="col-span-6">

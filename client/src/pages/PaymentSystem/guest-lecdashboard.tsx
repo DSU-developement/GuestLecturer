@@ -7,7 +7,7 @@ import Header from '../../components/guestlecHeader';
 const GuestDash: React.FC = () => {
   const [lecturerData, setLecturerData] = useState<any>(null);
   const storedUserData = localStorage.getItem('token');
-  var id = ""; 
+  var id = "";
   if (storedUserData) {
     const userData = JSON.parse(storedUserData);
     id= userData['_id']; 
@@ -31,7 +31,7 @@ const GuestDash: React.FC = () => {
     };
 
     fetchLecturerDetails();
-  }, []); // Empty dependency array ensures this effect runs only once on mount
+  }, []);
 
   return (
     <div className="flex h-screen">
