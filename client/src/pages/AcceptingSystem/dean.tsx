@@ -4,6 +4,7 @@ import axios from 'axios';
 import Sidebar from '../../components/SideBar';
 import Header from '../../components/CommonHeader';
 import DetailsModal from '../../components/DetailsModal';
+import CommentModal from '../../components/CommentModal';
 
 const DEAN: React.FC = () => {
   const [lectures, setLectures] = useState<any[]>([]);
@@ -11,6 +12,8 @@ const DEAN: React.FC = () => {
   const tableRef = useRef<HTMLDivElement>(null);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [selectedLecturerForDetails, setSelectedLecturerForDetails] = useState<any | null>(null);
+  const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
+  const [selectedLecturerId, setSelectedLecturerId] = useState('');
 
   const storedUserData = localStorage.getItem('token');
   var userId = "";
@@ -48,7 +51,8 @@ const DEAN: React.FC = () => {
 
   const handleComment = async (lecturer: any) => {
     try {
-      // Handle the comment action here
+      setSelectedLecturerId(lecturer);
+      setIsCommentModalOpen(true);
     } catch (error) {
       console.error('Error commenting on lecturer:', error);
     }
@@ -146,6 +150,11 @@ const DEAN: React.FC = () => {
           onClose={() => setIsDetailsModalOpen(false)}
           lecturer={selectedLecturerForDetails}
         />
+        <CommentModal
+        isOpen={isCommentModalOpen}
+        onClose={() => setIsCommentModalOpen(false)}
+        lecturerId={selectedLecturerId}
+      />
     </div>
   );
 };

@@ -469,5 +469,32 @@ app.put('/lecture/hod/paymentaccept/:lecturerId', async (req, res) => {
   }
 });
 
+app.put('/lecture/remarks/:lecturerId', async (req, res) => {
+
+  console.log("hey");
+  const lecturerId = req.params.lecturerId;
+  const { from, to, text } = req.body;
+
+  try {
+    // Find the lecturer by ID
+    const lecturer = await GuestLecture.findById(lecturerId);
+
+    if (!lecturer) {
+      return res.status(404).json({ message: 'Lecturer not found' });
+    }
+
+    // Add the new remark to the lecturer's remarks array
+    lecturer.remarks.push({ from, to, text });
+    
+    // Save the updated lecturer document
+    await lecturer.save();
+
+    res.status(200).json({ message: 'Remark added successfully' });
+  } catch (error) {
+    console.error('Error adding remark:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 
   module.exports = app; 
