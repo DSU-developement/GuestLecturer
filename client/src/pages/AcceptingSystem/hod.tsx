@@ -5,13 +5,16 @@ import EditModal from '../../components/EditModal';
 import axios from 'axios';
 import Sidebar from '../../components/SideBar';
 import Header from '../../components/HeaderHod';
+import DetailsModal from '../../components/DetailsModal';
 
 const Table: React.FC = () => {
   const [lectures, setLectures] = useState<any[]>([]);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedLecturer, setSelectedLecturer] = useState<any | null>(null);
   const [selectedLecturerDetails, setSelectedLecturerDetails] = useState<any | null>(null);
-  const [visibleRows, setVisibleRows] = useState(5); // Number of rows to display initially
+  const [visibleRows, setVisibleRows] = useState(5);
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+  const [selectedLecturerForDetails, setSelectedLecturerForDetails] = useState<any | null>(null);
 
   const tableRef = useRef<HTMLDivElement>(null);
 
@@ -42,6 +45,11 @@ const Table: React.FC = () => {
     setSelectedLecturer(lecturer);
     setSelectedLecturerDetails(lecturer); // Setting selected lecturer details
     setIsEditModalOpen(true);
+  };
+
+  const handleDetails = (lecturer: any) => {
+    setSelectedLecturerForDetails(lecturer);
+    setIsDetailsModalOpen(true);
   };
 
   const handleDelete = async (lecturerId: string) => {
@@ -96,11 +104,16 @@ const Table: React.FC = () => {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {lectures.slice(0, visibleRows).map((lecturer, index) => (
-                    <tr key={lecturer._id}>
-                      <td className="px-6 py-4 whitespace-nowrap text-gray-300">{index + 1}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <Link to={`/details/${lecturer._id}`} className="text-indigo-600 hover:text-indigo-900">{lecturer.facultyName}</Link>
-                      </td>
+                     <tr key={lecturer._id}>
+                     <td className="px-6 py-4 whitespace-nowrap text-gray-300">{index + 1}</td>
+                     <td className="px-6 py-4 whitespace-nowrap">
+                       <button
+                         className="text-indigo-600 hover:text-indigo-900"
+                         onClick={() => handleDetails(lecturer)}
+                       >
+                         {lecturer.facultyName}
+                       </button>
+                     </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <Link to={`/details/${lecturer._id}`} className="text-indigo-600 hover:text-indigo-900">{lecturer.status}</Link>
                       </td>
@@ -127,6 +140,11 @@ const Table: React.FC = () => {
             onSubmit={handleEditSubmit}
           />
         )}
+        <DetailsModal
+          isOpen={isDetailsModalOpen}
+          onClose={() => setIsDetailsModalOpen(false)}
+          lecturer={selectedLecturerForDetails}
+        />
       </div>
     </div>
   );
