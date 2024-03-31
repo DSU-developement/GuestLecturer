@@ -77,7 +77,7 @@ const ViceChancellor: React.FC = () => {
                          {lecturer.facultyName}
                        </button>
                      </td>
-                     <td className="px-6 py-4 whitespace-nowrap">{getStatus(lecturer)}</td>
+                       <td className="px-6 py-4 whitespace-nowrap">{getStatus(lecturer)}</td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <button
                           className={`text-green-600 hover:text-green-900 ml-2 p-2 pl-3 pr-3 ${
