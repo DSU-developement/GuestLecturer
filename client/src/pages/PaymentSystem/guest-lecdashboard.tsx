@@ -41,80 +41,88 @@ const GuestDash: React.FC = () => {
     <div className="flex flex-col items-center mt-8 space-y-4">
       {lecturerData && (
         <>
-        <div className="bg-white  rounded-lg border border-gray-300 p-8">
+        <div className="container mx-auto px-4">
+        <div className="bg-white  rounded-lg borderp-8">
           <CgProfile className="fixed z-10 inset-0 overflow-y-auto" />
-          <div className="text-center ">
-            <h2 className="text-3xl font-bold">{lecturerData.facultyName}</h2>
-            <div className="text-center grid grid-cols-2 gap-4 mt-4">
+          <div className="text">
+            <h2 className="text-3xl font-bold text-blue-500 mb-10"> Welcome {lecturerData.facultyName}!</h2>
+            <div className="text-center grid grid-cols-4 gap-10 mt-4 mb-2 ">
               <div>
-                <div className="font-bold ml-3 text-left">Email:</div>
-                <div className="text-lg  ml-3 text-left ">{lecturerData.email}</div>
+                <div className="font-bold ml-2 text-left">Email:</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left ">{lecturerData.email}</div>
               </div>
               <div>
-                <div className="font-bold  ml-3 text-left">Phone:</div>
-                <div className="text-lg  ml-3 text-left">{lecturerData.phone}</div>
+                <div className="font-bold  ml-2 text-left">Phone:</div>
+                <div className="  bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left">{lecturerData.phone}</div>
               </div>
               <div>
-                <div className="font-bold  ml-3 text-left">Schools/Deanery:</div>
-                <div className="text-lg  ml-3 text-left">{lecturerData.schoolsDeanery}</div>
+                <div className="font-bold  ml-2 text-left">PAN Card Number:</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left">{lecturerData.panCardNumber || 'Update'}</div>
+              </div>  
+              </div>
+              <div className="w-full bg-gray-100 border-t border-gray-300 my-8"></div>
+              <div className='text-center grid grid-cols-4 gap-10 mt-4 mb-2'>
+              <div>
+                <div className="font-bold  ml-2 text-left">Schools/Deanery:</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left">{lecturerData.schoolsDeanery}</div>
               </div>
               <div>
-                <div className="font-bold ml-3 text-left">Department:</div>
-                <div className="text-lg  ml-3 text-left">{lecturerData.department}</div>
+                <div className="font-bold ml-2 text-left">Department:</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left">{lecturerData.department}</div>
               </div>
               <div>
-                <div className="font-bold  ml-3 text-left">Subject Name:</div>
-                <div className="text-lg  ml-3 text-left">{lecturerData.subjectName}</div>
+                <div className="font-bold  ml-2 text-left">Subject Name:</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left">{lecturerData.subjectName}</div>
               </div>
               <div>
-                <div className="font-bold  ml-3 text-left">Year and Semester:</div>
-                <div className="text-lg  ml-3 text-left">{lecturerData.yearAndSemester}</div>
+                <div className="font-bold  ml-2 text-left">Year and Semester:</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left">{lecturerData.yearAndSemester}</div>
               </div>
               <div>
-                <div className="font-bold  ml-3 text-left">Sections Handled:</div>
-                <div className="text-lg  ml-3 text-left">{lecturerData.sectionsHandled}</div>
+                <div className="font-bold  ml-2 text-left">Sections Handled:</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left">{lecturerData.sectionsHandled}</div>
               </div>
               <div>
-                <div className="font-bold  ml-3 text-left">Hours:</div>
-                <div className="text-lg  ml-3 text-left">{lecturerData.hours}</div>
+                <div className="font-bold  ml-2 text-left">Hours:</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left">{lecturerData.hours}</div>
               </div>
               <div>
-                <div className="font-bold  ml-3 text-left">Start Date:</div>
-                <div className="text-lg  ml-3 text-left">{new Date(lecturerData.startDate).toLocaleDateString()}</div>
+                <div className="font-bold  ml-2 text-left">Start Date:</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left">{new Date(lecturerData.startDate).toLocaleDateString()}</div>
               </div>
               <div>
-                <div className="font-bold  ml-3 text-left">Proposed Rate:</div>
-                <div className="text-lg  ml-3 text-left">{lecturerData.proposedRate}</div>
+                <div className="font-bold  ml-2 text-left">Proposed Rate:</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left">{lecturerData.proposedRate}</div>
               </div>
               <div>
-                <div className="font-bold  ml-3 text-left">Total Amount:</div>
-                <div className="text-lg  ml-3 text-left">{lecturerData.totalAmount}</div>
+                <div className="font-bold  ml-2 text-left">Total Amount:</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left">{lecturerData.totalAmount}</div>
+              </div>
+              </div>
+              <div className="w-full bg-gray-100 border-t border-gray-300 my-8"></div>
+              <div className="text- left grid grid-cols-4 gap-10 mt-4 mb-2">
+              <div>
+                <div className="font-bold  ml-2 text-left">Account Number:</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left">{lecturerData.accountDetails.accountNumber|| 'Update'}</div>
               </div>
               <div>
-                <div className="font-bold  ml-3 text-left">PAN Card Number:</div>
-                <div className="text-lg  ml-3 text-left">{lecturerData.panCardNumber || 'Update'}</div>
+                <div className="font-bold  ml-2 text-left">Account Holder Name:</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left">{lecturerData.accountDetails.accountHolderName|| 'Update'}</div>
               </div>
               <div>
-                <div className="font-bold  ml-3 text-left">Account Number:</div>
-                <div className="text-lg  ml-3 text-left">{lecturerData.accountDetails.accountNumber|| 'Update'}</div>
+                <div className="font-bold  ml-2 text-left">Bank Name:</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left">{lecturerData.accountDetails.bankName|| 'Update'}</div>
               </div>
               <div>
-                <div className="font-bold  ml-3 text-left">Account Holder Name:</div>
-                <div className="text-lg  ml-3 text-left">{lecturerData.accountDetails.accountHolderName|| 'Update'}</div>
+                <div className="font-bold  ml-2 text-left">Bank Branch:</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left">{lecturerData.accountDetails.bankBranch || 'Update'}</div>
               </div>
-              <div>
-                <div className="font-bold  ml-3 text-left">Bank Name:</div>
-                <div className="text-lg  ml-3 text-left">{lecturerData.accountDetails.bankName|| 'Update'}</div>
               </div>
-              <div>
-                <div className="font-bold  ml-3 text-left">Bank Branch:</div>
-                <div className="text-lg  ml-3 text-left">{lecturerData.accountDetails.bankBranch || 'Update'}</div>
               </div>
-            </div>
           </div>
           </div>
         </>
-      )}
+      )};
     </div>
   </div>
 </div>
