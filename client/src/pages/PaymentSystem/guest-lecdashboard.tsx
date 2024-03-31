@@ -35,35 +35,98 @@ const GuestDash: React.FC = () => {
 
   return (
     <div className="flex h-screen">
-      <Sidebar />
-      <div className="flex-1 flex flex-col">
-        <Header />
-        <div className="flex flex-col items-center mt-8">
-          {lecturerData && (
-            <>
-              <CgProfile className="text-7xl text-blue-500 mb-4" />
-              <h2 className="text-3xl font-bold">{lecturerData.facultyName}</h2>
-              <p className="text-lg">Email: {lecturerData.email}</p>
-              <p className="text-lg">Phone: {lecturerData.phone}</p>
-              <p className="text-lg">Schools/Deanery: {lecturerData.schoolsDeanery}</p>
-              <p className="text-lg">Department: {lecturerData.department}</p>
-              <p className="text-lg">Subject Name: {lecturerData.subjectName}</p>
-              <p className="text-lg">Year and Semester: {lecturerData.yearAndSemester}</p>
-              <p className="text-lg">Sections Handled: {lecturerData.sectionsHandled}</p>
-              <p className="text-lg">Hours: {lecturerData.hours}</p>
-              <p className="text-lg">Start Date: {new Date(lecturerData.startDate).toLocaleDateString()}</p>
-              <p className="text-lg">Proposed Rate: {lecturerData.proposedRate}</p>
-              <p className="text-lg">Total Amount: {lecturerData.totalAmount}</p>
-              <p className="text-lg">PAN Card Number: {lecturerData.panCardNumber}</p>
-              <p className="text-lg">Account Number: {lecturerData.accountDetails.accountNumber || 'Update'}</p>
-              <p className="text-lg">Account Holder Name: {lecturerData.accountDetails.accountHolderName || 'Update'}</p>
-              <p className="text-lg">BankName: {lecturerData.accountDetails.bankName || 'Update'}</p>   
-              <p className="text-lg">Bank Branch: {lecturerData.accountDetails.bankBranch || 'Update'}</p> 
-            </>
-          )}
-        </div>
-      </div>
+  <Sidebar />
+  <div className="flex-1 flex flex-col">
+    <Header />
+    <div className="flex flex-col items-center mt-8 space-y-4">
+      {lecturerData && (
+        <>
+        <div className="container mx-auto px-4">
+        <div className="bg-white  rounded-lg borderp-8">
+          <CgProfile className="fixed z-10 inset-0 overflow-y-auto" />
+          <div className="text">
+            <h2 className="text-3xl font-bold text-blue-500 mb-10"> Welcome {lecturerData.facultyName}!</h2>
+            <div className="text-center grid grid-cols-4 gap-10 mt-4 mb-2 ">
+              <div>
+                <div className="font-bold ml-2 text-left">Email:</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left ">{lecturerData.email}</div>
+              </div>
+              <div>
+                <div className="font-bold  ml-2 text-left">Phone:</div>
+                <div className="  bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left">{lecturerData.phone}</div>
+              </div>
+              <div>
+                <div className="font-bold  ml-2 text-left">PAN Card Number:</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left">{lecturerData.panCardNumber || 'Update'}</div>
+              </div>  
+              </div>
+              <div className="w-full bg-gray-100 border-t border-gray-300 my-8"></div>
+              <div className='text-center grid grid-cols-4 gap-10 mt-4 mb-2'>
+              <div>
+                <div className="font-bold  ml-2 text-left">Schools/Deanery:</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left">{lecturerData.schoolsDeanery}</div>
+              </div>
+              <div>
+                <div className="font-bold ml-2 text-left">Department:</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left">{lecturerData.department}</div>
+              </div>
+              <div>
+                <div className="font-bold  ml-2 text-left">Subject Name:</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left">{lecturerData.subjectName}</div>
+              </div>
+              <div>
+                <div className="font-bold  ml-2 text-left">Year and Semester:</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left">{lecturerData.yearAndSemester}</div>
+              </div>
+              <div>
+                <div className="font-bold  ml-2 text-left">Sections Handled:</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left">{lecturerData.sectionsHandled}</div>
+              </div>
+              <div>
+                <div className="font-bold  ml-2 text-left">Hours:</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left">{lecturerData.hours}</div>
+              </div>
+              <div>
+                <div className="font-bold  ml-2 text-left">Start Date:</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left">{new Date(lecturerData.startDate).toLocaleDateString()}</div>
+              </div>
+              <div>
+                <div className="font-bold  ml-2 text-left">Proposed Rate:</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left">{lecturerData.proposedRate}</div>
+              </div>
+              <div>
+                <div className="font-bold  ml-2 text-left">Total Amount:</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left">{lecturerData.totalAmount}</div>
+              </div>
+              </div>
+              <div className="w-full bg-gray-100 border-t border-gray-300 my-8"></div>
+              <div className="text- left grid grid-cols-4 gap-10 mt-4 mb-2">
+              <div>
+                <div className="font-bold  ml-2 text-left">Account Number:</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left">{lecturerData.accountDetails.accountNumber|| 'Update'}</div>
+              </div>
+              <div>
+                <div className="font-bold  ml-2 text-left">Account Holder Name:</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left">{lecturerData.accountDetails.accountHolderName|| 'Update'}</div>
+              </div>
+              <div>
+                <div className="font-bold  ml-2 text-left">Bank Name:</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left">{lecturerData.accountDetails.bankName|| 'Update'}</div>
+              </div>
+              <div>
+                <div className="font-bold  ml-2 text-left">Bank Branch:</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left">{lecturerData.accountDetails.bankBranch || 'Update'}</div>
+              </div>
+              </div>
+              </div>
+          </div>
+          </div>
+        </>
+      )};
     </div>
+  </div>
+</div>
+
   );
 };
 
