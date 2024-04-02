@@ -37,7 +37,7 @@ const AppRouter: React.FC = () => {
         <Route path='/finance' element={authenticated ? <FinancialDetailsPage/> : <LoginPage />} />
         <Route path='/dashboard' element={authenticated ? <GuestDash/> : <LoginPage />} />
         <Route path='/hodPayment' element={authenticated ? <Hodpayment/> : <LoginPage />} />
-        <Route path='/deanPayment' element={authenticated ? <Hodpayment/> : <LoginPage />} />
+        <Route path='/deanPayment' element={authenticated ? <DeanPaymentRequest/> : <LoginPage />} />
       </Routes>
     </Router>
   );

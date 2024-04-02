@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Sidebar from '../../components/SideBar';
-import Header from '../../components/HeaderHod';
+import Header from '../../components/CommonHeader';
 
 const DeanPaymentRequest: React.FC = () => {
   const [lectures, setLectures] = useState<any[]>([]);
@@ -48,7 +48,7 @@ const DeanPaymentRequest: React.FC = () => {
 
   const handleAccept = async (lecturerId: string) => {
     try {
-      await axios.put(`/lecture/dean/paymentaccept/${lecturerId}`);
+      await axios.put(`/lecture/dean/payment-request/${lecturerId}`);
       window.location.reload(); 
     } catch (error) {
       console.error('Error accepting lecturer:', error);
@@ -90,21 +90,21 @@ const DeanPaymentRequest: React.FC = () => {
                       <td className="px-6 py-4 whitespace-nowrap">
                         <button
                           className={`text-green-600 hover:text-green-900 ml-2 p-2 pl-3 pr-3 ${
-                            lecturer.paymentapproved.hod ? 'bg-gray-400 text-gray-600 cursor-not-allowed' : 'bg-green-400 text-white hover:bg-green-500'
+                            lecturer.paymentapproved.dean ? 'bg-gray-400 text-gray-600 cursor-not-allowed' : 'bg-green-400 text-white hover:bg-green-500'
                           } rounded-xl m-1`}
                           onClick={() => handleAccept(lecturer._id)}
-                          disabled={lecturer.paymentapproved.hod}
+                          disabled={lecturer.paymentapproved.dean}
                         >
-                          {lecturer.paymentapproved.hod ? 'Accepted' : 'Accept'}
+                          {lecturer.paymentapproved.dean ? 'Accepted' : 'Accept'}
                         </button>
                         <button
                           className={`text-blue-600 hover:text-blue-900 ml-2 p-2 pl-3 pr-3 ${
-                            lecturer.paymentapproved.hod ? 'bg-gray-400 text-gray-600 cursor-not-allowed' : 'bg-blue-400 text-white hover:bg-blue-500'
+                            lecturer.paymentapproved.dean ? 'bg-gray-400 text-gray-600 cursor-not-allowed' : 'bg-blue-400 text-white hover:bg-blue-500'
                           } rounded-xl m-1`}
                           onClick={() => handleComment(lecturer._id)}
-                          disabled={lecturer.paymentapproved.hod}
+                          disabled={lecturer.paymentapproved.dean}
                         >
-                          {lecturer.paymentapproved.hod ? 'Comment' : 'Comment'}
+                          {lecturer.paymentapproved.dean ? 'Comment' : 'Comment'}
                         </button>
                       </td>
                     </tr>
