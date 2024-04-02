@@ -529,17 +529,17 @@ app.get('/send-email', async (req, res) => {
   }
 });
 
-// app.get('/lecture/dean/payment-request/:userId', async (req, res) => {
-//   const userId = req.params.userId;
-//   console.log(userId);
-//   try {
-//     // Fetch lecturers with PaymentRequest set to true for the given userId
-//     const lecturers = await GuestLecture.find({ dean_id: userId, PaymentRequest: true, paymentapproved.hod: true });
-//     res.json(lecturers);
-//   } catch (error) {
-//     console.error('Error fetching lecturers with PaymentRequest:', error);
-//     res.status(500).json({ message: 'Internal server error' });
-//   }
-// });
 
+app.get('/lecture/dean/payment-request/:userId', async (req, res) => {
+  const userId = req.params.userId;
+  console.log(userId);
+  try {
+    // Fetch lecturers with dean_id equal to userId and paymentapproved.hod equal to true
+    const lecturers = await GuestLecture.find({ dean_id: userId, 'paymentapproved.hod': true });
+    res.json(lecturers);
+  } catch (error) {
+    console.error('Error fetching lecturers with PaymentRequest:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
   module.exports = app; 
