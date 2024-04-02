@@ -5,6 +5,8 @@ const User = require("./modals/User.js");
 const Hod = require("./modals/Hod.js");
 const Dean = require("./modals/Dean.js");
 const GuestLecture = require('./modals/guestlecture.js');
+const sendEmail = require('./mailer');
+
 
 
 connectDB();
@@ -515,18 +517,30 @@ app.put('/lecture/dean/paymentaccept/:lecturerId', async (req, res) => {
   }
 });
 
-
-app.get('/lecture/dean/payment-request/:userId', async (req, res) => {
-  const userId = req.params.userId;
-  console.log(userId);
+// Define a route for sending emails
+app.get('/send-email/:receiverEmail', async (req, res) => {
+   const receiverEmail = req.params.receiverEmail;
+   //const receiverEmail = 'eng21cs0300@dsu.edu.in';
   try {
-    // Fetch lecturers with PaymentRequest set to true for the given userId
-    const lecturers = await GuestLecture.find({ dean_id: userId, PaymentRequest: true, paymentapproved.hod: true });
-    res.json(lecturers);
+    await sendEmail(receiverEmail);
+    res.status(200).send('Email sent successfully');
   } catch (error) {
-    console.error('Error fetching lecturers with PaymentRequest:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error(error);
+    res.status(500).send('Error sending email');
   }
 });
+
+// app.get('/lecture/dean/payment-request/:userId', async (req, res) => {
+//   const userId = req.params.userId;
+//   console.log(userId);
+//   try {
+//     // Fetch lecturers with PaymentRequest set to true for the given userId
+//     const lecturers = await GuestLecture.find({ dean_id: userId, PaymentRequest: true, paymentapproved.hod: true });
+//     res.json(lecturers);
+//   } catch (error) {
+//     console.error('Error fetching lecturers with PaymentRequest:', error);
+//     res.status(500).json({ message: 'Internal server error' });
+//   }
+// });
 
   module.exports = app; 
