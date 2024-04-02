@@ -4,6 +4,15 @@ interface Lecturer {
   facultyName: string;
   phone: string;
   email: string;
+  schoolsDeanery: string;
+  department: string;
+  subjectName: string;
+  yearAndSemester: string;
+  sectionsHandled: number;
+  hours: number;
+  startDate: string;
+  proposedRate: number;
+  totalAmount: number;
   // Add other lecturer details as needed
 }
 
@@ -33,16 +42,61 @@ const DetailsModal: React.FC<DetailsModalProps> = ({ isOpen, onClose, lecturer }
                   <h3 className="text-center text-lg leading-6 font-medium text-gray-900 mb-4">Lecturer Details</h3>
                   {/* Modal content */}
                   <div className="mt-2 sm:mt-0 sm:ml-4">
-                    <div className="grid grid-cols-2 gap-6">
+                    <div className="grid grid-cols-2 gap-4" >
                       {/* Display lecturer details */}
                       <div>
                         <div className="col-span-6">
                           <label htmlFor="facultyName" className="block text-sm font-medium text-gray-700 mt-3">Name</label>
                           <p className="bg-blue-50 mt-1 py-2 px-3 block w-full shadow-sm sm:text-sm border-gray-300">{lecturer?.facultyName}</p>
                         </div>
-                        {/* Add other details */}
+                        <div className="col-span-6">
+                          <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mt-3">Phone</label>
+                          <p className="bg-blue-50 mt-1 py-2 px-3 block w-full shadow-sm sm:text-sm border-gray-300">{lecturer?.phone}</p>
+                        </div>
+                        <div className="col-span-6">
+                          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mt-3">Email</label>
+                          <p className="bg-blue-50 mt-1 py-2 px-3 block w-full shadow-sm sm:text-sm border-gray-300">{lecturer?.email}</p>
+                        </div>
+                        <div className="col-span-6">
+                          <label htmlFor="schoolsDeanery" className="block text-sm font-medium text-gray-700 mt-3">School's Deanery</label>
+                          <p className="bg-blue-50 mt-1 py-2 px-3 block w-full shadow-sm sm:text-sm border-gray-300">{lecturer?.schoolsDeanery}</p>
+                        </div>
+                        <div className="col-span-6">
+                          <label htmlFor="department" className="block text-sm font-medium text-gray-700 mt-3">Department</label>
+                          <p className="bg-blue-50 mt-1 py-2 px-3 block w-full shadow-sm sm:text-sm border-gray-300">{lecturer?.department}</p>
+                        </div>
+                        <div className="col-span-6">
+                          <label htmlFor="subjectName" className="block text-sm font-medium text-gray-700 mt-3">Subject Name</label>
+                          <p className="bg-blue-50 mt-1 py-2 px-3 block w-full shadow-sm sm:text-sm border-gray-300">{lecturer?.subjectName}</p>
+                        </div>
                       </div>
-                      {/* Add more columns for other details */}
+                      {/* Display remaining lecturer details in the next two columns */}
+                      <div >
+                        <div className="col-span-6">
+                          <label htmlFor="yearAndSemester" className="block text-sm font-medium text-gray-700 mt-3">Year And Semester</label>
+                          <p className="bg-blue-50 mt-1 py-2 px-3 block w-full shadow-sm sm:text-sm border-gray-300">{lecturer?.yearAndSemester}</p>
+                        </div>
+                        <div className="col-span-6">
+                          <label htmlFor="sectionsHandled" className="block text-sm font-medium text-gray-700 mt-3">Sections Handled</label>
+                          <p className="bg-blue-50 mt-1 py-2 px-3 block w-full shadow-sm sm:text-sm border-gray-300">{lecturer?.sectionsHandled}</p>
+                        </div>
+                        <div className="col-span-6">
+                          <label htmlFor="hours" className="block text-sm font-medium text-gray-700 mt-3">hours</label>
+                          <p className="bg-blue-50 mt-1 py-2 px-3 block w-full shadow-sm sm:text-sm border-gray-300">{lecturer?.hours}</p>
+                        </div>
+                        <div className="col-span-6">
+                          <label htmlFor="startDate" className="block text-sm font-medium text-gray-700 mt-3">StartDate</label>
+                          <p className="bg-blue-50 mt-1 py-2 px-3 block w-full shadow-sm sm:text-sm border-gray-300">{lecturer?.startDate}</p>
+                        </div>
+                        <div className="col-span-6">
+                          <label htmlFor="proposedRate" className="block text-sm font-medium text-gray-700 mt-3">Proposed Rate</label>
+                          <p className="bg-blue-50 mt-1 py-2 px-3 block w-full shadow-sm sm:text-sm border-gray-300">{lecturer?.proposedRate}</p>
+                        </div>
+                        <div className="col-span-6">
+                          <label htmlFor="totalAmount" className="block text-sm font-medium text-gray-700 mt-3">Total Amount</label>
+                          <p className="bg-blue-50 mt-1 py-2 px-3 block w-full shadow-sm sm:text-sm border-gray-300">{lecturer?.totalAmount}</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
