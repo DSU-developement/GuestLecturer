@@ -496,5 +496,37 @@ app.put('/lecture/remarks/:lecturerId', async (req, res) => {
   }
 });
 
+app.put('/lecture/dean/paymentaccept/:lecturerId', async (req, res) => {
+  const { lecturerId } = req.params;
+
+  try {
+    const lecturer = await GuestLecture.findById(lecturerId);
+    if (!lecturer) {
+      return res.status(404).json({ message: 'Lecturer not found' });
+    }
+
+    lecturer.paymentapproved.dean= true; // Update the approval status
+    await lecturer.save();
+
+    res.json({ message: 'Lecturer approved successfully' });
+  } catch (error) {
+    console.error('Error accepting lecturer:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
+app.get('/lecture/dean/payment-request/:userId', async (req, res) => {
+  const userId = req.params.userId;
+  console.log(userId);
+  try {
+    // Fetch lecturers with PaymentRequest set to true for the given userId
+    const lecturers = await GuestLecture.find({ dean_id: userId, PaymentRequest: true, paymentapproved.hod: true });
+    res.json(lecturers);
+  } catch (error) {
+    console.error('Error fetching lecturers with PaymentRequest:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
   module.exports = app; 
