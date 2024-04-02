@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 
-function sendEmail(receiverEmail) {
+function sendEmail(receiverEmail,subject,text) {
   return new Promise((resolve, reject) => {
     const sender = 'eng21cs0279@dsu.edu.in';
     const transporter = nodemailer.createTransport({
@@ -14,8 +14,8 @@ function sendEmail(receiverEmail) {
     const mailOptions = {
       from: sender,
       to: receiverEmail,
-      subject: 'Sending Email using Node.js',
-      text: 'That was easy!'
+      subject: subject,
+      text: text
     };
 
     transporter.sendMail(mailOptions, function(error, info) {

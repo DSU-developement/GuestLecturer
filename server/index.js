@@ -518,8 +518,8 @@ app.put('/lecture/dean/paymentaccept/:lecturerId', async (req, res) => {
 });
 
 // Define a route for sending emails
-app.get('/send-email/:receiverEmail', async (req, res) => {
-   const receiverEmail = req.params.receiverEmail;
+app.get('/send-email', async (req, res) => {
+   const{receiverEmail, subject, text} = req.body;
    //const receiverEmail = 'eng21cs0300@dsu.edu.in';
   try {
     await sendEmail(receiverEmail);
