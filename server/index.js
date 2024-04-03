@@ -630,53 +630,140 @@ app.get('/lecture/payment-request/:useremail', async (req, res) => {
 
 
 //API for Accepting Lectures for payment 
+
+
 app.put('/lecture/:useremail/accept/payment-request/:lecturerId', async (req, res) => {
+
   const { useremail, lecturerId } = req.params;
 
-  const user = await Hod.findOne({ email: useremail }) || await Dean.findOne({ email: useremail }) || await User.findOne({ email: useremail }) || await GuestLecture.findOne({ email: useremail });
-
+  let user = await Hod.findOne({ email: useremail }); 
+  console.log(user)
   if (!user) {
-    return res.status(401).json({ success: false, message: "Invalid user role" });
+      user = await Dean.findOne({ email: useremail }); 
+      console.log(user)
   }
-
-  let role = user.role;
-
-  switch (role) {
-    case 'Dean':
-      approveLecturer('paymentapproved.dean');
-      break;
-    case 'Registrar':
-      approveLecturer('paymentapproved.registrar');
-      break;
-    case 'ViceChancellor':
-      approveLecturer('paymentapproved.viceChancellor');
-      break;
-    case 'HR':
-      approveLecturer('paymentapproved.vpHR');
-      break;
-    case 'ProChancellor':
-      approveLecturer('paymentapproved.proChancellor');
-      break;
-    default:
-      return res.status(401).json({ success: false, message: "Invalid user role" });
+  if (!user) {
+      user = await User.findOne({ email: useremail }); 
+      console.log(user)
+      
   }
+  if (!user) {
+    user = await GuestLecture.findOne({ email: useremail }); 
+    console.log(user)
+}  
 
-  async function approveLecturer(fieldToUpdate) {
+  let role = '';
+  if (user.role === 'HR') {
+      role = 'HR';
+  } else if (user.role === 'Registrar') {
+      role = 'Registrar';
+  } else if (user.role === 'ViceChancellor') {
+      role = 'ViceChancellor';
+  } else if (user.role === 'ProChancellor') {
+      role = 'ProChancellor';
+  } else if (user.role === 'CFO') {
+      role = 'CFO';
+  } else {
+      if (await Dean.exists({ email: useremail })) {
+          role = 'Dean';
+      } else if (await Hod.exists({ email: useremail })) {
+          role = 'HOD';
+      } else if (await GuestLecture.exists({ email: useremail })) {
+          role = 'GuestLecture';
+      } else {
+          return res.status(401).json({ success: false, message: "Invalid user role" });
+      }
+  }
+  
+  if(role ==='Dean'){
     try {
       const lecturer = await GuestLecture.findById(lecturerId);
       if (!lecturer) {
         return res.status(404).json({ message: 'Lecturer not found' });
       }
-
-      lecturer[fieldToUpdate] = true;
+  
+      lecturer.paymentapproved.dean= true;
       await lecturer.save();
-
+  
       res.json({ message: 'Lecturer approved successfully' });
     } catch (error) {
       console.error('Error accepting lecturer:', error);
       res.status(500).json({ message: 'Internal server error' });
     }
   }
+
+
+  if(role === 'Registrar'){
+    try {
+      const lecturer = await GuestLecture.findById(lecturerId);
+      if (!lecturer) {
+        return res.status(404).json({ message: 'Lecturer not found' });
+      }
+  
+      lecturer.paymentapproved.registrar= true; // Update the approval status
+      await lecturer.save();
+  
+      res.json({ message: 'Lecturer approved successfully' });
+    } catch (error) {
+      console.error('Error accepting lecturer:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  }
+
+
+  if(role == 'ViceChancellor'){
+    try {
+      const lecturer = await GuestLecture.findById(lecturerId);
+      if (!lecturer) {
+        return res.status(404).json({ message: 'Lecturer not found' });
+      }
+  
+      lecturer.paymentapproved.viceChancellor= true; 
+      await lecturer.save();
+  
+      res.json({ message: 'Lecturer approved successfully' });
+    } catch (error) {
+      console.error('Error accepting lecturer:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  }
+  
+
+  if(role =='HR'){
+  try {
+    const lecturer = await GuestLecture.findById(lecturerId);
+    if (!lecturer) {
+      return res.status(404).json({ message: 'Lecturer not found' });
+    }
+
+    lecturer.paymentapproved.vpHR= true; 
+    await lecturer.save();
+
+    res.json({ message: 'Lecturer approved successfully' });
+  } catch (error) {
+    console.error('Error accepting lecturer:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+  }
+
+  if(role == 'ProChancellor'){
+
+  try {
+    const lecturer = await GuestLecture.findById(lecturerId);
+    if (!lecturer) {
+      return res.status(404).json({ message: 'Lecturer not found' });
+    }
+
+    lecturer.paymentapproved.proChancellor= true; 
+    await lecturer.save();
+
+    res.json({ message: 'Lecturer approved successfully' });
+  } catch (error) {
+    console.error('Error accepting lecturer:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+  }
+
 });
 
   module.exports = app; 
