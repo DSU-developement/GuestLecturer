@@ -471,8 +471,6 @@ app.put('/lecture/hod/paymentaccept/:lecturerId', async (req, res) => {
 });
 
 app.put('/lecture/remarks/:lecturerId', async (req, res) => {
-
-  console.log("hey");
   const lecturerId = req.params.lecturerId;
   const { from, to, text } = req.body;
 

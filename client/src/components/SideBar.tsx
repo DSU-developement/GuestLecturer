@@ -8,7 +8,6 @@ const Sidebar: React.FC = () => {
   var role = ""; 
   if (storedUserData) {
     role = JSON.parse(storedUserData);
-    console.log(role);
   } else {
     console.error('User role not found in local storage');
   }
