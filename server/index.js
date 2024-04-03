@@ -574,6 +574,39 @@ app.get('/lecture/reg/payment-request/:userId', async (req, res) => {
   }
 });
 
+
+app.put('/lecture/vice/accept/payment-request/:lecturerId', async (req, res) => {
+  const { lecturerId } = req.params;
+
+  try {
+    const lecturer = await GuestLecture.findById(lecturerId);
+    if (!lecturer) {
+      return res.status(404).json({ message: 'Lecturer not found' });
+    }
+
+    lecturer.paymentapproved.viceChancellor= true; 
+    await lecturer.save();
+
+    res.json({ message: 'Lecturer approved successfully' });
+  } catch (error) {
+    console.error('Error accepting lecturer:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+app.get('/lecture/vice/payment-request/:userId', async (req, res) => {
+  const userId = req.params.userId;
+  console.log(userId);
+  try {
+    const lecturers = await GuestLecture.find({'paymentapproved.registrar': true });
+    res.json(lecturers);
+  } catch (error) {
+    console.error('Error fetching lecturers with PaymentRequest:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
 app.put('/lecture/vphr/payment-request/:lecturerId', async (req, res) => {
   const { lecturerId } = req.params;
 
@@ -583,7 +616,7 @@ app.put('/lecture/vphr/payment-request/:lecturerId', async (req, res) => {
       return res.status(404).json({ message: 'Lecturer not found' });
     }
 
-    lecturer.paymentapproved.vpHR= true; // Update the approval status
+    lecturer.paymentapproved.vpHR= true; 
     await lecturer.save();
 
     res.json({ message: 'Lecturer approved successfully' });
@@ -596,8 +629,7 @@ app.put('/lecture/vphr/payment-request/:lecturerId', async (req, res) => {
 app.get('/lecture/vphr/payment-request/:userId', async (req, res) => {
   const userId = req.params.userId;
   try {
-    // Fetch lecturers with dean_id equal to userId and paymentapproved.hod equal to true
-    const lecturers = await GuestLecture.find({'paymentapproved.registrar': true });
+    const lecturers = await GuestLecture.find({'paymentapproved.viceChancellor': true });
     res.json(lecturers);
   } catch (error) {
     console.error('Error fetching lecturers with PaymentRequest:', error);

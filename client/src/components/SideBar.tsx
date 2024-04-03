@@ -44,6 +44,9 @@ const Sidebar: React.FC = () => {
   if (role === 'HR') {
     paymentPath = '/VphrPayment';
   }
+  if (role === 'ViceChancellor') {
+    paymentPath = '/vicePayment';
+  }
 
   return (
     <div className="bg-gray-800 text-white w-62 h-screen flex flex-col">
