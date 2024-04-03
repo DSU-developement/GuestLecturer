@@ -506,7 +506,7 @@ app.put('/lecture/dean/payment-request/:lecturerId', async (req, res) => {
       return res.status(404).json({ message: 'Lecturer not found' });
     }
 
-    lecturer.paymentapproved.dean= true; // Update the approval status
+    lecturer.paymentapproved.dean= true;
     await lecturer.save();
 
     res.json({ message: 'Lecturer approved successfully' });
@@ -567,6 +567,37 @@ app.get('/lecture/reg/payment-request/:userId', async (req, res) => {
   try {
     // Fetch lecturers with dean_id equal to userId and paymentapproved.hod equal to true
     const lecturers = await GuestLecture.find({'paymentapproved.dean': true });
+    res.json(lecturers);
+  } catch (error) {
+    console.error('Error fetching lecturers with PaymentRequest:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+app.put('/lecture/vphr/payment-request/:lecturerId', async (req, res) => {
+  const { lecturerId } = req.params;
+
+  try {
+    const lecturer = await GuestLecture.findById(lecturerId);
+    if (!lecturer) {
+      return res.status(404).json({ message: 'Lecturer not found' });
+    }
+
+    lecturer.paymentapproved.vpHR= true; // Update the approval status
+    await lecturer.save();
+
+    res.json({ message: 'Lecturer approved successfully' });
+  } catch (error) {
+    console.error('Error accepting lecturer:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+app.get('/lecture/vphr/payment-request/:userId', async (req, res) => {
+  const userId = req.params.userId;
+  try {
+    // Fetch lecturers with dean_id equal to userId and paymentapproved.hod equal to true
+    const lecturers = await GuestLecture.find({'paymentapproved.registrar': true });
     res.json(lecturers);
   } catch (error) {
     console.error('Error fetching lecturers with PaymentRequest:', error);

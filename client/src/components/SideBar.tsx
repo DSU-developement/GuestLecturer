@@ -41,6 +41,9 @@ const Sidebar: React.FC = () => {
   if (role === 'Registrar') {
     paymentPath = '/registrarPayment';
   }
+  if (role === 'HR') {
+    paymentPath = '/VphrPayment';
+  }
 
   return (
     <div className="bg-gray-800 text-white w-62 h-screen flex flex-col">

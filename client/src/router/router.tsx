@@ -14,6 +14,8 @@ import GuestDash from '../pages/PaymentSystem/guest-lecdashboard';
 import Hodpayment from '../pages/PaymentSystem/hod';
 import DeanPaymentRequest from '../pages/PaymentSystem/dean';
 import RegPaymentRequest from '../pages/PaymentSystem/Registar';
+import VpHrPaymentRequest from '../pages/PaymentSystem/Vphr';
+
 const isAuthenticated = () => {
   const token = localStorage.getItem('token');
   return token !== null;
@@ -39,6 +41,7 @@ const AppRouter: React.FC = () => {
         <Route path='/hodPayment' element={authenticated ? <Hodpayment/> : <LoginPage />} />
         <Route path='/deanPayment' element={authenticated ? <DeanPaymentRequest/> : <LoginPage />} />
         <Route path='/registrarPayment' element={authenticated ? <RegPaymentRequest/> : <LoginPage />} />
+        <Route path='/VphrPayment' element={authenticated ? <VpHrPaymentRequest/> : <LoginPage />} />
       </Routes>
     </Router>
   );
