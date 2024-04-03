@@ -49,6 +49,7 @@ app.get("/api", (req, res) => {
           user = await GuestLecture.findOne({ email }); // Check if user is in the generic User model
       }
       
+      console.log(user);
         
 
         if (!user || user.password !== password) {
@@ -177,7 +178,15 @@ app.post('/api/signupLecturer', async (req, res) => {
     });
 
     await user.save();
-    res.status(201).json({ message: 'User registered successfully', user });
+
+    const hod = await Hod.findById(hod_id);
+    if (!hod) {
+      return res.status(404).json({ error: 'HOD not found' });
+    }
+    const deanEmail = hod.deanEmail;
+
+    send_Email(deanEmail,"New Guest Faculty Request", "There has been a new Guest Faculty been added! \nPlease check their details and approve");
+    res.status(200).json({ message: 'User registered successfully', user });
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ message: 'Internal server error' });
@@ -239,6 +248,19 @@ app.put('/editDetails/:id', async (req, res) => {
       const { id } = req.params;
       const updatedLecturer = await GuestLecture.findByIdAndUpdate(id, { 'approved.dean': true }, { new: true });
       res.json(updatedLecturer);
+
+      const registrar = await User.findOne({ role: "Registrar" });
+
+        if (registrar) {
+            console.log("Registrar's email:", registrar.email);
+            REmail= registrar.email;
+            send_Email(REmail,"New Guest Faculty Request", "There has been a new Guest Faculty been added! \nPlease check their details and approve");
+  
+        } else {
+            console.log("Registrar not found.");
+            return null;
+        }
+
     } catch (error) {
       console.error('Error accepting lecturer:', error);
       res.status(500).json({ message: 'Internal server error' });
@@ -268,6 +290,19 @@ app.put('/editDetails/:id', async (req, res) => {
       await lecturer.save();
   
       res.json({ message: 'Lecturer approved successfully' });
+
+      const vc = await User.findOne({ role: "ViceChancellor" });
+
+      if (vc) {
+          console.log("Vice chancellor's email:", vc.email);
+          VcEmail= vc.email;
+          send_Email(VcEmail,"New Guest Faculty Request", "There has been a new Guest Faculty been added! \nPlease check their details and approve");
+
+      } else {
+          console.log("VC not found.");
+          return null;
+      }
+
     } catch (error) {
       console.error('Error accepting lecturer:', error);
       res.status(500).json({ message: 'Internal server error' });
@@ -295,6 +330,19 @@ app.put('/editDetails/:id', async (req, res) => {
       await lecturer.save();
   
       res.json({ message: 'Lecturer approved successfully' });
+
+      const hr = await User.findOne({ role: "HR" });
+
+      if (hr) {
+          console.log("HR's email:", hr.email);
+          HrEmail= hr.email;
+          send_Email(HrEmail,"New Guest Faculty Request", "There has been a new Guest Faculty been added! \nPlease check their details and approve");
+
+      } else {
+          console.log("HR not found.");
+          return null;
+      }
+      
     } catch (error) {
       console.error('Error accepting lecturer:', error);
       res.status(500).json({ message: 'Internal server error' });
@@ -325,6 +373,19 @@ app.put('/editDetails/:id', async (req, res) => {
       await lecturer.save();
   
       res.json({ message: 'Lecturer approved successfully' });
+
+      const pc = await User.findOne({ role: "ProChancellor" });
+
+      if (pc) {
+          console.log("PC's email:", pc.email);
+          PcEmail= pc.email;
+          send_Email(PcEmail,"New Guest Faculty Request", "There has been a new Guest Faculty been added! \nPlease check their details and approve");
+
+      } else {
+          console.log("PC not found.");
+          return null;
+      }
+
     } catch (error) {
       console.error('Error accepting lecturer:', error);
       res.status(500).json({ message: 'Internal server error' });
@@ -497,17 +558,17 @@ app.put('/lecture/remarks/:lecturerId', async (req, res) => {
 
 
 // Define a route for sending emails
-app.get('/send-email', async (req, res) => {
-   const{receiverEmail, subject, text} = req.body;
+ async function send_Email(receiverEmail,subject,text){
+  // const{receiverEmail, subject, text} = req.body;
    //const receiverEmail = 'eng21cs0300@dsu.edu.in';
   try {
-    await sendEmail(receiverEmail);
-    res.status(200).send('Email sent successfully');
+    await sendEmail(receiverEmail,subject,text);
+    return('Email sent successfully');
   } catch (error) {
     console.error(error);
-    res.status(500).send('Error sending email');
+    return('Error sending email');
   }
-});
+}
 
 app.get('/lecture/payment-request/:useremail', async (req, res) => {
   const useremail = req.params.useremail;

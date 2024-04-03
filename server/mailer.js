@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 
-function sendEmail(receiverEmail,subject,text) {
+function sendEmail(receiverEmail, subject, text) {
   return new Promise((resolve, reject) => {
     const sender = 'eng21cs0279@dsu.edu.in';
     const transporter = nodemailer.createTransport({
@@ -11,10 +11,16 @@ function sendEmail(receiverEmail,subject,text) {
       }
     });
 
+    // Add a timestamp to the subject to create a new thread
+    const timestamp = new Date().toISOString();
+    const subjectWithTimestamp = `[${timestamp}] ${subject}`;
+    
+    console.log(subjectWithTimestamp);
+
     const mailOptions = {
       from: sender,
       to: receiverEmail,
-      subject: subject,
+      subject: subjectWithTimestamp,
       text: text
     };
 
