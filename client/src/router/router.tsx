@@ -13,7 +13,7 @@ import FinancialDetailsPage from '../pages/PaymentSystem/guest-lec';
 import GuestDash from '../pages/PaymentSystem/guest-lecdashboard';
 import Hodpayment from '../pages/PaymentSystem/hod';
 import DeanPaymentRequest from '../pages/PaymentSystem/dean';
-
+import RegPaymentRequest from '../pages/PaymentSystem/Registar';
 const isAuthenticated = () => {
   const token = localStorage.getItem('token');
   return token !== null;
@@ -38,6 +38,7 @@ const AppRouter: React.FC = () => {
         <Route path='/dashboard' element={authenticated ? <GuestDash/> : <LoginPage />} />
         <Route path='/hodPayment' element={authenticated ? <Hodpayment/> : <LoginPage />} />
         <Route path='/deanPayment' element={authenticated ? <DeanPaymentRequest/> : <LoginPage />} />
+        <Route path='/registrarPayment' element={authenticated ? <RegPaymentRequest/> : <LoginPage />} />
       </Routes>
     </Router>
   );
