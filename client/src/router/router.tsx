@@ -11,12 +11,7 @@ import VpHr from '../pages/AcceptingSystem/vpHr';
 import Prochancellor from '../pages/AcceptingSystem/prochancellor';
 import FinancialDetailsPage from '../pages/PaymentSystem/guest-lec';
 import GuestDash from '../pages/PaymentSystem/guest-lecdashboard';
-import Hodpayment from '../pages/PaymentSystem/hod';
-import DeanPaymentRequest from '../pages/PaymentSystem/dean';
-import RegPaymentRequest from '../pages/PaymentSystem/Registar';
-import VpHrPaymentRequest from '../pages/PaymentSystem/Vphr';
-import ViceChancellorPaymentRequest from '../pages/PaymentSystem/ViceChan';
-import ProPaymentRequest from '../pages/PaymentSystem/Prochancellor';
+import PaymentRequest from '../pages/PaymentSystem/Payment';
 
 const isAuthenticated = () => {
   const token = localStorage.getItem('token');
@@ -40,12 +35,7 @@ const AppRouter: React.FC = () => {
         <Route path='/add-lecture' element={<SignupPageLect />} />
         <Route path='/finance' element={authenticated ? <FinancialDetailsPage/> : <LoginPage />} />
         <Route path='/dashboard' element={authenticated ? <GuestDash/> : <LoginPage />} />
-        <Route path='/hodPayment' element={authenticated ? <Hodpayment/> : <LoginPage />} />
-        <Route path='/deanPayment' element={authenticated ? <DeanPaymentRequest/> : <LoginPage />} />
-        <Route path='/registrarPayment' element={authenticated ? <RegPaymentRequest/> : <LoginPage />} />
-        <Route path='/VphrPayment' element={authenticated ? <VpHrPaymentRequest/> : <LoginPage />} />
-        <Route path='/vicePayment' element={authenticated ? <ViceChancellorPaymentRequest/> : <LoginPage />} />
-        <Route path='/prochancellorpayment' element={authenticated ? <ProPaymentRequest/> : <LoginPage />} />
+        <Route path='/Payment' element={authenticated ? <PaymentRequest/> : <LoginPage />} />
       </Routes>
     </Router>
   );

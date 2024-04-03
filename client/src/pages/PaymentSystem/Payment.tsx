@@ -4,17 +4,43 @@ import { Link } from 'react-router-dom';
 import Sidebar from '../../components/SideBar';
 import Header from '../../components/CommonHeader';
 
-const ProPaymentRequest: React.FC = () => {
+const PaymentRequest: React.FC = () => {
   const [lectures, setLectures] = useState<any[]>([]);
   const [visibleRows, setVisibleRows] = useState(5); // Number of rows to display initially
   const tableRef = useRef<HTMLDivElement>(null);
 
   const storedUserData = localStorage.getItem('token');
-  var userId = "";
+  var useremail = "";
+
+
+  const ROLE = localStorage.getItem('role');
+  var userrole = "";
 
   if (storedUserData) {
     const userData = JSON.parse(storedUserData);
-    userId = userData['_id'];
+    userrole = userData['role'];
+  } else {
+    console.error('User data not found in local storage');
+  }
+
+  if (userrole === 'Dean') {
+    userrole='dean';
+  }
+  if (userrole === 'HOD') {
+    userrole='hod';
+  }
+  if (userrole === 'HR') {
+    userrole='vpHR';
+  }
+  if (userrole=='ViceChancellor')
+  {
+    userrole='viceChancellor';
+  }
+  
+
+  if (storedUserData) {
+    const userData = JSON.parse(storedUserData);
+    useremail = userData['email'];
   } else {
     console.error('User data not found in local storage');
   }
@@ -22,17 +48,16 @@ const ProPaymentRequest: React.FC = () => {
   useEffect(() => {
     async function fetchLectures() {
       try {
-        const response = await axios.get(`/lecture/pro/payment-request/${userId}`);
+        const response = await axios.get(`/lecture/payment-request/${useremail}`);
         setLectures(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error('Error fetching lectures:', error);
       }
     }
-
+  
     fetchLectures();
-  }, []);
-
+  }, [useremail]);
+  
   const handleScroll = () => {
     const element = tableRef.current;
     if (element) {
@@ -45,10 +70,10 @@ const ProPaymentRequest: React.FC = () => {
       }
     }
   };
-
+  
   const handleAccept = async (lecturerId: string) => {
     try {
-      await axios.put(`/lecture/pro/accept/payment-request/${lecturerId}`);
+      await axios.put(`/lecture/${useremail}/accept/payment-request/${lecturerId}`);
       window.location.reload(); 
     } catch (error) {
       console.error('Error accepting lecturer:', error);
@@ -58,6 +83,7 @@ const ProPaymentRequest: React.FC = () => {
   const handleComment = async (lecturerId: string) => {
     // Implement comment functionality
   };
+
 
   return (
     <div className="flex h-screen">
@@ -90,24 +116,23 @@ const ProPaymentRequest: React.FC = () => {
                       <td className="px-6 py-4 whitespace-nowrap">
                         <button
                           className={`text-green-600 hover:text-green-900 ml-2 p-2 pl-3 pr-3 ${
-                            lecturer.paymentapproved.proChancellor
+                            lecturer.paymentapproved[userrole]
                              ? 'bg-gray-400 text-gray-600 cursor-not-allowed' : 'bg-green-400 text-white hover:bg-green-500'
                           } rounded-xl m-1`}
                           onClick={() => handleAccept(lecturer._id)}
-                          disabled={lecturer.paymentapproved.proChancellor
-                            }
+                          disabled={lecturer.paymentapproved[userrole]}
                         >
-                          {lecturer.paymentapproved.proChancellor
+                          {lecturer.paymentapproved[userrole]
                           ? 'Accepted' : 'Accept'}
                         </button>
                         <button
                           className={`text-blue-600 hover:text-blue-900 ml-2 p-2 pl-3 pr-3 ${
-                            lecturer.paymentapproved.proChancellor ? 'bg-gray-400 text-gray-600 cursor-not-allowed' : 'bg-blue-400 text-white hover:bg-blue-500'
+                            lecturer.paymentapproved[userrole] ? 'bg-gray-400 text-gray-600 cursor-not-allowed' : 'bg-blue-400 text-white hover:bg-blue-500'
                           } rounded-xl m-1`}
                           onClick={() => handleComment(lecturer._id)}
-                          disabled={lecturer.paymentapproved.proChancellor}
+                          disabled={lecturer.paymentapproved[userrole]}
                         >
-                          {lecturer.paymentapproved.proChancellor ? 'Comment' : 'Comment'}
+                          {lecturer.paymentapproved[userrole] ? 'Comment' : 'Comment'}
                         </button>
                       </td>
                     </tr>
@@ -124,4 +149,4 @@ const ProPaymentRequest: React.FC = () => {
   );
 };
 
-export default ProPaymentRequest;
+export default PaymentRequest;

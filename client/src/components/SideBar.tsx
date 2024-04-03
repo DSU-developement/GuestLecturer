@@ -32,23 +32,23 @@ const Sidebar: React.FC = () => {
   }
 
   // Define the default payment path
-  let paymentPath = '/hodPayment';
+  let paymentPath = '/Payment';
 
   // Change payment path based on the role
   if (role === 'Dean') {
-    paymentPath = '/deanPayment';
+    paymentPath = '/Payment';
   }
   if (role === 'Registrar') {
-    paymentPath = '/registrarPayment';
+    paymentPath = '/Payment';
   }
   if (role === 'HR') {
-    paymentPath = '/VphrPayment';
+    paymentPath = '/Payment';
   }
   if (role === 'ViceChancellor') {
-    paymentPath = '/vicePayment';
+    paymentPath = '/Payment';
   }
   else if (role === 'ProChancellor'){
-    paymentPath='/prochancellorpayment'
+    paymentPath='/Payment'
   }
 
   return (
