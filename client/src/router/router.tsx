@@ -16,6 +16,7 @@ import DeanPaymentRequest from '../pages/PaymentSystem/dean';
 import RegPaymentRequest from '../pages/PaymentSystem/Registar';
 import VpHrPaymentRequest from '../pages/PaymentSystem/Vphr';
 import ViceChancellorPaymentRequest from '../pages/PaymentSystem/ViceChan';
+import ProPaymentRequest from '../pages/PaymentSystem/Prochancellor';
 
 const isAuthenticated = () => {
   const token = localStorage.getItem('token');
@@ -44,6 +45,7 @@ const AppRouter: React.FC = () => {
         <Route path='/registrarPayment' element={authenticated ? <RegPaymentRequest/> : <LoginPage />} />
         <Route path='/VphrPayment' element={authenticated ? <VpHrPaymentRequest/> : <LoginPage />} />
         <Route path='/vicePayment' element={authenticated ? <ViceChancellorPaymentRequest/> : <LoginPage />} />
+        <Route path='/prochancellorpayment' element={authenticated ? <ProPaymentRequest/> : <LoginPage />} />
       </Routes>
     </Router>
   );
