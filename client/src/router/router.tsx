@@ -19,6 +19,14 @@ const isAuthenticated = () => {
   return token !== null;
 };
 
+const NotFoundPage = () => {
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <h1 className="text-6xl font-bold">Error 404: Page not found</h1>
+    </div>
+  );
+};
+
 const AppRouter: React.FC = () => {
   const [authenticated, setAuthenticated] = useState(isAuthenticated());
 
@@ -38,6 +46,9 @@ const AppRouter: React.FC = () => {
         <Route path='/dashboard' element={authenticated ? <GuestDash/> : <LoginPage />} />
         <Route path='/Payment' element={authenticated ? <PaymentRequest/> : <LoginPage />} />
         <Route path='//hodPayment' element={authenticated ? <HodPaymentRequest/> : <LoginPage />} />
+
+        {/* Catch-all route for undefined routes */}
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
   );
