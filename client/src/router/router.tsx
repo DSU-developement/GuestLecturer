@@ -11,11 +11,20 @@ import VpHr from '../pages/AcceptingSystem/vpHr';
 import Prochancellor from '../pages/AcceptingSystem/prochancellor';
 import FinancialDetailsPage from '../pages/PaymentSystem/guest-lec';
 import GuestDash from '../pages/PaymentSystem/guest-lecdashboard';
-import Hodpayment from '../pages/PaymentSystem/hod';
+import PaymentRequest from '../pages/PaymentSystem/Payment';
+import HodPaymentRequest from '../pages/PaymentSystem/hod';
 
 const isAuthenticated = () => {
   const token = localStorage.getItem('token');
   return token !== null;
+};
+
+const NotFoundPage = () => {
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <h1 className="text-6xl font-bold">Error 404: Page not found</h1>
+    </div>
+  );
 };
 
 const AppRouter: React.FC = () => {
@@ -35,7 +44,11 @@ const AppRouter: React.FC = () => {
         <Route path='/add-lecture' element={<SignupPageLect />} />
         <Route path='/finance' element={authenticated ? <FinancialDetailsPage/> : <LoginPage />} />
         <Route path='/dashboard' element={authenticated ? <GuestDash/> : <LoginPage />} />
-        <Route path='/hodPayment' element={authenticated ? <Hodpayment/> : <LoginPage />} />
+        <Route path='/Payment' element={authenticated ? <PaymentRequest/> : <LoginPage />} />
+        <Route path='//hodPayment' element={authenticated ? <HodPaymentRequest/> : <LoginPage />} />
+
+        {/* Catch-all route for undefined routes */}
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
   );

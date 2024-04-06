@@ -1,27 +1,49 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import Sidebar from '../../components/SideBar';
 import Header from '../../components/CommonHeader';
-import DetailsModal from '../../components/DetailsModal';
-import CommentModal from '../../components/CommentModal';
 
-const DEAN: React.FC = () => {
+const PaymentRequest: React.FC = () => {
   const [lectures, setLectures] = useState<any[]>([]);
   const [visibleRows, setVisibleRows] = useState(5); // Number of rows to display initially
   const tableRef = useRef<HTMLDivElement>(null);
-  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
-  const [selectedLecturerForDetails, setSelectedLecturerForDetails] = useState<any | null>(null);
-  const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
-  const [selectedLecturerId, setSelectedLecturerId] = useState('');
 
   const storedUserData = localStorage.getItem('token');
-  var userId = "";
+  var useremail = "";
+
+
+  const ROLE = localStorage.getItem('role');
+  var userrole = "";
 
   if (storedUserData) {
     const userData = JSON.parse(storedUserData);
-    console.log(userData);
-    userId = userData['_id'];
+    userrole = userData['role'];
+  } else {
+    console.error('User data not found in local storage');
+  }
+
+if(!userrole) {
+  userrole='dean';
+}
+  if (userrole==='Registrar')
+  {
+    userrole='registrar';
+  }
+  if (userrole === 'HR') {
+    userrole='vpHR';
+  }
+  if (userrole=='ViceChancellor')
+  {
+    userrole='viceChancellor';
+  }
+  if(userrole=='ProChancellor'){
+    userrole='proChancellor';
+  }
+  
+  if (storedUserData) {
+    const userData = JSON.parse(storedUserData);
+    useremail = userData['email'];
   } else {
     console.error('User data not found in local storage');
   }
@@ -29,35 +51,16 @@ const DEAN: React.FC = () => {
   useEffect(() => {
     async function fetchLectures() {
       try {
-        const response = await axios.get(`/lecture/dean/${userId}`);
+        const response = await axios.get(`/lecture/payment-request/${useremail}`);
         setLectures(response.data);
       } catch (error) {
         console.error('Error fetching lectures:', error);
       }
     }
-
+  
     fetchLectures();
-  }, []);
-
-  const handleAccept = async (lecturerId: string) => {
-    try {
-      await axios.put(`/lecture/accept/${lecturerId}`);
-      // Optionally, you can update your local state or perform any other actions after accepting the lecturer
-      window.location.reload(); // Reload the page after accepting the lecturer
-    } catch (error) {
-      console.error('Error accepting lecturer:', error);
-    }
-  };
-
-  const handleComment = async (lecturer: any) => {
-    try {
-      setSelectedLecturerId(lecturer);
-      setIsCommentModalOpen(true);
-    } catch (error) {
-      console.error('Error commenting on lecturer:', error);
-    }
-  };
-
+  }, [useremail]);
+  
   const handleScroll = () => {
     const element = tableRef.current;
     if (element) {
@@ -70,16 +73,21 @@ const DEAN: React.FC = () => {
       }
     }
   };
-  const handleDetails = (lecturer: any) => {
-    setSelectedLecturerForDetails(lecturer);
-    setIsDetailsModalOpen(true);
+  
+  const handleAccept = async (lecturerId: string) => {
+    try {
+      await axios.put(`/lecture/${useremail}/accept/payment-request/${lecturerId}`);
+      window.location.reload(); 
+    } catch (error) {
+      console.error('Error accepting lecturer:', error);
+    }
   };
 
-  const getStatus = (lecturer: any) => {
-    // Check if all approvals are true
-    const allApproved = Object.values(lecturer.approved).every((approval: any) => approval as boolean);
-    return allApproved ? 'Accepted' : 'Pending';
-  }
+  const handleComment = async (lecturerId: string) => {
+    // Implement comment functionality
+  };
+
+
   return (
     <div className="flex h-screen">
       <Sidebar />
@@ -87,7 +95,7 @@ const DEAN: React.FC = () => {
         <Header />
         <div
           className="overflow-auto mt-5"
-          style={{ height: 'calc(100vh - 200px)' }} 
+          style={{ height: 'calc(100vh - 200px)' }}
           onScroll={handleScroll}
           ref={tableRef}
         >
@@ -106,33 +114,28 @@ const DEAN: React.FC = () => {
                   {lectures.slice(0, visibleRows).map((lecturer, index) => (
                     <tr key={lecturer._id}>
                       <td className="px-6 py-4 whitespace-nowrap text-gray-300">{index + 1}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">{lecturer.facultyName}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">{lecturer.status}</td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                       <button
-                         className="text-indigo-600 hover:text-indigo-900"
-                         onClick={() => handleDetails(lecturer)}
-                       >
-                         {lecturer.facultyName}
-                       </button>
-                     </td>
-                     <td className="px-6 py-4 whitespace-nowrap">{getStatus(lecturer)}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                      <button
-                        className={`text-green-600 hover:text-green-900 ml-2 p-2 pl-3 pr-3 ${
-                          lecturer.approved.dean ? 'bg-gray-400 text-gray-600 cursor-not-allowed' : 'bg-green-400 text-white hover:bg-green-500'
-                        } rounded-xl m-1`}
-                        onClick={() => handleAccept(lecturer._id)}
-                        disabled={lecturer.approved.dean}
-                          >
-                        {lecturer.approved.dean ? 'Accepted' : 'Accept'}
+                        <button
+                          className={`text-green-600 hover:text-green-900 ml-2 p-2 pl-3 pr-3 ${
+                            lecturer.paymentapproved[userrole]
+                             ? 'bg-gray-400 text-gray-600 cursor-not-allowed' : 'bg-green-400 text-white hover:bg-green-500'
+                          } rounded-xl m-1`}
+                          onClick={() => handleAccept(lecturer._id)}
+                          disabled={lecturer.paymentapproved[userrole]}
+                        >
+                          {lecturer.paymentapproved[userrole]
+                          ? 'Accepted' : 'Accept'}
                         </button>
                         <button
                           className={`text-blue-600 hover:text-blue-900 ml-2 p-2 pl-3 pr-3 ${
-                            lecturer.approved.dean ? 'bg-gray-400 text-gray-600 cursor-not-allowed' : 'bg-blue-400 text-white hover:bg-blue-500'
+                            lecturer.paymentapproved[userrole] ? 'bg-gray-400 text-gray-600 cursor-not-allowed' : 'bg-blue-400 text-white hover:bg-blue-500'
                           } rounded-xl m-1`}
                           onClick={() => handleComment(lecturer._id)}
-                          disabled={lecturer.approved.dean}
+                          disabled={lecturer.paymentapproved[userrole]}
                         >
-                          {lecturer.approved.dean ? 'Comment' : 'Comment'}
+                          {lecturer.paymentapproved[userrole] ? 'Comment' : 'Comment'}
                         </button>
                       </td>
                     </tr>
@@ -145,18 +148,8 @@ const DEAN: React.FC = () => {
           <div className="absolute top-0 right-0 bg-gray-200 w-2 bottom-0" style={{ zIndex: 10 }} />
         </div>
       </div>
-      <DetailsModal
-          isOpen={isDetailsModalOpen}
-          onClose={() => setIsDetailsModalOpen(false)}
-          lecturer={selectedLecturerForDetails}
-        />
-        <CommentModal
-        isOpen={isCommentModalOpen}
-        onClose={() => setIsCommentModalOpen(false)}
-        lecturerId={selectedLecturerId}
-      />
     </div>
   );
 };
 
-export default DEAN;
+export default PaymentRequest;

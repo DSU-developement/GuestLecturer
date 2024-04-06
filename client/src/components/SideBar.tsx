@@ -8,7 +8,6 @@ const Sidebar: React.FC = () => {
   var role = ""; 
   if (storedUserData) {
     role = JSON.parse(storedUserData);
-    console.log(role);
   } else {
     console.error('User role not found in local storage');
   }
@@ -32,13 +31,14 @@ const Sidebar: React.FC = () => {
   }
 
   // Define the default payment path
-  let paymentPath = '/hodPayment';
+  let paymentPath = '/Payment';
 
   // Change payment path based on the role
-  if (role === 'Dean') {
-    paymentPath = '/deanPayment';
+  if(role ==='HOD'){
+    paymentPath = '/hodPayment';
   }
-
+  
+  
   return (
     <div className="bg-gray-800 text-white w-62 h-screen flex flex-col">
       <div className="p-4">

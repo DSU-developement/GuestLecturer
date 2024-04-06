@@ -5,6 +5,8 @@ const User = require("./modals/User.js");
 const Hod = require("./modals/Hod.js");
 const Dean = require("./modals/Dean.js");
 const GuestLecture = require('./modals/guestlecture.js');
+const sendEmail = require('./mailer');
+
 
 
 connectDB();
@@ -47,6 +49,7 @@ app.get("/api", (req, res) => {
           user = await GuestLecture.findOne({ email }); // Check if user is in the generic User model
       }
       
+      console.log(user);
         
 
         if (!user || user.password !== password) {
@@ -175,7 +178,15 @@ app.post('/api/signupLecturer', async (req, res) => {
     });
 
     await user.save();
-    res.status(201).json({ message: 'User registered successfully', user });
+
+    const hod = await Hod.findById(hod_id);
+    if (!hod) {
+      return res.status(404).json({ error: 'HOD not found' });
+    }
+    const deanEmail = hod.deanEmail;
+
+    send_Email(deanEmail,"New Guest Faculty Request", "There has been a new Guest Faculty been added! \nPlease check their details and approve");
+    res.status(200).json({ message: 'User registered successfully', user });
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ message: 'Internal server error' });
@@ -237,6 +248,19 @@ app.put('/editDetails/:id', async (req, res) => {
       const { id } = req.params;
       const updatedLecturer = await GuestLecture.findByIdAndUpdate(id, { 'approved.dean': true }, { new: true });
       res.json(updatedLecturer);
+
+      const registrar = await User.findOne({ role: "Registrar" });
+
+        if (registrar) {
+            console.log("Registrar's email:", registrar.email);
+            REmail= registrar.email;
+            send_Email(REmail,"New Guest Faculty Request", "There has been a new Guest Faculty been added! \nPlease check their details and approve");
+  
+        } else {
+            console.log("Registrar not found.");
+            return null;
+        }
+
     } catch (error) {
       console.error('Error accepting lecturer:', error);
       res.status(500).json({ message: 'Internal server error' });
@@ -266,6 +290,19 @@ app.put('/editDetails/:id', async (req, res) => {
       await lecturer.save();
   
       res.json({ message: 'Lecturer approved successfully' });
+
+      const vc = await User.findOne({ role: "ViceChancellor" });
+
+      if (vc) {
+          console.log("Vice chancellor's email:", vc.email);
+          VcEmail= vc.email;
+          send_Email(VcEmail,"New Guest Faculty Request", "There has been a new Guest Faculty been added! \nPlease check their details and approve");
+
+      } else {
+          console.log("VC not found.");
+          return null;
+      }
+
     } catch (error) {
       console.error('Error accepting lecturer:', error);
       res.status(500).json({ message: 'Internal server error' });
@@ -293,6 +330,19 @@ app.put('/editDetails/:id', async (req, res) => {
       await lecturer.save();
   
       res.json({ message: 'Lecturer approved successfully' });
+
+      const hr = await User.findOne({ role: "HR" });
+
+      if (hr) {
+          console.log("HR's email:", hr.email);
+          HrEmail= hr.email;
+          send_Email(HrEmail,"New Guest Faculty Request", "There has been a new Guest Faculty been added! \nPlease check their details and approve");
+
+      } else {
+          console.log("HR not found.");
+          return null;
+      }
+      
     } catch (error) {
       console.error('Error accepting lecturer:', error);
       res.status(500).json({ message: 'Internal server error' });
@@ -323,6 +373,19 @@ app.put('/editDetails/:id', async (req, res) => {
       await lecturer.save();
   
       res.json({ message: 'Lecturer approved successfully' });
+
+      const pc = await User.findOne({ role: "ProChancellor" });
+
+      if (pc) {
+          console.log("PC's email:", pc.email);
+          PcEmail= pc.email;
+          send_Email(PcEmail,"New Guest Faculty Request", "There has been a new Guest Faculty been added! \nPlease check their details and approve");
+
+      } else {
+          console.log("PC not found.");
+          return null;
+      }
+
     } catch (error) {
       console.error('Error accepting lecturer:', error);
       res.status(500).json({ message: 'Internal server error' });
@@ -436,7 +499,6 @@ app.put('/api/updatePaymentRequest/:id', async (req, res) => {
 
 app.get('/lecture/hod/payment-request/:userId', async (req, res) => {
   const userId = req.params.userId;
-  console.log(userId);
   try {
     // Fetch lecturers with PaymentRequest set to true for the given userId
     const lecturers = await GuestLecture.find({ hod_id: userId, PaymentRequest: true });
@@ -469,5 +531,239 @@ app.put('/lecture/hod/paymentaccept/:lecturerId', async (req, res) => {
   }
 });
 
+app.put('/lecture/remarks/:lecturerId', async (req, res) => {
+  const lecturerId = req.params.lecturerId;
+  const { from, to, text } = req.body;
+
+  try {
+    // Find the lecturer by ID
+    const lecturer = await GuestLecture.findById(lecturerId);
+
+    if (!lecturer) {
+      return res.status(404).json({ message: 'Lecturer not found' });
+    }
+
+    // Add the new remark to the lecturer's remarks array
+    lecturer.remarks.push({ from, to, text });
+    
+    // Save the updated lecturer document
+    await lecturer.save();
+
+    res.status(200).json({ message: 'Remark added successfully' });
+  } catch (error) {
+    console.error('Error adding remark:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
+// Define a route for sending emails
+ async function send_Email(receiverEmail,subject,text){
+  // const{receiverEmail, subject, text} = req.body;
+   //const receiverEmail = 'eng21cs0300@dsu.edu.in';
+  try {
+    await sendEmail(receiverEmail,subject,text);
+    return('Email sent successfully');
+  } catch (error) {
+    console.error(error);
+    return('Error sending email');
+  }
+}
+
+app.get('/lecture/payment-request/:useremail', async (req, res) => {
+  const useremail = req.params.useremail;
+
+  let user = await Hod.findOne({ email: useremail }) || await Dean.findOne({ email: useremail }) || await User.findOne({ email: useremail }) || await GuestLecture.findOne({ email: useremail });
+
+  if (!user) {
+    return res.status(401).json({ success: false, message: "Invalid user role" });
+  }
+
+  let role = '';
+  if (user.role === 'HR') {
+    role = 'HR';
+  } else if (user.role === 'Registrar') {
+    role = 'Registrar';
+  } else if (user.role === 'ViceChancellor') {
+    role = 'ViceChancellor';
+  } else if (user.role === 'ProChancellor') {
+    role = 'ProChancellor';
+  } else {
+    if (await Dean.exists({ email: useremail })) {
+      role = 'Dean';
+    } else if (await Hod.exists({ email: useremail })) {
+      role = 'HOD';
+    } else if (await GuestLecture.exists({ email: useremail })) {
+      role = 'GuestLecture';
+    } else {
+      return res.status(401).json({ success: false, message: "Invalid user role" });
+    }
+  }
+
+  try {
+    let lecturers;
+    switch (role) {
+      case 'Dean':
+        lecturers = await GuestLecture.find({ 'paymentapproved.hod': true });
+        break;
+      case 'Registrar':
+        lecturers = await GuestLecture.find({ 'paymentapproved.dean': true });
+        break;
+      case 'ViceChancellor':
+        lecturers = await GuestLecture.find({ 'paymentapproved.registrar': true });
+        break;
+      case 'HR':
+        lecturers = await GuestLecture.find({ 'paymentapproved.viceChancellor': true });
+        break;
+      case 'ProChancellor':
+        lecturers = await GuestLecture.find({ 'paymentapproved.vpHR': true });
+        break;
+      default:
+        lecturers = [];
+    }
+    res.json(lecturers);
+  } catch (error) {
+    console.error('Error fetching lecturers with PaymentRequest:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
+//API for Accepting Lectures for payment 
+
+
+app.put('/lecture/:useremail/accept/payment-request/:lecturerId', async (req, res) => {
+
+  const { useremail, lecturerId } = req.params;
+
+  let user = await Hod.findOne({ email: useremail }); 
+  console.log(user)
+  if (!user) {
+      user = await Dean.findOne({ email: useremail }); 
+      console.log(user)
+  }
+  if (!user) {
+      user = await User.findOne({ email: useremail }); 
+      console.log(user)
+      
+  }
+  if (!user) {
+    user = await GuestLecture.findOne({ email: useremail }); 
+    console.log(user)
+}  
+
+  let role = '';
+  if (user.role === 'HR') {
+      role = 'HR';
+  } else if (user.role === 'Registrar') {
+      role = 'Registrar';
+  } else if (user.role === 'ViceChancellor') {
+      role = 'ViceChancellor';
+  } else if (user.role === 'ProChancellor') {
+      role = 'ProChancellor';
+  } else if (user.role === 'CFO') {
+      role = 'CFO';
+  } else {
+      if (await Dean.exists({ email: useremail })) {
+          role = 'Dean';
+      } else if (await Hod.exists({ email: useremail })) {
+          role = 'HOD';
+      } else if (await GuestLecture.exists({ email: useremail })) {
+          role = 'GuestLecture';
+      } else {
+          return res.status(401).json({ success: false, message: "Invalid user role" });
+      }
+  }
+  
+  if(role ==='Dean'){
+    try {
+      const lecturer = await GuestLecture.findById(lecturerId);
+      if (!lecturer) {
+        return res.status(404).json({ message: 'Lecturer not found' });
+      }
+  
+      lecturer.paymentapproved.dean= true;
+      await lecturer.save();
+  
+      res.json({ message: 'Lecturer approved successfully' });
+    } catch (error) {
+      console.error('Error accepting lecturer:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  }
+
+
+  if(role === 'Registrar'){
+    try {
+      const lecturer = await GuestLecture.findById(lecturerId);
+      if (!lecturer) {
+        return res.status(404).json({ message: 'Lecturer not found' });
+      }
+  
+      lecturer.paymentapproved.registrar= true; // Update the approval status
+      await lecturer.save();
+  
+      res.json({ message: 'Lecturer approved successfully' });
+    } catch (error) {
+      console.error('Error accepting lecturer:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  }
+
+
+  if(role == 'ViceChancellor'){
+    try {
+      const lecturer = await GuestLecture.findById(lecturerId);
+      if (!lecturer) {
+        return res.status(404).json({ message: 'Lecturer not found' });
+      }
+  
+      lecturer.paymentapproved.viceChancellor= true; 
+      await lecturer.save();
+  
+      res.json({ message: 'Lecturer approved successfully' });
+    } catch (error) {
+      console.error('Error accepting lecturer:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  }
+  
+
+  if(role =='HR'){
+  try {
+    const lecturer = await GuestLecture.findById(lecturerId);
+    if (!lecturer) {
+      return res.status(404).json({ message: 'Lecturer not found' });
+    }
+
+    lecturer.paymentapproved.vpHR= true; 
+    await lecturer.save();
+
+    res.json({ message: 'Lecturer approved successfully' });
+  } catch (error) {
+    console.error('Error accepting lecturer:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+  }
+
+  if(role == 'ProChancellor'){
+
+  try {
+    const lecturer = await GuestLecture.findById(lecturerId);
+    if (!lecturer) {
+      return res.status(404).json({ message: 'Lecturer not found' });
+    }
+
+    lecturer.paymentapproved.proChancellor= true; 
+    await lecturer.save();
+
+    res.json({ message: 'Lecturer approved successfully' });
+  } catch (error) {
+    console.error('Error accepting lecturer:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+  }
+
+});
 
   module.exports = app; 

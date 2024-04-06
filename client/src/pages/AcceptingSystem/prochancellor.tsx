@@ -3,10 +3,13 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Sidebar from '../../components/SideBar';
 import Header from '../../components/CommonHeader';
+import DetailsModal from '../../components/DetailsModal';
 
 const Prochancellor: React.FC = () => {
   const [approvedLectures, setApprovedLectures] = useState<any[]>([]);
   const tableRef = useRef<HTMLDivElement>(null);
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+  const [selectedLecturerForDetails, setSelectedLecturerForDetails] = useState<any | null>(null);
 
   useEffect(() => {
     async function fetchApprovedLectures() {
@@ -30,7 +33,16 @@ const Prochancellor: React.FC = () => {
       console.error('Error accepting lecturer:', error);
     }
   };
+  const handleDetails = (lecturer: any) => {
+    setSelectedLecturerForDetails(lecturer);
+    setIsDetailsModalOpen(true);
+  };
 
+  const getStatus = (lecturer: any) => {
+    // Check if all approvals are true
+    const allApproved = Object.values(lecturer.approved).every((approval: any) => approval as boolean);
+    return allApproved ? 'Accepted' : 'Pending';
+  }
   return (
     <div className="flex h-screen">
       <Sidebar />
@@ -57,10 +69,15 @@ const Prochancellor: React.FC = () => {
                     <tr key={lecturer._id}>
                       <td className="px-6 py-4 whitespace-nowrap text-gray-300">{index + 1}</td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <Link to={`/details/${lecturer._id}`} className="text-indigo-600 hover:text-indigo-900">{lecturer.facultyName}</Link>
-                      </td>
+                       <button
+                         className="text-indigo-600 hover:text-indigo-900"
+                         onClick={() => handleDetails(lecturer)}
+                       >
+                         {lecturer.facultyName}
+                       </button>
+                     </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <Link to={`/details/${lecturer._id}`} className="text-indigo-600 hover:text-indigo-900">{lecturer.status}</Link>
+                      <td className="px-6 py-4 whitespace-nowrap">{getStatus(lecturer)}</td>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                       <button
@@ -91,6 +108,11 @@ const Prochancellor: React.FC = () => {
           <div className="absolute top-0 right-0 bg-gray-200 w-2 bottom-0" style={{ zIndex: 10 }} />
         </div>
       </div>
+      <DetailsModal
+          isOpen={isDetailsModalOpen}
+          onClose={() => setIsDetailsModalOpen(false)}
+          lecturer={selectedLecturerForDetails}
+        />
     </div>
   );
 };
