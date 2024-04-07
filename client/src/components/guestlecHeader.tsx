@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from 'axios'; 
 
 const Header: React.FC = () => {
   const [lecturerData, setLecturerData] = useState<any>(null);
   const [paymentRequested, setPaymentRequested] = useState(false);
+  const [accountDetailsUpdated, setAccountDetailsUpdated] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [showModal, setShowModal] = useState(false); // State to control modal visibility
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -12,12 +15,16 @@ const Header: React.FC = () => {
 
   const handlePaymentRequest = async () => {
     try {
+      if (!accountDetailsUpdated) {
+        setErrorMessage("Please update your account details before requesting payment.");
+        return;
+      }
+
       const storedUserData = localStorage.getItem('token');
       if (storedUserData) {
         const userData = JSON.parse(storedUserData);
         const response = await axios.put(`/api/updatePaymentRequest/${userData._id}`);
         if (response.status === 200) {
-          // Update local state to reflect the change
           setPaymentRequested(true);
         }
       } else {
@@ -37,6 +44,7 @@ const Header: React.FC = () => {
           const response = await axios.get(`/getLecturerDetails/${userData._id}`);
           setLecturerData(response.data);
           setPaymentRequested(response.data?.PaymentRequest || false);
+          setAccountDetailsUpdated(!!response.data?.accountDetails?.accountNumber);
         } else {
           console.error('User data not found in local storage');
         }
@@ -69,13 +77,17 @@ const Header: React.FC = () => {
         >
           {paymentRequested ? 'Requested For Payment' : 'Request For Payment'}
         </button>
+        {/* Button to open the modal */}
         {(lecturerData && !lecturerData.accountDetails.accountNumber) && (
           <button
+            onClick={() => setShowModal(true)}
             className="text-white bg-blue-500 px-4 py-2 ml-2 rounded-md hover:bg-blue-600"
           >
             Update Account Details
           </button>
         )}
+        {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+        {/* Render the modal */}
       </div>
     </header>
   );

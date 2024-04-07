@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
 interface Lecturer {
@@ -56,8 +57,18 @@ const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, lecturer, onSubm
   };
 
   // Function to handle form submission
-  const handleSubmit = () => {
-    onSubmit(editedLecturer); // Submit the edited lecturer data
+  const handleSubmit = async  () => {
+    try {
+      // Make a PUT request to update the lecturer
+      const response = await axios.put(`/api/edit/lecture`, editedLecturer);
+      console.log('Updated lecturer:', response.data);
+      onSubmit(response.data); // Submit the updated lecturer data
+      onClose(); // Close the modal
+    } catch (error) {
+      console.error('Error updating lecturer:', error);
+      // Handle error
+    }
+     // Submit the edited lecturer data
     onClose(); // Close the modal
   };
 

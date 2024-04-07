@@ -64,7 +64,7 @@ const Registrar: React.FC = () => {
         <Header />
         <div
           className="overflow-auto mt-5"
-          style={{ height: 'calc(100vh - 200px)' }} 
+          style={{ height: 'calc(100vh - 100px)' }} 
           ref={tableRef}
         >
           <div className="m-3">

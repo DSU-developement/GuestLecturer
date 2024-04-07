@@ -4,6 +4,7 @@ import { CgProfile } from 'react-icons/cg';
 import Sidebar from '../../components/guestSidebar';
 import Header from '../../components/guestlecHeader';
 
+
 const GuestDash: React.FC = () => {
   const [lecturerData, setLecturerData] = useState<any>(null);
   const storedUserData = localStorage.getItem('token');
@@ -43,9 +44,8 @@ const GuestDash: React.FC = () => {
         <>
         <div className="container mx-auto px-2 p-3 ml-1.5 mr-1">
         <div className="bg-white  rounded-lg borderp-8">
-          <CgProfile className="fixed z-10 inset-0 overflow-y-auto" />
           <div className="text">
-            <h2 className="text-3xl font-bold text-blue-500 mb-10"> Welcome {lecturerData.facultyName}!</h2>
+            <h2 className="text-3xl font-bold text-blue-500 mb-5"> Welcome {lecturerData.facultyName}!</h2>
             <div className="text-center grid grid-cols-4 gap-10 mt-4 mb-2 ">
               <div>
                 <div className="font-bold ml-2 text-left">Email:</div>

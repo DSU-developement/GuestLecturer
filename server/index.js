@@ -91,6 +91,24 @@ app.get("/api", (req, res) => {
     }
 });
 
+app.put('/api/edit/lecture', async (req, res) => {
+  const { email, ...updatedLecturerData } = req.body; // Extract email and lecturer data from request body
+
+  try {
+    // Find the lecturer by email and update it with the new data
+    const updatedLecturer = await GuestLecture.findOneAndUpdate({ email: email }, updatedLecturerData, { new: true });
+
+    if (!updatedLecturer) {
+      return res.status(404).json({ message: 'Lecturer not found' });
+    }
+
+    res.status(200).json(updatedLecturer); // Respond with the updated lecturer
+  } catch (error) {
+    console.error('Error updating lecturer:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 app.post('/api/signup', async (req, res) => {
   try {
         const { name, email, password, role, department, school } = req.body;
