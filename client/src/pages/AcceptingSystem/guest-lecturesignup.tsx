@@ -114,9 +114,9 @@ const SignupPageLect = () => {
     <div className='h-full flex flex-col bg-gray-100'>
       <div className=" w-full container mx-auto p-6 rounded-xl m-6 bg-white" style={{ backgroundImage: `url("./bg.jpeg")` }} >
         <h2 className="text-4xl mb-4 text-center font-bold">Create a New Guest Lecturer Account </h2>
-        <form onSubmit={handleSignup} className="space-y-4 p-3 ">
-          <div className='container mx-auto p-1 rounded-xl bg-gray-10'>
-          <div className='mt-3 border border-black bg-gray-50 rounded'>
+        <form onSubmit={handleSignup} className="space-y-4 p-3 border border-black bg-gray-50 rounded">
+          <div className='container mx-auto  rounded-xl bg-white'>
+          <div className='mt-3 border border-black rounded'>
           <h2 className=' font-mono font-black text-2xl w-full font-bold text-blue-500  ml-3 mt-3'>PERSONAL DETAILS</h2>
             <div className='grid grid-cols-3 gap-3 rounded  p-2 flex flex-col  flex-wrap '>
               <div className='m-1 p-1'>
@@ -133,7 +133,7 @@ const SignupPageLect = () => {
               </div>
             </div> 
             </div>
-            <div className='mt-3 border border-black bg-gray-50'>
+            <div className='mt-3 border border-black rounded-xl bg-white '>
             <h2 className='font-mono font-black text-2xl w-full font-bold text-blue-500  ml-3'>ACADEMIC DETAILS</h2>
             <div className='grid grid-cols-3'>              
               <div className='grid grid-cols-3 gap-3 rounded  p-2 flex flex-col  flex-wrap'>
@@ -166,7 +166,7 @@ const SignupPageLect = () => {
               </div>
               </div>
             </div> 
-            <div className='mt-3 border border-black bg-gray-50 rounded'>
+            <div className='mt-3 border border-black rounded-xl bg-white'>
             <h2 className='font-mono font-black text-2xl w-full font-bold text-blue-500  ml-3'>WORK DETAILS</h2>
             <div className='grid grid-cols-3'>
               <div className='m-2 p-2'>
