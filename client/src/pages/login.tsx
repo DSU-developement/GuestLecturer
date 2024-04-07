@@ -13,9 +13,7 @@ const LoginPage = () => {
     setEmail(e.target.value);
   };
 
-  const handleSignup = () => {
-    window.location.href = '/signup';
-  }
+ 
 
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
@@ -135,13 +133,6 @@ const LoginPage = () => {
                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 Login
-              </button>
-              <button
-                type='button'
-                onClick={handleSignup}
-                className="group  ml-2 relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
-                SignUp
               </button>
             </div>
           </form>
