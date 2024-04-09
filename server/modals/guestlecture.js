@@ -46,6 +46,7 @@ const guestLectureSchema = new Schema({
     vpHR: { type: Boolean, default: false },
     proChancellor: { type: Boolean, default: false },
   },
+  Accepted:{type: Boolean, default: false},
   PaymentRequest:{type:Boolean, default: false},
   paymentapproved: {
     hod: { type: Boolean, default: false },

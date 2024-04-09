@@ -429,7 +429,8 @@ app.put('/editDetails/:id', async (req, res) => {
         return res.status(404).json({ message: 'Lecturer not found' });
       }
   
-      lecturer.approved.proChancellor= true; // Update the approval status
+      lecturer.approved.proChancellor= true;
+      lecturer.Accepted=true; // Update the approval status
       await lecturer.save();
   
       res.json({ message: 'Lecturer approved successfully' });
