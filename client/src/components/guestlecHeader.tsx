@@ -77,15 +77,6 @@ const Header: React.FC = () => {
         >
           {paymentRequested ? 'Requested For Payment' : 'Request For Payment'}
         </button>
-        {/* Button to open the modal */}
-        {(lecturerData && !lecturerData.accountDetails.accountNumber) && (
-          <button
-            onClick={() => setShowModal(true)}
-            className="text-white bg-blue-500 px-4 py-2 ml-2 rounded-md hover:bg-blue-600"
-          >
-            Update Account Details
-          </button>
-        )}
         {errorMessage && <p className="text-red-500">{errorMessage}</p>}
         {/* Render the modal */}
       </div>

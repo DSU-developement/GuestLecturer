@@ -103,19 +103,19 @@ const GuestDash: React.FC = () => {
               <div className="text- left grid grid-cols-4 gap-10 mt-4 mb-2">
               <div>
                 <div className="font-bold  ml-2 text-left">Account Number:</div>
-                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left p-1">{lecturerData.accountDetails.accountNumber|| 'Update'}</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left p-1">{lecturerData.accountDetails.accountNumber}</div>
               </div>
               <div>
                 <div className="font-bold  ml-2 text-left">Account Holder Name:</div>
-                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left p-1">{lecturerData.accountDetails.accountHolderName|| 'Update'}</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left p-1">{lecturerData.accountDetails.accountHolderName}</div>
               </div>
               <div>
                 <div className="font-bold  ml-2 text-left">Bank Name:</div>
-                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left p-1">{lecturerData.accountDetails.bankName|| 'Update'}</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left p-1">{lecturerData.accountDetails.bankName}</div>
               </div>
               <div>
                 <div className="font-bold  ml-2 text-left">Bank Branch:</div>
-                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left p-1">{lecturerData.accountDetails.bankBranch || 'Update'}</div>
+                <div className=" bg-blue-50 mt-1 border border-black-300 text-lg  ml-2 text-left p-1">{lecturerData.accountDetails.bankBranch}</div>
               </div>
               </div>
               </div>
