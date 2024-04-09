@@ -12,7 +12,6 @@ const SignupPageLect = () => {
   var deanid = "";
   if (storedUserData) {
     const userData = JSON.parse(storedUserData);
-    console.log(userData);
     userId = userData['_id']; 
     deanid = userData['deanId'];
 
@@ -56,33 +55,37 @@ const SignupPageLect = () => {
   const [submitted, setSubmitted] = useState(false);
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
-  
+    
     if (type === 'checkbox') {
       const isChecked = (e.target as HTMLInputElement).checked;
-      setFormData({
-        ...formData,
+      setFormData(prevState => ({
+        ...prevState,
         qualifications: {
-          ...formData.qualifications,
+          ...prevState.qualifications,
           [name.split('.')[1]]: isChecked
         }
-      });
-    } else if (name.includes('.')) {
-      const [parent, child] = name.split('.');
-      setFormData({
-        ...formData,
+      }));
+    } else if (name === "accountNumber" || name === "accountHolderName" || name === "bankName" || name === "bankBranch") {
+      let parent = "accountDetails";
+      let child = name;
+
+      setFormData(prevState => ({
+        ...prevState,
         [parent]: {
-          ...(formData[parent as keyof typeof formData] as Record<string, any>),
+          ...(prevState[parent as keyof typeof formData] as Record<string, any>),
           [child]: value
         }
-      });
+      }));
     } else {
-      setFormData({
-        ...formData,
+      setFormData(prevState => ({
+        ...prevState,
         [name]: value,
-        remarks:{},approved:{},
-      });
+        remarks: {},
+        approved: {}
+      }));
     }
   };
+  
   
   const handleSignup = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -186,6 +189,28 @@ const SignupPageLect = () => {
               </div>
             </div>
             </div>
+
+            <div className='border  mt-2 rounded-xl bg-white'>
+            <h2 className='font-mono font-black text-2xl w-full font-bold text-blue-500  ml-3'>FINANCIAL DETAILS</h2>
+            <div className='grid grid-cols-3'>
+              <div className='m-2 p-2'>
+                <input autoComplete='no' className='w-80  border-black border rounded p-2 outline-blue-600 ' placeholder="Account Number" type="text" name="accountNumber" value={formData.accountDetails["accountNumber"]} onChange={handleChange} required />
+              </div>
+              <div className='m-2 p-2 flex  flex-wrap'>
+                <input autoComplete='no' className='w-80  border-black border rounded p-2 outline-blue-600 ' placeholder="Account Holder Name" type="text" name="accountHolderName" value={formData.accountDetails["accountHolderName"]} onChange={handleChange} required />
+              </div>
+              <div className='m-2 p-2'>
+                <input autoComplete='no' className='w-80  border-black border rounded p-2 outline-blue-600 ' placeholder="Bank Name" type="text" name="bankName" value={formData.accountDetails["bankName"]} onChange={handleChange} required />
+              </div>
+              <div className='m-2 p-2'>
+                <input autoComplete='no' className='w-80  border-black border rounded p-2 outline-blue-600 ' placeholder="Bank Branch" type="text" name="bankBranch" value={formData.accountDetails["bankBranch"]} onChange={handleChange} required />
+              </div>
+              <div className='m-2 p-2'>
+                <input autoComplete='no' className='w-80  border-black border rounded p-2 outline-blue-600' placeholder="PAN Card Number" type="text" name="panCardNumber" value={formData.panCardNumber} onChange={handleChange} required />
+              </div>
+            </div>
+            </div>
+
           </div>
           
           <div className='flex justify-between gap-6'>

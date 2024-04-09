@@ -86,7 +86,7 @@ const DetailsModal: React.FC<DetailsModalProps> = ({ isOpen, onClose, lecturer }
                         </div>
                         <div className="col-span-6">
                           <label htmlFor="startDate" className="block text-sm font-medium text-gray-700 mt-3">StartDate</label>
-                          <p className="bg-blue-50 mt-1 py-2 px-3 block w-full shadow-sm sm:text-sm border-gray-300">{lecturer?.startDate}</p>
+                          <p className="bg-blue-50 mt-1 py-2 px-3 block w-full shadow-sm sm:text-sm border-gray-300">{(lecturer?.startDate)?.substring(0, 10)}</p>
                         </div>
                         <div className="col-span-6">
                           <label htmlFor="proposedRate" className="block text-sm font-medium text-gray-700 mt-3">Proposed Rate</label>

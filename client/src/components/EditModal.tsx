@@ -134,7 +134,7 @@ const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, lecturer, onSubm
                       </div>
                       <div className="col-span-6">
                         <label htmlFor="startDate" className="block text-sm font-medium text-gray-700 mt-3">Start Date</label>
-                        <input type="startDate" name="startDate" id="startDate" value={editedLecturer.startDate} onChange={handleChange} className="p-2 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 bg-blue-50" />
+                        <input type="startDate" name="startDate" id="startDate" value={(editedLecturer.startDate).substring(0, 10)} onChange={handleChange} className="p-2 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 bg-blue-50" />
                       </div>
                       <div className="col-span-6">
                         <label htmlFor="proposedRate" className="block text-sm font-medium text-gray-700 mt-3">Proposed Rate</label>
