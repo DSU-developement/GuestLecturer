@@ -13,7 +13,13 @@ interface Lecturer {
   startDate: string;
   proposedRate: number;
   totalAmount: number;
-  // Add other lecturer details as needed
+  accountDetails: {
+    accountNumber: string;
+    accountHolderName: string;
+    bankName: string;
+    bankBranch: string;
+  };
+  panCardNumber: string;
 }
 
 interface DetailsModalProps {
@@ -57,6 +63,8 @@ const DetailsModal: React.FC<DetailsModalProps> = ({ isOpen, onClose, lecturer }
                           <label htmlFor="email" className="block text-sm font-medium text-gray-700 mt-3">Email</label>
                           <p className="bg-blue-50 mt-1 py-2 px-3 block w-full shadow-sm sm:text-sm border-gray-300">{lecturer?.email}</p>
                         </div>
+                      </div>
+                      <div>
                         <div className="col-span-6">
                           <label htmlFor="schoolsDeanery" className="block text-sm font-medium text-gray-700 mt-3">School's Deanery</label>
                           <p className="bg-blue-50 mt-1 py-2 px-3 block w-full shadow-sm sm:text-sm border-gray-300">{lecturer?.schoolsDeanery}</p>
@@ -70,10 +78,9 @@ const DetailsModal: React.FC<DetailsModalProps> = ({ isOpen, onClose, lecturer }
                           <p className="bg-blue-50 mt-1 py-2 px-3 block w-full shadow-sm sm:text-sm border-gray-300">{lecturer?.subjectName}</p>
                         </div>
                       </div>
-                      {/* Display remaining lecturer details in the next two columns */}
-                      <div >
+                      <div>
                         <div className="col-span-6">
-                          <label htmlFor="yearAndSemester" className="block text-sm font-medium text-gray-700 mt-3">Year And Semester</label>
+                          <label htmlFor="yearAndSemester" className="block text-sm font-medium text-gray-700 mt-3">Year & Semester</label>
                           <p className="bg-blue-50 mt-1 py-2 px-3 block w-full shadow-sm sm:text-sm border-gray-300">{lecturer?.yearAndSemester}</p>
                         </div>
                         <div className="col-span-6">
@@ -95,6 +102,28 @@ const DetailsModal: React.FC<DetailsModalProps> = ({ isOpen, onClose, lecturer }
                         <div className="col-span-6">
                           <label htmlFor="totalAmount" className="block text-sm font-medium text-gray-700 mt-3">Total Amount</label>
                           <p className="bg-blue-50 mt-1 py-2 px-3 block w-full shadow-sm sm:text-sm border-gray-300">{lecturer?.totalAmount}</p>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="col-span-6">
+                          <label htmlFor="accountNumber" className="block text-sm font-medium text-gray-700 mt-3">Account Number</label>
+                          <p className="bg-blue-50 mt-1 py-2 px-3 block w-full shadow-sm sm:text-sm border-gray-300">{lecturer?.accountDetails.accountNumber}</p>
+                        </div>
+                        <div className="col-span-6">
+                          <label htmlFor="accountHolderName" className="block text-sm font-medium text-gray-700 mt-3">Account Holder Name</label>
+                          <p className="bg-blue-50 mt-1 py-2 px-3 block w-full shadow-sm sm:text-sm border-gray-300">{lecturer?.accountDetails.accountHolderName}</p>
+                        </div>
+                        <div className="col-span-6">
+                          <label htmlFor="bankName" className="block text-sm font-medium text-gray-700 mt-3">Bank Name</label>
+                          <p className="bg-blue-50 mt-1 py-2 px-3 block w-full shadow-sm sm:text-sm border-gray-300">{lecturer?.accountDetails.bankName}</p>
+                        </div>
+                        <div className="col-span-6">
+                          <label htmlFor="bankBranch" className="block text-sm font-medium text-gray-700 mt-3">Bank Branch</label>
+                          <p className="bg-blue-50 mt-1 py-2 px-3 block w-full shadow-sm sm:text-sm border-gray-300">{lecturer?.accountDetails.bankBranch}</p>
+                        </div>
+                        <div className="col-span-6">
+                          <label htmlFor="panCardNumber" className="block text-sm font-medium text-gray-700 mt-3">PAN Card Number</label>
+                          <p className="bg-blue-50 mt-1 py-2 px-3 block w-full shadow-sm sm:text-sm border-gray-300">{lecturer?.panCardNumber}</p>
                         </div>
                       </div>
                     </div>
