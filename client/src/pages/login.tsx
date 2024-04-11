@@ -63,6 +63,9 @@ const LoginPage = () => {
          else if(data.role === 'GuestLecture'){
           window.location.href = `/dashboard`;
          }
+         else if(data.role === 'CFO') {
+          window.location.href = `/cfo`;
+         }
       } else {
         throw new Error(data.message || "Login failed");
       }

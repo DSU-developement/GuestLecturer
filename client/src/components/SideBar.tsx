@@ -29,6 +29,9 @@ const Sidebar: React.FC = () => {
   else if (role === 'ProChancellor'){
     acceptPath='/prochancellor'
   }
+  else if (role === 'CFO'){
+    acceptPath='/cfo'
+  }
 
   // Define the default payment path
   let paymentPath = '/Payment';

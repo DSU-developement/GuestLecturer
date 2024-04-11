@@ -23,22 +23,25 @@ const PaymentRequest: React.FC = () => {
     console.error('User data not found in local storage');
   }
 
-if(!userrole) {
-  userrole='dean';
-}
-  if (userrole==='Registrar')
+  if(!userrole) {
+    userrole='dean';
+  }
+  if (userrole === 'Registrar')
   {
     userrole='registrar';
   }
   if (userrole === 'HR') {
     userrole='vpHR';
   }
-  if (userrole=='ViceChancellor')
+  if (userrole === 'ViceChancellor')
   {
     userrole='viceChancellor';
   }
-  if(userrole=='ProChancellor'){
+  if(userrole === 'ProChancellor'){
     userrole='proChancellor';
+  }
+  if(userrole === 'CFO'){
+    userrole='cfo';
   }
   
   if (storedUserData) {
@@ -52,6 +55,7 @@ if(!userrole) {
     async function fetchLectures() {
       try {
         const response = await axios.get(`/lecture/payment-request/${useremail}`);
+        console.log(response.data);
         setLectures(response.data);
       } catch (error) {
         console.error('Error fetching lectures:', error);
@@ -87,6 +91,11 @@ if(!userrole) {
     // Implement comment functionality
   };
 
+  const getStatus = (lecturer: any) => {
+    // Check if all approvals are true
+    const allApproved = Object.values(lecturer.approved).every((approval: any) => approval as boolean);
+    return allApproved ? 'Accepted' : 'Pending';
+  }
 
   return (
     <div className="flex h-screen">
@@ -115,7 +124,7 @@ if(!userrole) {
                     <tr key={lecturer._id}>
                       <td className="px-6 py-4 whitespace-nowrap text-gray-300">{index + 1}</td>
                       <td className="px-6 py-4 whitespace-nowrap">{lecturer.facultyName}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">{lecturer.status}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">{getStatus(lecturer)}</td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <button
                           className={`text-green-600 hover:text-green-900 ml-2 p-2 pl-3 pr-3 ${
