@@ -13,8 +13,6 @@ const LoginPage = () => {
     setEmail(e.target.value);
   };
 
- 
-
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
@@ -34,7 +32,6 @@ const LoginPage = () => {
       const data = await response.json();
 
       if (response.ok) {
-        console.log(data.role);
         localStorage.setItem('token', JSON.stringify(data.user,data.role));
         localStorage.setItem('role', JSON.stringify(data.role));
         setUserDetails(data.user);
@@ -42,30 +39,23 @@ const LoginPage = () => {
         if (data.role === 'HOD') {
           setisHOD(true);
           window.location.href = `/hod`;
-        }else if(data.role === 'Dean'){
+        } else if(data.role === 'Dean'){
           window.location.href = `/dean`;
-        }
-         else if(data.role === 'Registrar') {
+        } else if(data.role === 'Registrar') {
           window.location.href = `/registar`;
-         }
-         else if(data.role === 'ViceChancellor'){
+        } else if(data.role === 'ViceChancellor'){
           window.location.href = `/vicechancellor`;
-         }
-         else if(data.role === 'HR'){
+        } else if(data.role === 'HR'){
           window.location.href = `/vphr`;
-         }
-         else if(data.role === 'HR'){
+        } else if(data.role === 'HR'){
           window.location.href = `/vphr`;
-         }
-         else if(data.role === 'ProChancellor'){
+        } else if(data.role === 'ProChancellor'){
           window.location.href = `/prochancellor`;
-         }
-         else if(data.role === 'GuestLecture'){
+        } else if(data.role === 'GuestLecture'){
           window.location.href = `/dashboard`;
-         }
-         else if(data.role === 'CFO') {
+        } else if(data.role === 'CFO') {
           window.location.href = `/cfo`;
-         }
+        }
       } else {
         throw new Error(data.message || "Login failed");
       }

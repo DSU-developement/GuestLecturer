@@ -6,12 +6,13 @@ const Header: React.FC = () => {
   const [paymentRequested, setPaymentRequested] = useState(false);
   const [accountDetailsUpdated, setAccountDetailsUpdated] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [showModal, setShowModal] = useState(false); // State to control modal visibility
+
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     window.location.href = '/';
   };
+
 
   const handlePaymentRequest = async () => {
     try {
@@ -35,6 +36,7 @@ const Header: React.FC = () => {
     }
   };
 
+
   useEffect(() => {
     const fetchLecturerDetails = async () => {
       try {
@@ -56,10 +58,11 @@ const Header: React.FC = () => {
     fetchLecturerDetails();
   }, []); 
 
+  
   return (
     <header className="bg-gray-800 text-white p-4 flex justify-between">
       <div className="flex items-center">
-        <h1 className="text-xl font-semibold">My DashBoard</h1>
+        <h1 className="text-xl font-semibold">DashBoard</h1>
       </div>
       <div>
         <button
@@ -78,7 +81,6 @@ const Header: React.FC = () => {
           {paymentRequested ? 'Requested For Payment' : 'Request For Payment'}
         </button>
         {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-        {/* Render the modal */}
       </div>
     </header>
   );

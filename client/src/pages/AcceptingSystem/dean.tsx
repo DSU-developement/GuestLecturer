@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Sidebar from '../../components/SideBar';
 import Header from '../../components/CommonHeader';
@@ -7,43 +6,41 @@ import DetailsModal from '../../components/DetailsModal';
 import CommentModal from '../../components/CommentModal';
 
 const DEAN: React.FC = () => {
-  const [lectures, setLectures] = useState<any[]>([]);
-  const [visibleRows, setVisibleRows] = useState(5); // Number of rows to display initially
-  const tableRef = useRef<HTMLDivElement>(null);
+  const [lecturers, setLecturers] = useState<any[]>([]);
+  const [visibleRows, setVisibleRows] = useState(5); 
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [selectedLecturerForDetails, setSelectedLecturerForDetails] = useState<any | null>(null);
   const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
   const [selectedLecturerId, setSelectedLecturerId] = useState('');
 
+  const tableRef = useRef<HTMLDivElement>(null);
   const storedUserData = localStorage.getItem('token');
   var userId = "";
 
   if (storedUserData) {
     const userData = JSON.parse(storedUserData);
-    console.log(userData);
     userId = userData['_id'];
   } else {
     console.error('User data not found in local storage');
   }
 
   useEffect(() => {
-    async function fetchLectures() {
+    async function fetchLecturers() {
       try {
         const response = await axios.get(`/lecture/dean/${userId}`);
-        setLectures(response.data);
+        setLecturers(response.data);
       } catch (error) {
         console.error('Error fetching lectures:', error);
       }
     }
 
-    fetchLectures();
+    fetchLecturers();
   }, []);
 
   const handleAccept = async (lecturerId: string) => {
     try {
       await axios.put(`/lecture/accept/${lecturerId}`);
-      // Optionally, you can update your local state or perform any other actions after accepting the lecturer
-      window.location.reload(); // Reload the page after accepting the lecturer
+      window.location.reload();
     } catch (error) {
       console.error('Error accepting lecturer:', error);
     }
@@ -65,8 +62,8 @@ const DEAN: React.FC = () => {
       const scrollHeight = element.scrollHeight;
       const clientHeight = element.clientHeight;
       const scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
-      if (scrolledToBottom && visibleRows < lectures.length) {
-        setVisibleRows(prev => Math.min(prev + 5, lectures.length)); // Increase visible rows until all rows are visible
+      if (scrolledToBottom && visibleRows < lecturers.length) {
+        setVisibleRows(prev => Math.min(prev + 5, lecturers.length));
       }
     }
   };
@@ -103,7 +100,7 @@ const DEAN: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {lectures.slice(0, visibleRows).map((lecturer, index) => (
+                  {lecturers.slice(0, visibleRows).map((lecturer, index) => (
                     <tr key={lecturer._id}>
                       <td className="px-6 py-4 whitespace-nowrap text-gray-300">{index + 1}</td>
                       <td className="px-6 py-4 whitespace-nowrap">
@@ -141,7 +138,6 @@ const DEAN: React.FC = () => {
               </table>
             </div>
           </div>
-          {/* Scrollbar */}
           <div className="absolute top-0 right-0 bg-gray-200 w-2 bottom-0" style={{ zIndex: 10 }} />
         </div>
       </div>

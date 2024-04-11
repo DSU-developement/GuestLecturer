@@ -31,15 +31,16 @@ interface Lecturer {
   dean_id: number;
 }
 
+
+// defining Modal properties
 interface EditModalProps {
-  isOpen: boolean; // Indicates if the modal is open or closed
-  onClose: () => void; // Function to close the modal
-  lecturer: Lecturer; // Data of the lecturer to be edited
-  onSubmit: (editedLecturer: Lecturer) => void; // Function to submit the edited lecturer data
+  isOpen: boolean;
+  onClose: () => void; // closes Modal
+  lecturer: Lecturer;
+  onSubmit: (editedLecturer: Lecturer) => void;
 }
 
 const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, lecturer, onSubmit }) => {
-  // State to store the edited lecturer data
   const [editedLecturer, setEditedLecturer] = useState<Lecturer>(lecturer);
 
   // useEffect to update the editedLecturer state whenever the lecturer prop changes
@@ -47,10 +48,9 @@ const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, lecturer, onSubm
     setEditedLecturer(lecturer);
   }, [lecturer]);
 
-  // Function to handle changes in the input fields
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    console.log(name);
     if (name === "accountNumber" || name === "accountHolderName" || name === "bankName" || name === "bankBranch") {
       let parent = "accountDetails";
       let child = name;
@@ -70,43 +70,32 @@ const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, lecturer, onSubm
     }
   };
 
-  // Function to handle form submission
+
   const handleSubmit = async  () => {
     try {
-      // Make a PUT request to update the lecturer
       const response = await axios.put(`/api/edit/lecture`, editedLecturer);
-      console.log('Updated lecturer:', response.data);
-      onSubmit(response.data); // Submit the updated lecturer data
-      onClose(); // Close the modal
+      onSubmit(response.data);
+      onClose();
     } catch (error) {
       console.error('Error updating lecturer:', error);
-      // Handle error
     }
-     // Submit the edited lecturer data
-    onClose(); // Close the modal
+    onClose();
   };
 
   return (
     <>
       {isOpen && (
         <div className="fixed z-10 inset-0 overflow-y-auto">
-          {/* Modal content */}
           <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            {/* Overlay */}
             <div className="fixed inset-0 transition-opacity" aria-hidden="true">
               <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
             </div>
-            {/* Modal body */}
             <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
               <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                {/* Modal header */}
                 <div className="bg-white rounded-lg ">
-                  {/* Modal title */}
                   <h3 className="text-center text-lg leading-6 font-medium text-gray-900 mb-4">Edit Lecturer Details</h3>
-                  {/* Modal content */}
                   <div className="mt-2 sm:mt-0 sm:ml-4">
                     <div className="grid grid-cols-2 gap-6">
-                      {/* Input fields for editing lecturer details */}
                       <div>
                         <div className="col-span-6">
                           <label htmlFor="facultyName" className="block text-sm font-medium text-gray-700 mt-3">Name</label>
@@ -187,13 +176,10 @@ const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, lecturer, onSubm
                   </div>
                 </div>
               </div>
-              {/* Modal footer */}
               <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                {/* Save button */}
                 <button onClick={handleSubmit} type="button" className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
                   Save
                 </button>
-                {/* Cancel button */}
                 <button onClick={onClose} type="button" className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
                   Cancel
                 </button>

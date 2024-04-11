@@ -33,10 +33,8 @@ const Sidebar: React.FC = () => {
     acceptPath='/cfo'
   }
 
-  // Define the default payment path
-  let paymentPath = '/Payment';
 
-  // Change payment path based on the role
+  let paymentPath = '/Payment';
   if(role ==='HOD'){
     paymentPath = '/hodPayment';
   }
@@ -55,10 +53,10 @@ const Sidebar: React.FC = () => {
               to={acceptPath}
               className="block py-2 px-4 rounded hover:bg-gray-700 transition duration-300"
             >
-              Accept Guest Lecture
+              Accept Guest Lecturer
             </Link>
             <Link
-              to={paymentPath} // Use the dynamic payment path
+              to={paymentPath}
               className="block py-2 px-4 rounded hover:bg-gray-700 transition duration-300"
             >
               Accept Payment

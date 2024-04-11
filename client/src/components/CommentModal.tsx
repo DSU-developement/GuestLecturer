@@ -15,7 +15,6 @@ const CommentModal: React.FC<CommentModalProps> = ({ isOpen, onClose, lecturerId
   var role = ""; 
   if (storedUserData) {
     role = JSON.parse(storedUserData);
-    console.log(role);
   } else {
     console.error('User role not found in local storage');
   }
@@ -23,10 +22,9 @@ const CommentModal: React.FC<CommentModalProps> = ({ isOpen, onClose, lecturerId
   const handleSubmit = async () => {
     try {
       await axios.put(`/lecture/remarks/${lecturerId}`, { from: role, text: comment });
-      // Optionally, you can update local state or perform any other actions after adding the remark
       onClose();
       setRecipient('');
-    setComment('');
+      setComment('');
     } catch (error) {
       console.error('Error adding remark:', error);
     }
