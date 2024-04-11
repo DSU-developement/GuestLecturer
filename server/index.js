@@ -56,8 +56,6 @@ app.post("/api/login", async (req, res) => {
       if (!user || !(await bcrypt.compare(password, user.password))) {
         return res.status(401).json({ success: false, message: "Invalid email or password" });
     }
-
-
         // Determine the user's role
         let role = '';
         if (user.role === 'HR') {
