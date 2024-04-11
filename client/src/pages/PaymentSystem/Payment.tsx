@@ -91,6 +91,11 @@ const PaymentRequest: React.FC = () => {
     // Implement comment functionality
   };
 
+  const getStatus = (lecturer: any) => {
+    // Check if all approvals are true
+    const allApproved = Object.values(lecturer.approved).every((approval: any) => approval as boolean);
+    return allApproved ? 'Accepted' : 'Pending';
+  }
 
   return (
     <div className="flex h-screen">
@@ -119,7 +124,7 @@ const PaymentRequest: React.FC = () => {
                     <tr key={lecturer._id}>
                       <td className="px-6 py-4 whitespace-nowrap text-gray-300">{index + 1}</td>
                       <td className="px-6 py-4 whitespace-nowrap">{lecturer.facultyName}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">{lecturer.status}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">{getStatus(lecturer)}</td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <button
                           className={`text-green-600 hover:text-green-900 ml-2 p-2 pl-3 pr-3 ${
