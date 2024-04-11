@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import Sidebar from '../../components/SideBar';
 import Header from '../../components/CommonHeader';
 
@@ -11,9 +10,6 @@ const PaymentRequest: React.FC = () => {
 
   const storedUserData = localStorage.getItem('token');
   var useremail = "";
-
-
-  const ROLE = localStorage.getItem('role');
   var userrole = "";
 
   if (storedUserData) {
@@ -93,7 +89,7 @@ const PaymentRequest: React.FC = () => {
 
   const getStatus = (lecturer: any) => {
     // Check if all approvals are true
-    const allApproved = Object.values(lecturer.approved).every((approval: any) => approval as boolean);
+    const allApproved = Object.values(lecturer.paymentapproved).every((approval: any) => approval as boolean);
     return allApproved ? 'Accepted' : 'Pending';
   }
 
