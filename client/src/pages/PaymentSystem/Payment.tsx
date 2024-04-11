@@ -23,22 +23,25 @@ const PaymentRequest: React.FC = () => {
     console.error('User data not found in local storage');
   }
 
-if(!userrole) {
-  userrole='dean';
-}
-  if (userrole==='Registrar')
+  if(!userrole) {
+    userrole='dean';
+  }
+  if (userrole === 'Registrar')
   {
     userrole='registrar';
   }
   if (userrole === 'HR') {
     userrole='vpHR';
   }
-  if (userrole=='ViceChancellor')
+  if (userrole === 'ViceChancellor')
   {
     userrole='viceChancellor';
   }
-  if(userrole=='ProChancellor'){
+  if(userrole === 'ProChancellor'){
     userrole='proChancellor';
+  }
+  if(userrole === 'CFO'){
+    userrole='cfo';
   }
   
   if (storedUserData) {
@@ -52,6 +55,7 @@ if(!userrole) {
     async function fetchLectures() {
       try {
         const response = await axios.get(`/lecture/payment-request/${useremail}`);
+        console.log(response.data);
         setLectures(response.data);
       } catch (error) {
         console.error('Error fetching lectures:', error);

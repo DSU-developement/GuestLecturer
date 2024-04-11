@@ -665,7 +665,7 @@ app.get('/lecture/payment-request/:useremail', async (req, res) => {
   if (!user) {
     return res.status(401).json({ success: false, message: "Invalid user role" });
   }
-
+  console.log(user);
   let role = '';
   if (user.role === 'HR') {
     role = 'HR';
@@ -675,6 +675,8 @@ app.get('/lecture/payment-request/:useremail', async (req, res) => {
     role = 'ViceChancellor';
   } else if (user.role === 'ProChancellor') {
     role = 'ProChancellor';
+  } else if (user.role === "CFO") {
+    role = 'CFO';
   } else {
     if (await Dean.exists({ email: useremail })) {
       role = 'Dean';
@@ -689,6 +691,7 @@ app.get('/lecture/payment-request/:useremail', async (req, res) => {
 
   try {
     let lecturers;
+    console.log(role);
     switch (role) {
       case 'Dean':
         lecturers = await GuestLecture.find({ 'paymentapproved.hod': true });
@@ -705,9 +708,13 @@ app.get('/lecture/payment-request/:useremail', async (req, res) => {
       case 'ProChancellor':
         lecturers = await GuestLecture.find({ 'paymentapproved.vpHR': true });
         break;
+      case 'CFO':
+        lecturers = await GuestLecture.find({ 'paymentapproved.proChancellor': true });
+        break;
       default:
         lecturers = [];
     }
+    console.log(lecturers);
     res.json(lecturers);
   } catch (error) {
     console.error('Error fetching lecturers with PaymentRequest:', error);
@@ -724,21 +731,16 @@ app.put('/lecture/:useremail/accept/payment-request/:lecturerId', async (req, re
   const { useremail, lecturerId } = req.params;
 
   let user = await Hod.findOne({ email: useremail }); 
-  console.log(user)
   if (!user) {
       user = await Dean.findOne({ email: useremail }); 
-      console.log(user)
   }
   if (!user) {
       user = await User.findOne({ email: useremail }); 
-      console.log(user)
-      
   }
   if (!user) {
     user = await GuestLecture.findOne({ email: useremail }); 
-    console.log(user)
-}  
-
+  }  
+  console.log(user);
   let role = '';
   if (user.role === 'HR') {
       role = 'HR';
@@ -798,7 +800,7 @@ app.put('/lecture/:useremail/accept/payment-request/:lecturerId', async (req, re
   }
 
 
-  if(role == 'ViceChancellor'){
+  if(role === 'ViceChancellor'){
     try {
       const lecturer = await GuestLecture.findById(lecturerId);
       if (!lecturer) {
@@ -816,41 +818,58 @@ app.put('/lecture/:useremail/accept/payment-request/:lecturerId', async (req, re
   }
   
 
-  if(role =='HR'){
-  try {
-    const lecturer = await GuestLecture.findById(lecturerId);
-    if (!lecturer) {
-      return res.status(404).json({ message: 'Lecturer not found' });
+  if(role === 'HR'){
+    try {
+      const lecturer = await GuestLecture.findById(lecturerId);
+      if (!lecturer) {
+        return res.status(404).json({ message: 'Lecturer not found' });
+      }
+
+      lecturer.paymentapproved.vpHR= true; 
+      await lecturer.save();
+
+      res.json({ message: 'Lecturer approved successfully' });
+    } catch (error) {
+      console.error('Error accepting lecturer:', error);
+      res.status(500).json({ message: 'Internal server error' });
     }
-
-    lecturer.paymentapproved.vpHR= true; 
-    await lecturer.save();
-
-    res.json({ message: 'Lecturer approved successfully' });
-  } catch (error) {
-    console.error('Error accepting lecturer:', error);
-    res.status(500).json({ message: 'Internal server error' });
-  }
   }
 
-  if(role == 'ProChancellor'){
+  if(role === 'ProChancellor'){
 
-  try {
-    const lecturer = await GuestLecture.findById(lecturerId);
-    if (!lecturer) {
-      return res.status(404).json({ message: 'Lecturer not found' });
+    try {
+      const lecturer = await GuestLecture.findById(lecturerId);
+      if (!lecturer) {
+        return res.status(404).json({ message: 'Lecturer not found' });
+      }
+
+      lecturer.paymentapproved.proChancellor= true; 
+      await lecturer.save();
+
+      res.json({ message: 'Lecturer approved successfully' });
+    } catch (error) {
+      console.error('Error accepting lecturer:', error);
+      res.status(500).json({ message: 'Internal server error' });
     }
-
-    lecturer.paymentapproved.proChancellor= true; 
-    await lecturer.save();
-
-    res.json({ message: 'Lecturer approved successfully' });
-  } catch (error) {
-    console.error('Error accepting lecturer:', error);
-    res.status(500).json({ message: 'Internal server error' });
-  }
   }
 
+  if(role === 'CFO'){
+
+    try {
+      const lecturer = await GuestLecture.findById(lecturerId);
+      if (!lecturer) {
+        return res.status(404).json({ message: 'Lecturer not found' });
+      }
+
+      lecturer.paymentapproved.cfo= true; 
+      await lecturer.save();
+
+      res.json({ message: 'Lecturer approved successfully' });
+    } catch (error) {
+      console.error('Error accepting lecturer:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  }
 });
 
   module.exports = app; 

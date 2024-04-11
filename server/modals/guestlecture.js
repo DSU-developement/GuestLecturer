@@ -56,8 +56,8 @@ const guestLectureSchema = new Schema({
     viceChancellor: { type: Boolean, default: false },
     vpHR: { type: Boolean, default: false },
     proChancellor: { type: Boolean, default: false },
+    cfo: {type: Boolean, default: false}
   }
-
 });
 
 const GuestLecture = mongoose.model('GuestLecture', guestLectureSchema);
