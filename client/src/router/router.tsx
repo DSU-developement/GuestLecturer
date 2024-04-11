@@ -5,10 +5,11 @@ import Table from '../pages/AcceptingSystem/hod';
 import SignupPage from '../pages/AcceptingSystem/signupPage';
 import DEAN from '../pages/AcceptingSystem/dean';
 import SignupPageLect from '../pages/AcceptingSystem/guest-lecturesignup';
-import Resgistar from '../pages/AcceptingSystem/Registar';
+import Registrar from '../pages/AcceptingSystem/Registar';
 import ViceChancellor from '../pages/AcceptingSystem/vicechancellor';
 import VpHr from '../pages/AcceptingSystem/vpHr';
 import Prochancellor from '../pages/AcceptingSystem/prochancellor';
+import CFO from '../pages/AcceptingSystem/cfo';
 import FinancialDetailsPage from '../pages/PaymentSystem/guest-lec';
 import GuestDash from '../pages/PaymentSystem/guest-lecdashboard';
 import PaymentRequest from '../pages/PaymentSystem/Payment';
@@ -38,10 +39,11 @@ const AppRouter: React.FC = () => {
         <Route path='/signup' element={<SignupPage />} />
         <Route path="/hod" element={authenticated ? <Table/> : <LoginPage />} />
         <Route path="/dean" element={authenticated ? <DEAN/> : <LoginPage />} />
-        <Route path="/registar" element={authenticated ? <Resgistar/> : <LoginPage />} />
+        <Route path="/registar" element={authenticated ? <Registrar/> : <LoginPage />} />
         <Route path="/vicechancellor" element={authenticated ? <ViceChancellor/> : <LoginPage />} />
         <Route path="/vphr" element={authenticated ? <VpHr/> : <LoginPage />} />
         <Route path="/prochancellor" element={authenticated ? <Prochancellor/> : <LoginPage />} />
+        <Route path="/cfo" element={authenticated ? <CFO/> : <LoginPage />} />
         <Route path='/add-lecture' element={<SignupPageLect />} />
         <Route path='/finance' element={authenticated ? <FinancialDetailsPage/> : <LoginPage />} />
         <Route path='/dashboard' element={authenticated ? <GuestDash/> : <LoginPage />} />

@@ -51,7 +51,6 @@ app.post("/api/login", async (req, res) => {
       }
       
       console.log(user);
-        
 
       if (!user || !(await bcrypt.compare(password, user.password))) {
         return res.status(401).json({ success: false, message: "Invalid email or password" });
@@ -483,7 +482,34 @@ app.put('/editDetails/:id', async (req, res) => {
     }
   });
 
-
+  app.get('/cfo/approved-lectures', async (req, res) => {
+    try {
+      const approvedLectures = await GuestLecture.find({ 'approved.proChancellor': true });
+      res.json(approvedLectures);
+    } catch (error) {
+      console.error('Error fetching approved lectures:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+  app.put('/lecture/accept/cfo/:lecturerId', async (req, res) => {
+    const { lecturerId } = req.params;
+  
+    try {
+      const lecturer = await GuestLecture.findById(lecturerId);
+      if (!lecturer) {
+        return res.status(404).json({ message: 'Lecturer not found' });
+      }
+      console.log(lecturer);
+      lecturer.approved.cfo= true;
+      lecturer.Accepted=true; // Update the approval status
+      await lecturer.save();
+  
+      res.json({ message: 'Lecturer approved successfully' });
+    } catch (error) {
+      console.error('Error accepting lecturer:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
 
   app.put('/api/updateFinancialDetails', async (req, res) => {
     const { accountNumber, accountHolderName, bankName, bankBranch, panCardNumber, email } = req.body;
