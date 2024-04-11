@@ -13,6 +13,7 @@ import FinancialDetailsPage from '../pages/PaymentSystem/guest-lec';
 import GuestDash from '../pages/PaymentSystem/guest-lecdashboard';
 import PaymentRequest from '../pages/PaymentSystem/Payment';
 import HodPaymentRequest from '../pages/PaymentSystem/hod';
+import UpdatePasswordPage from '../pages/updatepwd';
 
 const isAuthenticated = () => {
   const token = localStorage.getItem('token');
@@ -45,9 +46,8 @@ const AppRouter: React.FC = () => {
         <Route path='/finance' element={authenticated ? <FinancialDetailsPage/> : <LoginPage />} />
         <Route path='/dashboard' element={authenticated ? <GuestDash/> : <LoginPage />} />
         <Route path='/Payment' element={authenticated ? <PaymentRequest/> : <LoginPage />} />
-        <Route path='//hodPayment' element={authenticated ? <HodPaymentRequest/> : <LoginPage />} />
-
-        {/* Catch-all route for undefined routes */}
+        <Route path='/hodPayment' element={authenticated ? <HodPaymentRequest/> : <LoginPage />} />
+        <Route path="/update" element={<UpdatePasswordPage/>} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>

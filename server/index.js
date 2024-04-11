@@ -6,6 +6,7 @@ const Hod = require("./modals/Hod.js");
 const Dean = require("./modals/Dean.js");
 const GuestLecture = require('./modals/guestlecture.js');
 const sendEmail = require('./mailer');
+const bcrypt = require('bcrypt');
 
 
 
@@ -33,7 +34,7 @@ app.get("/api", (req, res) => {
     console.log(`Server listening on ${PORT}`);
   });
 
-  app.post("/api/login", async (req, res) => {
+app.post("/api/login", async (req, res) => {
     try {
         const { email, password } = req.body;
         console.log(email,password);
@@ -52,9 +53,10 @@ app.get("/api", (req, res) => {
       console.log(user);
         
 
-        if (!user || user.password !== password) {
-            return res.status(401).json({ success: false, message: "Invalid email or password" });
-        }
+      if (!user || !(await bcrypt.compare(password, user.password))) {
+        return res.status(401).json({ success: false, message: "Invalid email or password" });
+    }
+
 
         // Determine the user's role
         let role = '';
@@ -90,6 +92,49 @@ app.get("/api", (req, res) => {
         res.status(500).json({ success: false, message: "An error occurred while logging in" });
     }
 });
+
+//update the password and has them
+app.put("/api/update-password", async (req, res) => {
+  console.log(req.body);
+  try {
+      const { email, currentPassword, newPassword } = req.body;
+
+      // Find the user by email
+      let user = await Hod.findOne({ email }); // Check if user is HOD
+      if (!user) {
+          user = await Dean.findOne({ email }); // Check if user is Dean
+      }
+      if (!user) {
+          user = await User.findOne({ email }); // Check if user is in the generic User model
+      }
+      if (!user) {
+        user = await GuestLecture.findOne({ email }); // Check if user is in the generic User model
+    }
+
+      if (!user) {
+          return res.status(404).json({ success: false, message: "User not found" });
+      }
+      console.log(currentPassword);
+      console.log(user.password);
+
+      // Hash the new password
+      const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+
+      // Update user's password in the database
+      user.password = hashedNewPassword;
+      await user.save();
+
+      res.json({ success: true, message: "Password updated successfully" });
+  } catch (error) {
+      console.error("Error updating password:", error.message);
+      res.status(500).json({ success: false, message: "An error occurred while updating password" });
+  }
+});
+
+
+
+
+
 
 app.put('/api/edit/lecture', async (req, res) => {
   const { email, ...updatedLecturerData } = req.body; // Extract email and lecturer data from request body
