@@ -1,5 +1,10 @@
 import React from 'react';
 
+interface Remark {
+  from: string;
+  text: string;
+}
+
 interface Lecturer {
   facultyName: string;
   phone: string;
@@ -20,6 +25,7 @@ interface Lecturer {
     bankBranch: string;
   };
   panCardNumber: string;
+  remarks: Remark[];
 }
 
 interface DetailsModalProps {
@@ -27,6 +33,7 @@ interface DetailsModalProps {
   onClose: () => void; // Function to close the modal
   lecturer: Lecturer | null; // Data of the lecturer to be displayed
 }
+
 
 const DetailsModal: React.FC<DetailsModalProps> = ({ isOpen, onClose, lecturer }) => {
   return (
@@ -127,6 +134,15 @@ const DetailsModal: React.FC<DetailsModalProps> = ({ isOpen, onClose, lecturer }
                         </div>
                       </div>
                     </div>
+                  </div>
+                  <div>
+                    <h3 className="mt-3 mb-2 text-center text-lg leading-6 font-medium text-gray-900">Remarks</h3>
+                    {lecturer?.remarks.slice(1).map((remark, index) => (
+                      <div key={index} className="grid grid-cols-3 w-80 mx-auto">
+                        <label htmlFor={`remark${index}`} className="block text-sm font-medium text-gray-700 mt-3 text-right mr-6">{remark.from}</label>
+                        <p id={`remark${index}`} className="col-span-2 bg-blue-50 mt-1 py-2 px-3 block w-full shadow-sm sm:text-sm border-gray-300">{remark.text}</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>

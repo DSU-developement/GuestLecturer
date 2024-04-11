@@ -620,7 +620,7 @@ app.put('/lecture/hod/paymentaccept/:lecturerId', async (req, res) => {
 
 app.put('/lecture/remarks/:lecturerId', async (req, res) => {
   const lecturerId = req.params.lecturerId;
-  const { from, to, text } = req.body;
+  const { from, text } = req.body;
 
   try {
     // Find the lecturer by ID
@@ -631,7 +631,7 @@ app.put('/lecture/remarks/:lecturerId', async (req, res) => {
     }
 
     // Add the new remark to the lecturer's remarks array
-    lecturer.remarks.push({ from, to, text });
+    lecturer.remarks.push({ from, text });
     
     // Save the updated lecturer document
     await lecturer.save();
