@@ -2,10 +2,16 @@ import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import Sidebar from '../../components/SideBar';
 import Header from '../../components/CommonHeader';
+import CommentModal from '../../components/CommentModal';
+import DetailsModal from '../../components/DetailsModal';
 
 const PaymentRequest: React.FC = () => {
   const [lecturers, setLecturers] = useState<any[]>([]);
   const [visibleRows, setVisibleRows] = useState(5);
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+  const [selectedLecturerForDetails, setSelectedLecturerForDetails] = useState<any | null>(null);
+  const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
+  const [selectedLecturerId, setSelectedLecturerId] = useState('');
   const tableRef = useRef<HTMLDivElement>(null);
 
   const storedUserData = localStorage.getItem('token');
@@ -75,8 +81,18 @@ const PaymentRequest: React.FC = () => {
     }
   };
 
-  const handleComment = async (lecturerId: string) => {
-    // Implement comment functionality
+  const handleDetails = (lecturer: any) => {
+    setSelectedLecturerForDetails(lecturer);
+    setIsDetailsModalOpen(true);
+  };
+
+  const handleComment = async (lecturer: string) => {
+    try {
+      setSelectedLecturerId(lecturer);
+      setIsCommentModalOpen(true);
+    } catch (error) {
+      console.error('Error commenting on lecturer:', error);
+    }
   };
 
   const getStatus = (lecturer: any) => {
@@ -111,7 +127,14 @@ const PaymentRequest: React.FC = () => {
                   {lecturers.slice(0, visibleRows).map((lecturer, index) => (
                     <tr key={lecturer._id}>
                       <td className="px-6 py-4 whitespace-nowrap text-gray-300">{index + 1}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">{lecturer.facultyName}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <button
+                          className="text-indigo-600 hover:text-indigo-900"
+                          onClick={() => handleDetails(lecturer)}
+                        >
+                          {lecturer.facultyName}
+                        </button>
+                      </td>
                       <td className="px-6 py-4 whitespace-nowrap">{getStatus(lecturer)}</td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <button
@@ -144,6 +167,16 @@ const PaymentRequest: React.FC = () => {
           <div className="absolute top-0 right-0 bg-gray-200 w-2 bottom-0" style={{ zIndex: 10 }} />
         </div>
       </div>
+      <DetailsModal
+          isOpen={isDetailsModalOpen}
+          onClose={() => setIsDetailsModalOpen(false)}
+          lecturer={selectedLecturerForDetails}
+        />
+      <CommentModal
+        isOpen={isCommentModalOpen}
+        onClose={() => setIsCommentModalOpen(false)}
+        lecturerId={selectedLecturerId}
+      />
     </div>
   );
 };

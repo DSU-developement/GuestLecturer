@@ -67,6 +67,7 @@ const DEAN: React.FC = () => {
       }
     }
   };
+
   const handleDetails = (lecturer: any) => {
     setSelectedLecturerForDetails(lecturer);
     setIsDetailsModalOpen(true);
@@ -77,6 +78,7 @@ const DEAN: React.FC = () => {
     const allApproved = Object.values(lecturer.approved).every((approval: any) => approval as boolean);
     return allApproved ? 'Accepted' : 'Pending';
   }
+  
   return (
     <div className="flex h-screen">
       <Sidebar />
@@ -146,7 +148,7 @@ const DEAN: React.FC = () => {
           onClose={() => setIsDetailsModalOpen(false)}
           lecturer={selectedLecturerForDetails}
         />
-        <CommentModal
+      <CommentModal
         isOpen={isCommentModalOpen}
         onClose={() => setIsCommentModalOpen(false)}
         lecturerId={selectedLecturerId}
