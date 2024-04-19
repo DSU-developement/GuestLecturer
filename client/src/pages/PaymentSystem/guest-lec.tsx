@@ -11,13 +11,11 @@ const FinancialDetailsPage: React.FC = () => {
   var email = ""; 
   if (storedUserData) {
     const userData = JSON.parse(storedUserData);
-    console.log(userData);
     email= userData['email']; 
-    console.log(email);
-
   } else {
     console.error('User data not found in local storage');
   }
+
   const [formData, setFormData] = useState({
     accountNumber: '',
     accountHolderName: '',
@@ -58,7 +56,6 @@ const FinancialDetailsPage: React.FC = () => {
 
   useEffect(() => {
     if (submitted) {
-      // Redirect to /hod after 3 seconds
       setTimeout(() => {
         window.location.href = '/dashboard';
       }, 3000);
@@ -76,21 +73,66 @@ const FinancialDetailsPage: React.FC = () => {
           <div className='grid grid-cols-2 gap-6'>
             <div className='bg-gray-100 rounded border-l-8 p-3'>
               <div className='m-2 p-2'>
-                <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="Account Number" type="text" name="accountNumber" value={formData.accountNumber} onChange={handleChange} required />
+                <input 
+                  autoComplete='no' 
+                  className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' 
+                  placeholder="Account Number" 
+                  type="text" 
+                  name="accountNumber" 
+                  value={formData.accountNumber} 
+                  onChange={handleChange} 
+                  required 
+                />
               </div>
               <div className='m-2 p-2'>
-                <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="Account Holder Name" type="text" name="accountHolderName" value={formData.accountHolderName} onChange={handleChange} required />
+                <input 
+                  autoComplete='no' 
+                  className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' 
+                  placeholder="Account Holder Name" 
+                  type="text" 
+                  name="accountHolderName" 
+                  value={formData.accountHolderName} 
+                  onChange={handleChange} 
+                  required 
+                />
               </div>
               <div className='m-2 p-2'>
-                <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="PAN Card Number" type="text" name="panCardNumber" value={formData.panCardNumber} onChange={handleChange} required />
+                <input 
+                  autoComplete='no' 
+                  className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' 
+                  placeholder="PAN Card Number" 
+                  type="text" 
+                  name="panCardNumber" 
+                  value={formData.panCardNumber} 
+                  onChange={handleChange} 
+                  required 
+                />
               </div>
             </div>
             <div className='bg-gray-100 rounded border-l-8 p-3'>
               <div className='m-2 p-2'>
-                <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="Bank Name" type="text" name="bankName" value={formData.bankName} onChange={handleChange} required />
+                <input 
+                  autoComplete='no' 
+                  className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' 
+                  placeholder="Bank Name" 
+                  type="text" 
+                  name="bankName" 
+                  value={formData.bankName} 
+                  onChange={handleChange} 
+                  required 
+                />
               </div>
               <div className='m-2 p-2'>
-                <input autoComplete='no' className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' placeholder="Bank Branch" type="text" name="bankBranch" value={formData.bankBranch} onChange={handleChange} required />
+                <input 
+                  autoComplete='no' 
+                  className='w-80 border-l-8 border-blue-600 rounded p-3 outline-blue-600' 
+                  placeholder="Bank Branch" 
+                  type="text" 
+                  name="bankBranch" 
+                  value={formData.bankBranch} 
+                  onChange={handleChange} 
+                  required 
+                />
               </div>
             </div>
           </div>

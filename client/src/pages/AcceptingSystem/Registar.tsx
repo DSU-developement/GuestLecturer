@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Sidebar from '../../components/SideBar';
 import Header from '../../components/CommonHeader';
@@ -7,32 +6,31 @@ import DetailsModal from '../../components/DetailsModal';
 import CommentModal from '../../components/CommentModal';
 
 const Registrar: React.FC = () => {
-  const [approvedLectures, setApprovedLectures] = useState<any[]>([]);
-  const tableRef = useRef<HTMLDivElement>(null);
+  const [approvedLecturers, setApprovedLecturers] = useState<any[]>([]);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [selectedLecturerForDetails, setSelectedLecturerForDetails] = useState<any | null>(null);
   const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
   const [selectedLecturerId, setSelectedLecturerId] = useState('');
+  const tableRef = useRef<HTMLDivElement>(null);
 
 
   useEffect(() => {
-    async function fetchApprovedLectures() {
+    async function fetchApprovedLecturers() {
       try {
         const response = await axios.get('/registar/approved-lectures');
-        console.log(response.data);
-        setApprovedLectures(response.data);
+        setApprovedLecturers(response.data);
       } catch (error) {
         console.error('Error fetching approved lectures:', error);
       }
     }
 
-    fetchApprovedLectures();
+    fetchApprovedLecturers();
   }, []);
 
   const handleAccept = async (lecturerId: string) => {
     try {
       await axios.put(`/lecture/accept/registar/${lecturerId}`);
-      window.location.reload(); // Reload the page after accepting the lecturer
+      window.location.reload();
     } catch (error) {
       console.error('Error accepting lecturer:', error);
     }
@@ -46,6 +44,7 @@ const Registrar: React.FC = () => {
       console.error('Error commenting on lecturer:', error);
     }
   };
+
   const handleDetails = (lecturer: any) => {
     setSelectedLecturerForDetails(lecturer);
     setIsDetailsModalOpen(true);
@@ -79,16 +78,16 @@ const Registrar: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {approvedLectures.map((lecturer, index) => (
+                  {approvedLecturers.map((lecturer, index) => (
                     <tr key={lecturer._id}>
                       <td className="px-6 py-4 whitespace-nowrap text-gray-300">{index + 1}</td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                       <button
-                         className="text-indigo-600 hover:text-indigo-900"
-                         onClick={() => handleDetails(lecturer)}
-                       >
-                         {lecturer.facultyName}
-                       </button>
+                        <button
+                          className="text-indigo-600 hover:text-indigo-900"
+                          onClick={() => handleDetails(lecturer)}
+                        >
+                          {lecturer.facultyName}
+                        </button>
                      </td>
                      <td className="px-6 py-4 whitespace-nowrap">{getStatus(lecturer)}</td>
                       <td className="px-6 py-4 whitespace-nowrap">
@@ -117,7 +116,6 @@ const Registrar: React.FC = () => {
               </table>
             </div>
           </div>
-          {/* Scrollbar */}
           <div className="absolute top-0 right-0 bg-gray-200 w-2 bottom-0" style={{ zIndex: 10 }} />
         </div>
       </div>

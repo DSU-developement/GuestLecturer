@@ -2,12 +2,12 @@ import React, { ReactNode } from 'react';
 
 interface ModalProps {
   onClose: () => void;
-  isOpen?: boolean; // Make isOpen prop optional
+  isOpen?: boolean; 
   children: ReactNode;
 }
 
-const Modal: React.FC<ModalProps> = ({ onClose, isOpen = true, children }) => { // Assign a default value for isOpen
-  if (!isOpen) return null; // Return null if modal is not open
+const Modal: React.FC<ModalProps> = ({ onClose, isOpen = true, children }) => { 
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-500 bg-opacity-50">

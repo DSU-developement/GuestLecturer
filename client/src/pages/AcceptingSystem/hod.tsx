@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
 import { FaTrash } from 'react-icons/fa'; // Importing delete icon
 import EditModal from '../../components/EditModal';
 import axios from 'axios';
@@ -8,7 +7,7 @@ import Header from '../../components/HeaderHod';
 import DetailsModal from '../../components/DetailsModal';
 
 const Table: React.FC = () => {
-  const [lectures, setLectures] = useState<any[]>([]);
+  const [lecturers, setLecturers] = useState<any[]>([]);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedLecturer, setSelectedLecturer] = useState<any | null>(null);
   const [selectedLecturerDetails, setSelectedLecturerDetails] = useState<any | null>(null);
@@ -17,7 +16,6 @@ const Table: React.FC = () => {
   const [selectedLecturerForDetails, setSelectedLecturerForDetails] = useState<any | null>(null);
 
   const tableRef = useRef<HTMLDivElement>(null);
-
   const storedUserData = localStorage.getItem('token');
   var userId = "";
 
@@ -29,21 +27,21 @@ const Table: React.FC = () => {
   }
 
   useEffect(() => {
-    async function fetchLectures() {
+    async function fetchLecturers() {
       try {
         const response = await axios.get(`/lecture/${userId}`);
-        setLectures(response.data);
+        setLecturers(response.data);
       } catch (error) {
         console.error('Error fetching lectures:', error);
       }
     }
 
-    fetchLectures();
+    fetchLecturers();
   }, []);
 
   const handleEdit = (lecturer: any) => {
     setSelectedLecturer(lecturer);
-    setSelectedLecturerDetails(lecturer); // Setting selected lecturer details
+    setSelectedLecturerDetails(lecturer);
     setIsEditModalOpen(true);
   };
 
@@ -55,8 +53,7 @@ const Table: React.FC = () => {
   const handleDelete = async (lecturerId: string) => {
     try {
       await axios.delete(`/lecture/${lecturerId}`);
-      // Remove the deleted lecturer from the state
-      setLectures(prevState => prevState.filter(lecturer => lecturer._id !== lecturerId));
+      setLecturers(prevState => prevState.filter(lecturer => lecturer._id !== lecturerId));
     } catch (error) {
       console.error('Error deleting lecturer:', error);
     }
@@ -74,8 +71,8 @@ const Table: React.FC = () => {
       const scrollHeight = element.scrollHeight;
       const clientHeight = element.clientHeight;
       const scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
-      if (scrolledToBottom && visibleRows < lectures.length) {
-        setVisibleRows(prev => Math.min(prev + 5, lectures.length)); // Increase visible rows until all rows are visible
+      if (scrolledToBottom && visibleRows < lecturers.length) {
+        setVisibleRows(prev => Math.min(prev + 5, lecturers.length));
       }
     }
   };
@@ -106,28 +103,35 @@ const Table: React.FC = () => {
                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th> {/* Changed the header */}
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {lectures.slice(0, visibleRows).map((lecturer, index) => (
-                     <tr key={lecturer._id}>
-                     <td className="px-6 py-4 whitespace-nowrap text-gray-300">{index + 1}</td>
-                     <td className="px-6 py-4 whitespace-nowrap">
-                       <button
-                         className="text-indigo-600 hover:text-indigo-900"
-                         onClick={() => handleDetails(lecturer)}
-                       >
-                         {lecturer.facultyName}
-                       </button>
-                     </td>
-                     <td className="px-6 py-4 whitespace-nowrap">{getStatus(lecturer)}</td>
+                  {lecturers.slice(0, visibleRows).map((lecturer, index) => (
+                    <tr key={lecturer._id}>
+                      <td className="px-6 py-4 whitespace-nowrap text-gray-300">{index + 1}</td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <button className="text-blue-600 hover:text-blue-900 ml-2 p-2 pl-3 pr-3 bg-blue-400 text-white rounded-xl m-1" onClick={() => handleEdit(lecturer)}>Edit</button>
-                        <button className="text-red-600 hover:text-red-900 ml-2 p-2 pl-3 pr-3 bg-red-400 text-white rounded-xl m-1" onClick={() => handleDelete(lecturer._id)}> {/* Added delete button */}
-                          <FaTrash />
+                        <button
+                          className="text-indigo-600 hover:text-indigo-900"
+                          onClick={() => handleDetails(lecturer)}
+                        >
+                          {lecturer.facultyName}
                         </button>
                       </td>
+                      <td className="px-6 py-4 whitespace-nowrap">{getStatus(lecturer)}</td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <button 
+                            className="text-blue-600 hover:text-blue-900 ml-2 p-2 pl-3 pr-3 bg-blue-400 text-white rounded-xl m-1" 
+                            onClick={() => handleEdit(lecturer)}
+                          >
+                            Edit
+                          </button>
+                          <button className="text-red-600 hover:text-red-900 ml-2 p-2 pl-3 pr-3 bg-red-400 text-white rounded-xl m-1" 
+                            onClick={() => handleDelete(lecturer._id)}
+                          >
+                            <FaTrash />
+                          </button>
+                        </td>
                     </tr>
                   ))}
                 </tbody>

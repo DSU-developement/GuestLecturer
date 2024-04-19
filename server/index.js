@@ -54,35 +54,34 @@ app.post("/api/login", async (req, res) => {
 
       if (!user || !(await bcrypt.compare(password, user.password))) {
         return res.status(401).json({ success: false, message: "Invalid email or password" });
-    }
-        // Determine the user's role
-        let role = '';
-        if (user.role === 'HR') {
-            role = 'HR';
-        } else if (user.role === 'Registrar') {
-            role = 'Registrar';
-        } else if (user.role === 'ViceChancellor') {
-            role = 'ViceChancellor';
-        } else if (user.role === 'ProChancellor') {
-            role = 'ProChancellor';
-        } else if (user.role === 'CFO') {
-            role = 'CFO';
-        } else {
-            // If not one of the predefined roles, check other models
-            if (await Dean.exists({ email })) {
-                role = 'Dean';
-            } else if (await Hod.exists({ email })) {
-                role = 'HOD';
-            } else if (await GuestLecture.exists({ email })) {
-                role = 'GuestLecture';
-            } else {
-                // No matching role found
-                return res.status(401).json({ success: false, message: "Invalid user role" });
-            }
-        }
+      }
 
-        // Return the successful login response with user details and role
-        res.json({ success: true, message: "Login successful", user, role });
+      // Determine the user's role
+      let role = '';
+      if (user.role === 'HR') {
+          role = 'HR';
+      } else if (user.role === 'Registrar') {
+          role = 'Registrar';
+      } else if (user.role === 'ViceChancellor') {
+          role = 'ViceChancellor';
+      } else if (user.role === 'ProChancellor') {
+          role = 'ProChancellor';
+      } else if (user.role === 'CFO') {
+          role = 'CFO';
+      } else {
+          if (await Dean.exists({ email })) {
+              role = 'Dean';
+          } else if (await Hod.exists({ email })) {
+              role = 'HOD';
+          } else if (await GuestLecture.exists({ email })) {
+              role = 'GuestLecture';
+          } else {
+              // No matching role found
+              return res.status(401).json({ success: false, message: "Invalid user role" });
+          }
+      }
+
+      res.json({ success: true, message: "Login successful", user, role });
 
     } catch (error) {
         console.error("Error logging in:", error.message);
@@ -90,9 +89,20 @@ app.post("/api/login", async (req, res) => {
     }
 });
 
+app.post('/api/hashPassword', async (req, res) => {
+  try {
+    const { password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    console.log(password, hashedPassword);
+    res.json({ hashedPassword });
+  } catch (error) {
+    console.error('Error hashing password:', error);
+    res.status(500).json({ message: 'An error occurred while hashing the password' });
+  }
+});
+
 //update the password and has them
 app.put("/api/update-password", async (req, res) => {
-  console.log(req.body);
   try {
       const { email, currentPassword, newPassword } = req.body;
 
@@ -111,8 +121,6 @@ app.put("/api/update-password", async (req, res) => {
       if (!user) {
           return res.status(404).json({ success: false, message: "User not found" });
       }
-      console.log(currentPassword);
-      console.log(user.password);
 
       // Hash the new password
       const hashedNewPassword = await bcrypt.hash(newPassword, 10);
@@ -620,7 +628,7 @@ app.put('/lecture/hod/paymentaccept/:lecturerId', async (req, res) => {
 
 app.put('/lecture/remarks/:lecturerId', async (req, res) => {
   const lecturerId = req.params.lecturerId;
-  const { from, to, text } = req.body;
+  const { from, text } = req.body;
 
   try {
     // Find the lecturer by ID
@@ -631,7 +639,7 @@ app.put('/lecture/remarks/:lecturerId', async (req, res) => {
     }
 
     // Add the new remark to the lecturer's remarks array
-    lecturer.remarks.push({ from, to, text });
+    lecturer.remarks.push({ from, text });
     
     // Save the updated lecturer document
     await lecturer.save();

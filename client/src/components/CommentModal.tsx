@@ -15,18 +15,16 @@ const CommentModal: React.FC<CommentModalProps> = ({ isOpen, onClose, lecturerId
   var role = ""; 
   if (storedUserData) {
     role = JSON.parse(storedUserData);
-    console.log(role);
   } else {
     console.error('User role not found in local storage');
   }
 
   const handleSubmit = async () => {
     try {
-      await axios.put(`/lecture/remarks/${lecturerId}`, { from: role,to: recipient, text: comment });
-      // Optionally, you can update local state or perform any other actions after adding the remark
+      await axios.put(`/lecture/remarks/${lecturerId}`, { from: role, text: comment });
       onClose();
       setRecipient('');
-    setComment('');
+      setComment('');
     } catch (error) {
       console.error('Error adding remark:', error);
     }
@@ -49,33 +47,17 @@ const CommentModal: React.FC<CommentModalProps> = ({ isOpen, onClose, lecturerId
             <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
               <h3 className="text-lg leading-6 font-medium text-gray-900">Add Comment</h3>
               <div className="mt-2">
-                <div>
-                  <label htmlFor="recipient" className="block text-sm font-medium text-gray-700">To Whom:</label>
-                  <div className="mt-1">
-                    <input
-                      type="text"
-                      name="recipient"
-                      id="recipient"
-                      className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                      placeholder="Recipient"
-                      value={recipient}
-                      onChange={(e) => setRecipient(e.target.value)}
-                    />
-                  </div>
-                </div>
-                <div className="mt-3">
-                  <label htmlFor="comment" className="block text-sm font-medium text-gray-700">Comment:</label>
-                  <div className="mt-1">
-                    <textarea
-                      id="comment"
-                      name="comment"
-                      rows={3}
-                      className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                      placeholder="Your comment..."
-                      value={comment}
-                      onChange={(e) => setComment(e.target.value)}
-                    ></textarea>
-                  </div>
+                <label htmlFor="comment" className="block text-sm font-medium text-gray-700">Comment:</label>
+                <div className="mt-1">
+                  <textarea
+                    id="comment"
+                    name="comment"
+                    rows={3}
+                    className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                    placeholder="Your comment..."
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                  ></textarea>
                 </div>
               </div>
               <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">

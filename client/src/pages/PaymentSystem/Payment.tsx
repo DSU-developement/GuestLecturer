@@ -1,19 +1,21 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import Sidebar from '../../components/SideBar';
 import Header from '../../components/CommonHeader';
+import CommentModal from '../../components/CommentModal';
+import DetailsModal from '../../components/DetailsModal';
 
 const PaymentRequest: React.FC = () => {
-  const [lectures, setLectures] = useState<any[]>([]);
-  const [visibleRows, setVisibleRows] = useState(5); // Number of rows to display initially
+  const [lecturers, setLecturers] = useState<any[]>([]);
+  const [visibleRows, setVisibleRows] = useState(5);
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+  const [selectedLecturerForDetails, setSelectedLecturerForDetails] = useState<any | null>(null);
+  const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
+  const [selectedLecturerId, setSelectedLecturerId] = useState('');
   const tableRef = useRef<HTMLDivElement>(null);
 
   const storedUserData = localStorage.getItem('token');
   var useremail = "";
-
-
-  const ROLE = localStorage.getItem('role');
   var userrole = "";
 
   if (storedUserData) {
@@ -25,22 +27,15 @@ const PaymentRequest: React.FC = () => {
 
   if(!userrole) {
     userrole='dean';
-  }
-  if (userrole === 'Registrar')
-  {
+  } else if (userrole === 'Registrar') {
     userrole='registrar';
-  }
-  if (userrole === 'HR') {
+  } else if (userrole === 'HR') {
     userrole='vpHR';
-  }
-  if (userrole === 'ViceChancellor')
-  {
+  } else if (userrole === 'ViceChancellor') {
     userrole='viceChancellor';
-  }
-  if(userrole === 'ProChancellor'){
+  } else if(userrole === 'ProChancellor'){
     userrole='proChancellor';
-  }
-  if(userrole === 'CFO'){
+  } else if(userrole === 'CFO'){
     userrole='cfo';
   }
   
@@ -52,17 +47,16 @@ const PaymentRequest: React.FC = () => {
   }
 
   useEffect(() => {
-    async function fetchLectures() {
+    async function fetchLecturers() {
       try {
         const response = await axios.get(`/lecture/payment-request/${useremail}`);
-        console.log(response.data);
-        setLectures(response.data);
+        setLecturers(response.data);
       } catch (error) {
         console.error('Error fetching lectures:', error);
       }
     }
   
-    fetchLectures();
+    fetchLecturers();
   }, [useremail]);
   
   const handleScroll = () => {
@@ -72,8 +66,8 @@ const PaymentRequest: React.FC = () => {
       const scrollHeight = element.scrollHeight;
       const clientHeight = element.clientHeight;
       const scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
-      if (scrolledToBottom && visibleRows < lectures.length) {
-        setVisibleRows(prev => Math.min(prev + 5, lectures.length)); // Increase visible rows until all rows are visible
+      if (scrolledToBottom && visibleRows < lecturers.length) {
+        setVisibleRows(prev => Math.min(prev + 5, lecturers.length));
       }
     }
   };
@@ -87,13 +81,23 @@ const PaymentRequest: React.FC = () => {
     }
   };
 
-  const handleComment = async (lecturerId: string) => {
-    // Implement comment functionality
+  const handleDetails = (lecturer: any) => {
+    setSelectedLecturerForDetails(lecturer);
+    setIsDetailsModalOpen(true);
+  };
+
+  const handleComment = async (lecturer: string) => {
+    try {
+      setSelectedLecturerId(lecturer);
+      setIsCommentModalOpen(true);
+    } catch (error) {
+      console.error('Error commenting on lecturer:', error);
+    }
   };
 
   const getStatus = (lecturer: any) => {
     // Check if all approvals are true
-    const allApproved = Object.values(lecturer.approved).every((approval: any) => approval as boolean);
+    const allApproved = Object.values(lecturer.paymentapproved).every((approval: any) => approval as boolean);
     return allApproved ? 'Accepted' : 'Pending';
   }
 
@@ -120,10 +124,17 @@ const PaymentRequest: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {lectures.slice(0, visibleRows).map((lecturer, index) => (
+                  {lecturers.slice(0, visibleRows).map((lecturer, index) => (
                     <tr key={lecturer._id}>
                       <td className="px-6 py-4 whitespace-nowrap text-gray-300">{index + 1}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">{lecturer.facultyName}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <button
+                          className="text-indigo-600 hover:text-indigo-900"
+                          onClick={() => handleDetails(lecturer)}
+                        >
+                          {lecturer.facultyName}
+                        </button>
+                      </td>
                       <td className="px-6 py-4 whitespace-nowrap">{getStatus(lecturer)}</td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <button
@@ -153,10 +164,19 @@ const PaymentRequest: React.FC = () => {
               </table>
             </div>
           </div>
-          {/* Scrollbar */}
           <div className="absolute top-0 right-0 bg-gray-200 w-2 bottom-0" style={{ zIndex: 10 }} />
         </div>
       </div>
+      <DetailsModal
+          isOpen={isDetailsModalOpen}
+          onClose={() => setIsDetailsModalOpen(false)}
+          lecturer={selectedLecturerForDetails}
+        />
+      <CommentModal
+        isOpen={isCommentModalOpen}
+        onClose={() => setIsCommentModalOpen(false)}
+        lecturerId={selectedLecturerId}
+      />
     </div>
   );
 };

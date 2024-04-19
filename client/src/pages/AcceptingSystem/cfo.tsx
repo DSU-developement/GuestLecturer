@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Sidebar from '../../components/SideBar';
 import Header from '../../components/CommonHeader';
@@ -15,7 +14,6 @@ const CFO: React.FC = () => {
     async function fetchApprovedLectures() {
       try {
         const response = await axios.get('/cfo/approved-lectures');
-        console.log(response.data);
         setApprovedLectures(response.data);
       } catch (error) {
         console.error('Error fetching approved lectures:', error);
@@ -28,7 +26,7 @@ const CFO: React.FC = () => {
   const handleAccept = async (lecturerId: string) => {
     try {
       await axios.put(`lecture/accept/cfo/${lecturerId}`);
-      window.location.reload(); // Reload the page after accepting the lecturer
+      window.location.reload(); 
     } catch (error) {
       console.error('Error accepting lecturer:', error);
     }
@@ -105,7 +103,6 @@ const CFO: React.FC = () => {
               </table>
             </div>
           </div>
-          {/* Scrollbar */}
           <div className="absolute top-0 right-0 bg-gray-200 w-2 bottom-0" style={{ zIndex: 10 }} />
         </div>
       </div>

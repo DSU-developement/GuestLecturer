@@ -23,7 +23,7 @@ const Header: React.FC = () => {
           to="/add-lecture"
           className="text-white bg-blue-500 px-4 py-2 rounded-md hover:bg-blue-600"
         >
-          Add Lecture
+          Add Lecturer
         </Link>
       </div>
     </header>

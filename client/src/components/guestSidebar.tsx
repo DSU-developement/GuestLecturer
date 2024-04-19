@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Collegelogo from "../assets/collegelogo.png";
 
 const Sidebar: React.FC = () => {
