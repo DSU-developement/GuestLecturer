@@ -21,7 +21,7 @@ const LoginPage = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("/api/login", {
+      const response = await fetch("https://guest-lecturer.vercel.app/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
