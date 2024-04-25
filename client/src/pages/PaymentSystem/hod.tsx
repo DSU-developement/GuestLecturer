@@ -21,7 +21,7 @@ const HodPaymentRequest: React.FC = () => {
   useEffect(() => {
     async function fetchLecturers() {
       try {
-        const response = await axios.get(`/lecture/hod/payment-request/${userId}`);
+        const response = await axios.get(`https://guest-lecturer.vercel.app/lecture/hod/payment-request/${userId}`);
         setLecturers(response.data);
       } catch (error) {
         console.error('Error fetching lectures:', error);
@@ -46,7 +46,7 @@ const HodPaymentRequest: React.FC = () => {
 
   const handleAccept = async (lecturerId: string) => {
     try {
-      await axios.put(`/lecture/hod/paymentaccept/${lecturerId}`);
+      await axios.put(`https://guest-lecturer.vercel.app/lecture/hod/paymentaccept/${lecturerId}`);
       window.location.reload(); 
     } catch (error) {
       console.error('Error accepting lecturer:', error);

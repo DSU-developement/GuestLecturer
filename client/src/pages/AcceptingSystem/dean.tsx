@@ -27,7 +27,7 @@ const DEAN: React.FC = () => {
   useEffect(() => {
     async function fetchLecturers() {
       try {
-        const response = await axios.get(`/lecture/dean/${userId}`);
+        const response = await axios.get(`https://guest-lecturer.vercel.app/lecture/dean/${userId}`);
         setLecturers(response.data);
       } catch (error) {
         console.error('Error fetching lectures:', error);
@@ -39,7 +39,7 @@ const DEAN: React.FC = () => {
 
   const handleAccept = async (lecturerId: string) => {
     try {
-      await axios.put(`/lecture/accept/${lecturerId}`);
+      await axios.put(`https://guest-lecturer.vercel.app/lecture/accept/${lecturerId}`);
       window.location.reload();
     } catch (error) {
       console.error('Error accepting lecturer:', error);

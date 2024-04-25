@@ -13,7 +13,7 @@ const CFO: React.FC = () => {
   useEffect(() => {
     async function fetchApprovedLectures() {
       try {
-        const response = await axios.get('/cfo/approved-lectures');
+        const response = await axios.get('https://guest-lecturer.vercel.app/cfo/approved-lectures');
         setApprovedLectures(response.data);
       } catch (error) {
         console.error('Error fetching approved lectures:', error);
@@ -25,7 +25,7 @@ const CFO: React.FC = () => {
 
   const handleAccept = async (lecturerId: string) => {
     try {
-      await axios.put(`lecture/accept/cfo/${lecturerId}`);
+      await axios.put(`https://guest-lecturer.vercel.applecture/accept/cfo/${lecturerId}`);
       window.location.reload(); 
     } catch (error) {
       console.error('Error accepting lecturer:', error);

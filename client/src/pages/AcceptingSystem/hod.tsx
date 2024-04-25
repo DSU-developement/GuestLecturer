@@ -29,7 +29,7 @@ const Table: React.FC = () => {
   useEffect(() => {
     async function fetchLecturers() {
       try {
-        const response = await axios.get(`/lecture/${userId}`);
+        const response = await axios.get(`https://guest-lecturer.vercel.app/lecture/${userId}`);
         setLecturers(response.data);
       } catch (error) {
         console.error('Error fetching lectures:', error);
@@ -52,7 +52,7 @@ const Table: React.FC = () => {
 
   const handleDelete = async (lecturerId: string) => {
     try {
-      await axios.delete(`/lecture/${lecturerId}`);
+      await axios.delete(`https://guest-lecturer.vercel.app/lecture/${lecturerId}`);
       setLecturers(prevState => prevState.filter(lecturer => lecturer._id !== lecturerId));
     } catch (error) {
       console.error('Error deleting lecturer:', error);

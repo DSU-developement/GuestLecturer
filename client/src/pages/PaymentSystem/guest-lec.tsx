@@ -39,7 +39,7 @@ const FinancialDetailsPage: React.FC = () => {
   const handleUpdateFinancialDetails = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await axios.put('/api/updateFinancialDetails', formData);
+      await axios.put('https://guest-lecturer.vercel.app/api/updateFinancialDetails', formData);
       setSubmitted(true);
     } catch (error) {
       if (axios.isAxiosError(error)) {
