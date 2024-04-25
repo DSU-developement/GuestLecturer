@@ -31,3 +31,4 @@ credentials.json
 # Ignore backup files
 *.bak
 *.swp
+.vercel
