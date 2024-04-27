@@ -139,10 +139,10 @@ const SignupPageLect = () => {
   const handleSignup = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const hashedPasswordResponse = await axios.post('/api/hashPassword', { password: formData.password });
+      const hashedPasswordResponse = await axios.post('https://guest-lecturer.vercel.app/lecture/api/hashPassword', { password: formData.password });
       const hashedPassword = hashedPasswordResponse.data.hashedPassword;
       const updatedFormData = { ...formData, password: hashedPassword };
-      await axios.post('/api/signupLecturer', updatedFormData);
+      await axios.post('https://guest-lecturer.vercel.app/lecture/api/signupLecturer', updatedFormData);
       setSubmitted(true);
     } catch (error) {
       if (axios.isAxiosError(error)) {

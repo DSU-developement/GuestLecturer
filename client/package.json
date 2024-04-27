@@ -15,9 +15,13 @@
     "axios": "^1.6.8",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
+    "crypto-browserify": "^3.12.0",
+    "dotenv": "^16.4.5",
     "jwt-decode": "^4.0.0",
     "mongodb": "^6.4.0",
     "mongoose": "^8.2.1",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.0.1",
@@ -52,6 +56,7 @@
     ]
   },
   "devDependencies": {
-    "@types/jquery": "^3.5.29"
+    "@types/jquery": "^3.5.29",
+    "dotenv-webpack": "^8.1.0"
   }
 }
