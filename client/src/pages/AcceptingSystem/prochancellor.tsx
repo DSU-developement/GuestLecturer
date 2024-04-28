@@ -3,11 +3,15 @@ import axios from 'axios';
 import Sidebar from '../../components/SideBar';
 import Header from '../../components/CommonHeader';
 import DetailsModal from '../../components/DetailsModal';
+import CommentModal from '../../components/CommentModal';
+
 
 const Prochancellor: React.FC = () => {
   const [approvedLecturers, setApprovedLecturers] = useState<any[]>([]);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [selectedLecturerForDetails, setSelectedLecturerForDetails] = useState<any | null>(null);
+  const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
+  const [selectedLecturerId, setSelectedLecturerId] = useState('');
   const tableRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -35,6 +39,14 @@ const Prochancellor: React.FC = () => {
   const handleDetails = (lecturer: any) => {
     setSelectedLecturerForDetails(lecturer);
     setIsDetailsModalOpen(true);
+  };
+  const handleComment = async (lecturer: any) => {
+    try {
+      setSelectedLecturerId(lecturer);
+      setIsCommentModalOpen(true);
+    } catch (error) {
+      console.error('Error commenting on lecturer:', error);
+    }
   };
 
   const getStatus = (lecturer: any) => {
@@ -92,6 +104,7 @@ const Prochancellor: React.FC = () => {
                           className={`text-blue-600 hover:text-blue-900 ml-2 p-2 pl-3 pr-3 ${
                             lecturer.approved.proChancellor ? 'bg-gray-400 text-gray-600 cursor-not-allowed' : 'bg-blue-400 text-white hover:bg-blue-500'
                           } rounded-xl m-1`}
+                          onClick={() => handleComment(lecturer._id)}
                           disabled={lecturer.approved.proChancellor}
                         >
                           Comment
