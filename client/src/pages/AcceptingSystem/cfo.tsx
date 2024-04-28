@@ -107,7 +107,7 @@ const CFO: React.FC = () => {
                           onClick={() => handleComment(lecturer._id)}
                           disabled={lecturer.approved.cfo}
                         >
-                          Comment
+                          {lecturer.approved.cfo ? 'Comment' : 'Comment'}
                         </button>
                       </td>
                     </tr>

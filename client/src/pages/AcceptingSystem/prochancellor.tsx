@@ -107,7 +107,7 @@ const Prochancellor: React.FC = () => {
                           onClick={() => handleComment(lecturer._id)}
                           disabled={lecturer.approved.proChancellor}
                         >
-                          Comment
+                           {lecturer.approved.proChancellor ? 'Comment' : 'Comment'}
                         </button>
                       </td>
                     </tr>

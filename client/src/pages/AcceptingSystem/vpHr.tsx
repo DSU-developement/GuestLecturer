@@ -110,7 +110,7 @@ const VpHr: React.FC = () => {
                           onClick={() => handleComment(lecturer._id)}
                           disabled={lecturer.approved.vpHR}
                         >
-                          Comment
+                           {lecturer.approved.vpHR ? 'Comment' : 'Comment'}
                         </button>
                       </td>
                     </tr>
