@@ -13,7 +13,7 @@ const ViceChancellor: React.FC = () => {
   useEffect(() => {
     async function fetchApprovedLecturers() {
       try {
-        const response = await axios.get('vicechancellor/approved-lectures');
+        const response = await axios.get('https://guest-lecturer.vercel.app/vicechancellor/approved-lectures');
         setApprovedLecturers(response.data);
       } catch (error) {
         console.error('Error fetching approved lectures:', error);
