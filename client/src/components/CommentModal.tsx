@@ -21,7 +21,7 @@ const CommentModal: React.FC<CommentModalProps> = ({ isOpen, onClose, lecturerId
 
   const handleSubmit = async () => {
     try {
-      await axios.put(`/lecture/remarks/${lecturerId}`, { from: role, text: comment });
+      await axios.put(`https://guest-lecturer.vercel.app/lecture/remarks/${lecturerId}`, { from: role, text: comment });
       onClose();
       setRecipient('');
       setComment('');
