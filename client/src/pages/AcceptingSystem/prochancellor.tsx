@@ -25,7 +25,7 @@ const Prochancellor: React.FC = () => {
 
   const handleAccept = async (lecturerId: string) => {
     try {
-      await axios.put(`lecture/accept/prochancellor/${lecturerId}`);
+      await axios.put(`https://guest-lecturer.vercel.app/lecture/accept/prochancellor/${lecturerId}`);
       window.location.reload();
     } catch (error) {
       console.error('Error accepting lecturer:', error);
