@@ -9,9 +9,11 @@ const HodPaymentRequest: React.FC = () => {
   const [lecturers, setLecturers] = useState<any[]>([]);
   const [visibleRows, setVisibleRows] = useState(5);
   const tableRef = useRef<HTMLDivElement>(null);
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
   const [selectedLecturerId, setSelectedLecturerId] = useState('');
   const storedUserData = localStorage.getItem('token');
+  const [selectedLecturerForDetails, setSelectedLecturerForDetails] = useState<any | null>(null);
   var userId = "";
 
   if (storedUserData) {
@@ -56,9 +58,9 @@ const HodPaymentRequest: React.FC = () => {
     }
   };
 
-  const handleComment = async (lecturerId: string) => {
+  const handleComment = async (lecturer: string) => {
     try {
-      setSelectedLecturerId(lecturerId);
+      setSelectedLecturerId(lecturer);
       setIsCommentModalOpen(true);
     } catch (error) {
       console.error('Error commenting on lecturer:', error);
@@ -122,6 +124,16 @@ const HodPaymentRequest: React.FC = () => {
           <div className="absolute top-0 right-0 bg-gray-200 w-2 bottom-0" style={{ zIndex: 10 }} />
         </div>
       </div>
+      <DetailsModal
+          isOpen={isDetailsModalOpen}
+          onClose={() => setIsDetailsModalOpen(false)}
+          lecturer={selectedLecturerForDetails}
+        />
+      <CommentModal
+        isOpen={isCommentModalOpen}
+        onClose={() => setIsCommentModalOpen(false)}
+        lecturerId={selectedLecturerId}
+      />
     </div>
   );
 };
