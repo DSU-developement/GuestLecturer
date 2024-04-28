@@ -24,7 +24,7 @@ const Header: React.FC = () => {
       const storedUserData = localStorage.getItem('token');
       if (storedUserData) {
         const userData = JSON.parse(storedUserData);
-        const response = await axios.put(`/api/updatePaymentRequest/${userData._id}`);
+        const response = await axios.put(`https://guest-lecturer.vercel.app/api/updatePaymentRequest/${userData._id}`);
         if (response.status === 200) {
           setPaymentRequested(true);
         }
@@ -43,7 +43,7 @@ const Header: React.FC = () => {
         const storedUserData = localStorage.getItem('token');
         if (storedUserData) {
           const userData = JSON.parse(storedUserData);
-          const response = await axios.get(`/getLecturerDetails/${userData._id}`);
+          const response = await axios.get(`https://guest-lecturer.vercel.app/getLecturerDetails/${userData._id}`);
           setLecturerData(response.data);
           setPaymentRequested(response.data?.PaymentRequest || false);
           setAccountDetailsUpdated(!!response.data?.accountDetails?.accountNumber);

@@ -73,7 +73,7 @@ const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, lecturer, onSubm
 
   const handleSubmit = async  () => {
     try {
-      const response = await axios.put(`/api/edit/lecture`, editedLecturer);
+      const response = await axios.put(`https://guest-lecturer.vercel.app/api/edit/lecture`, editedLecturer);
       onSubmit(response.data);
       onClose();
     } catch (error) {
