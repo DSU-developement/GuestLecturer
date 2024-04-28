@@ -17,7 +17,7 @@ const Registrar: React.FC = () => {
   useEffect(() => {
     async function fetchApprovedLecturers() {
       try {
-        const response = await axios.get('/registar/approved-lectures');
+        const response = await axios.get('https://guest-lecturer.vercel.app/registar/approved-lectures');
         setApprovedLecturers(response.data);
       } catch (error) {
         console.error('Error fetching approved lectures:', error);
@@ -29,7 +29,7 @@ const Registrar: React.FC = () => {
 
   const handleAccept = async (lecturerId: string) => {
     try {
-      await axios.put(`/lecture/accept/registar/${lecturerId}`);
+      await axios.put(`https://guest-lecturer.vercel.app/lecture/accept/registar/${lecturerId}`);
       window.location.reload();
     } catch (error) {
       console.error('Error accepting lecturer:', error);
