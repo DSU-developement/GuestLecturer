@@ -2,12 +2,15 @@ import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import Sidebar from '../../components/SideBar';
 import Header from '../../components/HeaderHod';
+import DetailsModal from '../../components/DetailsModal';
+import CommentModal from '../../components/CommentModal';
 
 const HodPaymentRequest: React.FC = () => {
   const [lecturers, setLecturers] = useState<any[]>([]);
   const [visibleRows, setVisibleRows] = useState(5);
   const tableRef = useRef<HTMLDivElement>(null);
-
+  const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
+  const [selectedLecturerId, setSelectedLecturerId] = useState('');
   const storedUserData = localStorage.getItem('token');
   var userId = "";
 
@@ -54,7 +57,12 @@ const HodPaymentRequest: React.FC = () => {
   };
 
   const handleComment = async (lecturerId: string) => {
-    // Implement comment functionality
+    try {
+      setSelectedLecturerId(lecturerId);
+      setIsCommentModalOpen(true);
+    } catch (error) {
+      console.error('Error commenting on lecturer:', error);
+    }
   };
 
   return (

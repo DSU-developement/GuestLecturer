@@ -43,6 +43,7 @@ const ViceChancellor: React.FC = () => {
       console.error('Error commenting on lecturer:', error);
     }
   };
+  
 
   const handleDetails = (lecturer: any) => {
     setSelectedLecturerForDetails(lecturer);
