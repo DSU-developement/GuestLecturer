@@ -25,7 +25,7 @@ const SignupPage = () => {
   const handleSignup = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/signup', {
+      const response = await axios.post('https://guest-lecturer.vercel.app/api/signup', {
         name,
         email,
         password,
