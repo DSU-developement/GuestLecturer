@@ -122,6 +122,16 @@ const VpHr: React.FC = () => {
           <div className="absolute top-0 right-0 bg-gray-200 w-2 bottom-0" style={{ zIndex: 10 }} />
         </div>
       </div>
+      <DetailsModal
+          isOpen={isDetailsModalOpen}
+          onClose={() => setIsDetailsModalOpen(false)}
+          lecturer={selectedLecturerForDetails}
+        />
+      <CommentModal
+        isOpen={isCommentModalOpen}
+        onClose={() => setIsCommentModalOpen(false)}
+        lecturerId={selectedLecturerId}
+      />
     </div>
   );
 };

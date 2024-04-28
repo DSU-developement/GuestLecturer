@@ -124,6 +124,11 @@ const Prochancellor: React.FC = () => {
           onClose={() => setIsDetailsModalOpen(false)}
           lecturer={selectedLecturerForDetails}
         />
+        <CommentModal
+        isOpen={isCommentModalOpen}
+        onClose={() => setIsCommentModalOpen(false)}
+        lecturerId={selectedLecturerId}
+      />
     </div>
   );
 };
