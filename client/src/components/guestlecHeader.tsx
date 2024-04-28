@@ -16,10 +16,10 @@ const Header: React.FC = () => {
 
   const handlePaymentRequest = async () => {
     try {
-      if (!accountDetailsUpdated) {
-        setErrorMessage("Please update your account details before requesting payment.");
-        return;
-      }
+      // if (!accountDetailsUpdated) {
+      //   setErrorMessage("Please update your account details before requesting payment.");
+      //   return;
+      // }
 
       const storedUserData = localStorage.getItem('token');
       if (storedUserData) {
