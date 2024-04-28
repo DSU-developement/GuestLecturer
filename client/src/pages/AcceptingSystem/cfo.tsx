@@ -25,7 +25,7 @@ const CFO: React.FC = () => {
 
   const handleAccept = async (lecturerId: string) => {
     try {
-      await axios.put(`https://guest-lecturer.vercel.applecture/accept/cfo/${lecturerId}`);
+      await axios.put(`https://guest-lecturer.vercel.app/lecture/accept/cfo/${lecturerId}`);
       window.location.reload(); 
     } catch (error) {
       console.error('Error accepting lecturer:', error);
