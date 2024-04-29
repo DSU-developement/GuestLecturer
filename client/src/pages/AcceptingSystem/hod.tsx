@@ -18,13 +18,22 @@ const Table: React.FC = () => {
   const tableRef = useRef<HTMLDivElement>(null);
   const storedUserData = localStorage.getItem('token');
   var userId = "";
-
+  var Role = localStorage.getItem('role');
+  var role;
+  if(Role){
+    var role = JSON.parse(Role)
+  }
+  if(role==='GuestLecture'){
+    console.log(true);
+  }
   if (storedUserData) {
     const userData = JSON.parse(storedUserData);
     userId = userData['_id'];
   } else {
     console.error('User data not found in local storage');
   }
+
+
 
   useEffect(() => {
     async function fetchLecturers() {
@@ -83,6 +92,10 @@ const Table: React.FC = () => {
     const allApproved = Object.values(lecturer.approved).every((approval: any) => approval as boolean);
     return allApproved ? 'Accepted' : 'Pending';
   };
+
+  if (role !== 'HOD') {
+    return <div className='text-6xl font-bold ml-20 mr-20 mt-10'>You are not authorized to view this page.</div>;
+  }
 
   return (
     <div className="flex h-screen">
