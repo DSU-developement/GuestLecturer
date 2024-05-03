@@ -20,7 +20,7 @@ const GuestDash: React.FC = () => {
     const fetchLecturerDetails = async () => {
       try {
         if (id) {
-          const response = await axios.get(`/getLecturerDetails/${id}`);
+          const response = await axios.get(`https://guest-lecturer.vercel.app/getLecturerDetails/${id}`);
           setLecturerData(response.data);
         } else {
           console.error('User data not found in local storage');

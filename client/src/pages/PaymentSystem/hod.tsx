@@ -2,13 +2,18 @@ import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import Sidebar from '../../components/SideBar';
 import Header from '../../components/HeaderHod';
+import DetailsModal from '../../components/DetailsModal';
+import CommentModal from '../../components/CommentModal';
 
 const HodPaymentRequest: React.FC = () => {
   const [lecturers, setLecturers] = useState<any[]>([]);
   const [visibleRows, setVisibleRows] = useState(5);
   const tableRef = useRef<HTMLDivElement>(null);
-
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+  const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
+  const [selectedLecturerId, setSelectedLecturerId] = useState('');
   const storedUserData = localStorage.getItem('token');
+  const [selectedLecturerForDetails, setSelectedLecturerForDetails] = useState<any | null>(null);
   var userId = "";
 
   if (storedUserData) {
@@ -21,7 +26,7 @@ const HodPaymentRequest: React.FC = () => {
   useEffect(() => {
     async function fetchLecturers() {
       try {
-        const response = await axios.get(`/lecture/hod/payment-request/${userId}`);
+        const response = await axios.get(`https://guest-lecturer.vercel.app/lecture/hod/payment-request/${userId}`);
         setLecturers(response.data);
       } catch (error) {
         console.error('Error fetching lectures:', error);
@@ -46,15 +51,20 @@ const HodPaymentRequest: React.FC = () => {
 
   const handleAccept = async (lecturerId: string) => {
     try {
-      await axios.put(`/lecture/hod/paymentaccept/${lecturerId}`);
+      await axios.put(`https://guest-lecturer.vercel.app/lecture/hod/paymentaccept/${lecturerId}`);
       window.location.reload(); 
     } catch (error) {
       console.error('Error accepting lecturer:', error);
     }
   };
 
-  const handleComment = async (lecturerId: string) => {
-    // Implement comment functionality
+  const handleComment = async (lecturer: string) => {
+    try {
+      setSelectedLecturerId(lecturer);
+      setIsCommentModalOpen(true);
+    } catch (error) {
+      console.error('Error commenting on lecturer:', error);
+    }
   };
 
   return (
@@ -114,6 +124,16 @@ const HodPaymentRequest: React.FC = () => {
           <div className="absolute top-0 right-0 bg-gray-200 w-2 bottom-0" style={{ zIndex: 10 }} />
         </div>
       </div>
+      <DetailsModal
+          isOpen={isDetailsModalOpen}
+          onClose={() => setIsDetailsModalOpen(false)}
+          lecturer={selectedLecturerForDetails}
+        />
+      <CommentModal
+        isOpen={isCommentModalOpen}
+        onClose={() => setIsCommentModalOpen(false)}
+        lecturerId={selectedLecturerId}
+      />
     </div>
   );
 };

@@ -18,7 +18,14 @@ const Table: React.FC = () => {
   const tableRef = useRef<HTMLDivElement>(null);
   const storedUserData = localStorage.getItem('token');
   var userId = "";
-
+  var Role = localStorage.getItem('role');
+  var role;
+  if(Role){
+    var role = JSON.parse(Role)
+  }
+  if(role==='GuestLecture'){
+    console.log(true);
+  }
   if (storedUserData) {
     const userData = JSON.parse(storedUserData);
     userId = userData['_id'];
@@ -26,10 +33,12 @@ const Table: React.FC = () => {
     console.error('User data not found in local storage');
   }
 
+
+
   useEffect(() => {
     async function fetchLecturers() {
       try {
-        const response = await axios.get(`/lecture/${userId}`);
+        const response = await axios.get(`https://guest-lecturer.vercel.app/lecture/${userId}`);
         setLecturers(response.data);
       } catch (error) {
         console.error('Error fetching lectures:', error);
@@ -52,7 +61,7 @@ const Table: React.FC = () => {
 
   const handleDelete = async (lecturerId: string) => {
     try {
-      await axios.delete(`/lecture/${lecturerId}`);
+      await axios.delete(`https://guest-lecturer.vercel.app/lecture/${lecturerId}`);
       setLecturers(prevState => prevState.filter(lecturer => lecturer._id !== lecturerId));
     } catch (error) {
       console.error('Error deleting lecturer:', error);
@@ -83,6 +92,10 @@ const Table: React.FC = () => {
     const allApproved = Object.values(lecturer.approved).every((approval: any) => approval as boolean);
     return allApproved ? 'Accepted' : 'Pending';
   };
+
+  if (role !== 'HOD') {
+    return <div className='text-6xl font-bold ml-20 mr-20 mt-10'>You are not authorized to view this page.</div>;
+  }
 
   return (
     <div className="flex h-screen">

@@ -17,7 +17,7 @@ const Registrar: React.FC = () => {
   useEffect(() => {
     async function fetchApprovedLecturers() {
       try {
-        const response = await axios.get('/registar/approved-lectures');
+        const response = await axios.get('https://guest-lecturer.vercel.app/registar/approved-lectures');
         setApprovedLecturers(response.data);
       } catch (error) {
         console.error('Error fetching approved lectures:', error);
@@ -29,7 +29,7 @@ const Registrar: React.FC = () => {
 
   const handleAccept = async (lecturerId: string) => {
     try {
-      await axios.put(`/lecture/accept/registar/${lecturerId}`);
+      await axios.put(`https://guest-lecturer.vercel.app/lecture/accept/registar/${lecturerId}`);
       window.location.reload();
     } catch (error) {
       console.error('Error accepting lecturer:', error);
@@ -102,7 +102,7 @@ const Registrar: React.FC = () => {
                         </button>
                         <button
                           className={`text-blue-600 hover:text-blue-900 ml-2 p-2 pl-3 pr-3 ${
-                            lecturer.approved.registar ? 'bg-gray-400 text-gray-600 cursor-not-allowed' : 'bg-blue-400 text-white hover:bg-blue-500'
+                            lecturer.approved.registrar ? 'bg-gray-400 text-gray-600 cursor-not-allowed' : 'bg-blue-400 text-white hover:bg-blue-500'
                           } rounded-xl m-1`}
                           onClick={() => handleComment(lecturer._id)}
                           disabled={lecturer.approved.registrar}

@@ -22,7 +22,7 @@ const UpdatePasswordPage = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('/api/update-password', {
+      const response = await fetch('https://guest-lecturer.vercel.app/api/update-password', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

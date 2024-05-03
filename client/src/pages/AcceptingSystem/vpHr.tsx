@@ -2,19 +2,22 @@ import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import Sidebar from '../../components/SideBar';
 import Header from '../../components/CommonHeader';
+import CommentModal from '../../components/CommentModal';
 import DetailsModal from '../../components/DetailsModal';
 
 const VpHr: React.FC = () => {
   const [approvedLecturers, setApprovedLecturers] = useState<any[]>([]);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [selectedLecturerForDetails, setSelectedLecturerForDetails] = useState<any | null>(null);
+  const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
+  const [selectedLecturerId, setSelectedLecturerId] = useState('');
   const tableRef = useRef<HTMLDivElement>(null);
 
 
   useEffect(() => {
     async function fetchApprovedLecturers() {
       try {
-        const response = await axios.get('/vphr/approved-lectures');
+        const response = await axios.get('https://guest-lecturer.vercel.app/vphr/approved-lectures');
         console.log(response.data);
         setApprovedLecturers(response.data);
       } catch (error) {
@@ -27,7 +30,7 @@ const VpHr: React.FC = () => {
 
   const handleAccept = async (lecturerId: string) => {
     try {
-      await axios.put(`lecture/accept/hr/${lecturerId}`);
+      await axios.put(`https://guest-lecturer.vercel.app/lecture/accept/hr/${lecturerId}`);
       window.location.reload(); 
     } catch (error) {
       console.error('Error accepting lecturer:', error);
@@ -37,6 +40,16 @@ const VpHr: React.FC = () => {
   const handleDetails = (lecturer: any) => {
     setSelectedLecturerForDetails(lecturer);
     setIsDetailsModalOpen(true);
+  };
+
+
+  const handleComment = async (lecturer: any) => {
+    try {
+      setSelectedLecturerId(lecturer);
+      setIsCommentModalOpen(true);
+    } catch (error) {
+      console.error('Error commenting on lecturer:', error);
+    }
   };
 
   const getStatus = (lecturer: any) => {
@@ -94,9 +107,10 @@ const VpHr: React.FC = () => {
                           className={`text-blue-600 hover:text-blue-900 ml-2 p-2 pl-3 pr-3 ${
                             lecturer.approved.vpHR ? 'bg-gray-400 text-gray-600 cursor-not-allowed' : 'bg-blue-400 text-white hover:bg-blue-500'
                           } rounded-xl m-1`}
+                          onClick={() => handleComment(lecturer._id)}
                           disabled={lecturer.approved.vpHR}
                         >
-                          Comment
+                           {lecturer.approved.vpHR ? 'Comment' : 'Comment'}
                         </button>
                       </td>
                     </tr>
@@ -108,6 +122,16 @@ const VpHr: React.FC = () => {
           <div className="absolute top-0 right-0 bg-gray-200 w-2 bottom-0" style={{ zIndex: 10 }} />
         </div>
       </div>
+      <DetailsModal
+          isOpen={isDetailsModalOpen}
+          onClose={() => setIsDetailsModalOpen(false)}
+          lecturer={selectedLecturerForDetails}
+        />
+      <CommentModal
+        isOpen={isCommentModalOpen}
+        onClose={() => setIsCommentModalOpen(false)}
+        lecturerId={selectedLecturerId}
+      />
     </div>
   );
 };
