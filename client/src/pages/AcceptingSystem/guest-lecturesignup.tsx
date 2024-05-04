@@ -53,10 +53,12 @@ const SignupPageLect = () => {
 
   const [errorMessage, setErrorMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
-
+  const [showRatePopup, setShowRatePopup] = useState(false);
 
   const handleChange = async (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
+    setShowRatePopup(false);
+    setErrorMessage('');
   
     if (type === 'checkbox') {
       const isChecked = (e.target as HTMLInputElement).checked;
@@ -108,23 +110,27 @@ const SignupPageLect = () => {
         totalAmount: totalAmount.toString()
       }));
     } else if (name === "proposedRate") {
-      if(formData.qualifications.ug && parseInt(value) > 800) {
-        setErrorMessage("Exceeding the maximum proposed rate limit (800)");
-        return;
-      } else if(formData.qualifications.pg && parseInt(value) > 1000) {
-        setErrorMessage("Exceeding the maximum proposed rate limit (1000)");
-        return;
-      } else if(formData.qualifications.phd && parseInt(value) > 1200) {
-        setErrorMessage("Exceeding the maximum proposed rate limit (1200)");
-        return;
-      }
-      
-      setFormData(prevState => ({
-        ...prevState,
-        [name]: parseInt(value),
-        remarks: {},
-        approved: {}
-      }));
+      if(formData.qualifications.ug || formData.qualifications.pg || formData.qualifications.phd) {
+        if(formData.qualifications.ug && parseInt(value) > 800) {
+          setShowRatePopup(true);
+          return;
+        } else if(formData.qualifications.pg && parseInt(value) > 1000) {
+          setShowRatePopup(true);
+          return;
+        } else if(formData.qualifications.phd && parseInt(value) > 1200) {
+          setShowRatePopup(true);
+          return;
+        }
+        
+        setFormData(prevState => ({
+          ...prevState,
+          [name]: parseInt(value),
+          remarks: {},
+          approved: {}
+        }));
+
+        setShowRatePopup(false);
+      } 
     } else {
       setFormData(prevState => ({
         ...prevState,
@@ -235,7 +241,13 @@ const SignupPageLect = () => {
                 <div className='m-2 p-2'>
                   <input autoComplete='no' className='w-80 border-black border rounded p-2 outline-blue-600 ' placeholder="No: of Hours" type="number" name="hours" value={formData.hours} onChange={handleChange} required />
                 </div>
-                <div className='m-2 p-2'>
+                <div className='ml-2 mt-0 p-2'>
+                  {showRatePopup && 
+                  <div className="flex flex-col justify-center text-red-500 text-xs m-0">
+                    <p>Rate exceeds limits for the selected Qualification</p>
+                    <p>Standard Rates: <b>UG (upto 800), PG (800-1000), PhD (1000-1200)</b></p>
+                  </div>
+                  }
                   <input autoComplete='no' className='w-80 border-black border rounded p-2 outline-blue-600' placeholder="Proposed Rate" type="number" name="proposedRate" value={formData.proposedRate} onChange={handleChange} required />
                 </div>
                 <div className='m-2 p-2'>

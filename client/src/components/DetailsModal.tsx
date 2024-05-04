@@ -11,6 +11,11 @@ interface Lecturer {
   email: string;
   schoolsDeanery: string;
   department: string;
+  qualifications: {
+    ug: boolean;
+    pg: boolean;
+    phd: boolean;
+  };
   subjectName: string;
   yearAndSemester: string;
   sectionsHandled: number;
@@ -64,6 +69,10 @@ const DetailsModal: React.FC<DetailsModalProps> = ({ isOpen, onClose, lecturer }
                           <label htmlFor="email" className="block text-sm font-medium text-gray-700 mt-3">Email</label>
                           <p className="bg-blue-50 mt-1 py-2 px-3 block w-full shadow-sm sm:text-sm border-gray-300">{lecturer?.email}</p>
                         </div>
+                        <div className="col-span-6">
+                          <label htmlFor="qualification" className="block text-sm font-medium text-gray-700 mt-3">Qualification</label>
+                          <p className="bg-blue-50 mt-1 py-2 px-3 block w-full shadow-sm sm:text-sm border-gray-300">{lecturer?.qualifications.ug ? "Under Graduate" : lecturer?.qualifications.pg ? "Post Graduate" : "Phd"}</p>
+                        </div>
                       </div>
                       <div>
                         <div className="col-span-6">
@@ -78,18 +87,18 @@ const DetailsModal: React.FC<DetailsModalProps> = ({ isOpen, onClose, lecturer }
                           <label htmlFor="subjectName" className="block text-sm font-medium text-gray-700 mt-3">Subject Name</label>
                           <p className="bg-blue-50 mt-1 py-2 px-3 block w-full shadow-sm sm:text-sm border-gray-300">{lecturer?.subjectName}</p>
                         </div>
-                      </div>
-                      <div>
                         <div className="col-span-6">
                           <label htmlFor="yearAndSemester" className="block text-sm font-medium text-gray-700 mt-3">Year & Semester</label>
                           <p className="bg-blue-50 mt-1 py-2 px-3 block w-full shadow-sm sm:text-sm border-gray-300">{lecturer?.yearAndSemester}</p>
                         </div>
+                      </div>
+                      <div>
                         <div className="col-span-6">
                           <label htmlFor="sectionsHandled" className="block text-sm font-medium text-gray-700 mt-3">Sections Handled</label>
                           <p className="bg-blue-50 mt-1 py-2 px-3 block w-full shadow-sm sm:text-sm border-gray-300">{lecturer?.sectionsHandled}</p>
                         </div>
                         <div className="col-span-6">
-                          <label htmlFor="hours" className="block text-sm font-medium text-gray-700 mt-3">hours</label>
+                          <label htmlFor="hours" className="block text-sm font-medium text-gray-700 mt-3">Hours</label>
                           <p className="bg-blue-50 mt-1 py-2 px-3 block w-full shadow-sm sm:text-sm border-gray-300">{lecturer?.hours}</p>
                         </div>
                         <div className="col-span-6">

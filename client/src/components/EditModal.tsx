@@ -18,7 +18,7 @@ interface Lecturer {
   sectionsHandled: number;
   hours: number;
   startDate: string;
-  proposedRate: number;
+  proposedRate: string;
   totalAmount: number;
   accountDetails: {
     accountNumber: string;
@@ -62,6 +62,47 @@ const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, lecturer, onSubm
           [child]: value
         }
       }));
+    } else if (name === 'hours') {
+      const hours = parseInt((value === '' ? 0 : value).toString());
+      const proposedRate = parseFloat(editedLecturer.proposedRate) || 0;
+      const totalAmount = proposedRate * hours;
+  
+      setEditedLecturer(prevState => ({
+        ...prevState,
+        hours: hours,
+        totalAmount: totalAmount
+      }));
+    } else if (name === "proposedRate") {
+      const inpField = document.getElementById("proposedRate");
+      var rate = parseInt((value === '' ? 0 : value).toString());
+      const totalAmount = rate * editedLecturer.hours;
+
+      if(inpField) {
+        if(editedLecturer.qualifications.ug && rate > 800) {
+          inpField.style.border = "1px solid red";
+          inpField.style.borderRadius = "5px";
+          inpField.style.outline = "red";
+          setEditedLecturer(prevState => ({ ...prevState, [name]: '' }));
+          return;
+        } else if(editedLecturer.qualifications.pg && rate > 1000) {
+          inpField.style.border = "1px solid red";
+          inpField.style.outline = "red";
+          setEditedLecturer(prevState => ({ ...prevState, [name]: '' }));
+          return;
+        } else if(editedLecturer.qualifications.phd && rate > 1200) {
+          inpField.style.border = "1px solid red";
+          inpField.style.outline = "red";
+          setEditedLecturer(prevState => ({ ...prevState, [name]: '' }));
+          return;
+        } else {
+          inpField.style.border = "";
+          setEditedLecturer(prevState => ({
+            ...prevState,
+            [name]: rate.toString(),
+            totalAmount: totalAmount
+          }));
+        }
+      }
     } else {
       setEditedLecturer(prevState => ({
         ...prevState,
@@ -73,6 +114,10 @@ const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, lecturer, onSubm
 
   const handleSubmit = async  () => {
     try {
+      if (editedLecturer.proposedRate === '') {
+        editedLecturer.proposedRate = (editedLecturer.qualifications.ug ? 800 : editedLecturer.qualifications.pg ? 1000 : 1200).toString();
+      }
+
       const response = await axios.put(`https://guest-lecturer.vercel.app/api/edit/lecture`, editedLecturer);
       onSubmit(response.data);
       onClose();
@@ -109,6 +154,10 @@ const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, lecturer, onSubm
                           <label htmlFor="email" className="block text-sm font-medium text-gray-700 mt-3">Email</label>
                           <input type="email" name="email" id="email" value={editedLecturer.email} onChange={handleChange} className="p-2 bg-blue-50 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300" />
                         </div>
+                        <div className="col-span-6">
+                          <label htmlFor="qualification" className="block text-sm font-medium text-gray-700 mt-3">Qualification</label>
+                          <input type="text" name="qualification" id="qualification" value={editedLecturer.qualifications.ug ? "Under Graduate" : editedLecturer.qualifications.pg ? "Post Graduate" : "Phd"} className="p-2 bg-blue-50 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300" />
+                        </div>
                       </div>
                       <div>
                         <div className="col-span-6">
@@ -123,12 +172,12 @@ const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, lecturer, onSubm
                           <label htmlFor="subjectName" className="block text-sm font-medium text-gray-700 mt-3">Subject Name</label>
                           <input type="subjectName" name="subjectName" id="subjectName" value={editedLecturer.subjectName} onChange={handleChange} className="p-2 bg-blue-50 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300d" />
                         </div>
-                      </div>
-                      <div>
                         <div className="col-span-6">
                           <label htmlFor="yearAndSemester" className="block text-sm font-medium text-gray-700 mt-3">Year And Semester</label>
                           <input type="yearAndSemester" name="yearAndSemester" id="yearAndSemester" value={editedLecturer.yearAndSemester} onChange={handleChange} className="p-2 bg-blue-50 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300" />
                         </div>
+                      </div>
+                      <div>
                         <div className="col-span-6">
                           <label htmlFor="sectionsHandled" className="block text-sm font-medium text-gray-700 mt-3">Section's Handled</label>
                           <input type="sectionsHandled" name="sectionsHandled" id="sectionsHandled" value={editedLecturer.sectionsHandled} onChange={handleChange} className="p-2 bg-blue-50 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 " />
@@ -143,11 +192,11 @@ const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, lecturer, onSubm
                         </div>
                         <div className="col-span-6">
                           <label htmlFor="proposedRate" className="block text-sm font-medium text-gray-700 mt-3">Proposed Rate</label>
-                          <input type="proposedRate" name="proposedRate" id="proposedRate" value={editedLecturer.proposedRate} onChange={handleChange} className="p-2 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 bg-blue-50" />
+                          <input type="proposedRate" name="proposedRate" id="proposedRate" placeholder={editedLecturer.qualifications.ug ? "upto 800 only" : editedLecturer.qualifications.pg ? "800 - 1000 only" : "1000 - 1200 only"} value={editedLecturer.proposedRate} onChange={handleChange} className="p-2 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 bg-blue-50" />
                         </div>
                         <div className="col-span-6">
                           <label htmlFor="totalAmount" className="block text-sm font-medium text-gray-700 mt-3">Total Amount</label>
-                          <input type="totalAmount" name="totalAmount" id="totalAmount" value={editedLecturer.totalAmount} onChange={handleChange} className="p-2 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 bg-blue-50" />
+                          <input type="totalAmount" name="totalAmount" id="totalAmount" value={editedLecturer.totalAmount} className="p-2 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 bg-blue-50" />
                         </div>
                       </div>
                       <div>
