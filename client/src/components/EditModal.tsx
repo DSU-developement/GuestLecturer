@@ -156,47 +156,47 @@ const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, lecturer, onSubm
                         </div>
                         <div className="col-span-6">
                           <label htmlFor="qualification" className="block text-sm font-medium text-gray-700 mt-3">Qualification</label>
-                          <input type="text" name="qualification" id="qualification" value={editedLecturer.qualifications.ug ? "Under Graduate" : editedLecturer.qualifications.pg ? "Post Graduate" : "Phd"} className="p-2 bg-blue-50 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300" />
+                          <input type="text" name="qualification" id="qualification" value={editedLecturer.qualifications.ug ? "Under Graduate" : editedLecturer.qualifications.pg ? "Post Graduate" : "Phd"} className="cursor-not-allowed p-2 bg-blue-50 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300" />
                         </div>
                       </div>
                       <div>
                         <div className="col-span-6">
                           <label htmlFor="schoolsDeanery" className="block text-sm font-medium text-gray-700 mt-3">School's Deanery</label>
-                          <input type="schoolsDeanery" name="schoolsDeanery" id="schoolsDeanery" value={editedLecturer.schoolsDeanery} onChange={handleChange} className="p-2 bg-blue-50 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300" />
+                          <input type="text" name="schoolsDeanery" id="schoolsDeanery" value={editedLecturer.schoolsDeanery} onChange={handleChange} className="p-2 bg-blue-50 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300" />
                         </div>
                         <div className="col-span-6">
                           <label htmlFor="department" className="block text-sm font-medium text-gray-700 mt-3">Department</label>
-                          <input type="department" name="department" id="department" value={editedLecturer.department} onChange={handleChange} className="p-2 bg-blue-50 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300" />
+                          <input type="text" name="department" id="department" value={editedLecturer.department} onChange={handleChange} className="p-2 bg-blue-50 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300" />
                         </div>
                         <div className="col-span-6">
                           <label htmlFor="subjectName" className="block text-sm font-medium text-gray-700 mt-3">Subject Name</label>
-                          <input type="subjectName" name="subjectName" id="subjectName" value={editedLecturer.subjectName} onChange={handleChange} className="p-2 bg-blue-50 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300d" />
+                          <input type="text" name="subjectName" id="subjectName" value={editedLecturer.subjectName} onChange={handleChange} className="p-2 bg-blue-50 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300d" />
                         </div>
                         <div className="col-span-6">
                           <label htmlFor="yearAndSemester" className="block text-sm font-medium text-gray-700 mt-3">Year And Semester</label>
-                          <input type="yearAndSemester" name="yearAndSemester" id="yearAndSemester" value={editedLecturer.yearAndSemester} onChange={handleChange} className="p-2 bg-blue-50 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300" />
+                          <input type="text" name="yearAndSemester" id="yearAndSemester" value={editedLecturer.yearAndSemester} onChange={handleChange} className="p-2 bg-blue-50 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300" />
                         </div>
                       </div>
                       <div>
                         <div className="col-span-6">
                           <label htmlFor="sectionsHandled" className="block text-sm font-medium text-gray-700 mt-3">Section's Handled</label>
-                          <input type="sectionsHandled" name="sectionsHandled" id="sectionsHandled" value={editedLecturer.sectionsHandled} onChange={handleChange} className="p-2 bg-blue-50 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 " />
+                          <input type="number" name="sectionsHandled" id="sectionsHandled" value={editedLecturer.sectionsHandled} onChange={handleChange} className="p-2 bg-blue-50 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 " />
                         </div>
                         <div className="col-span-6">
                           <label htmlFor="hours" className="block text-sm font-medium text-gray-700 mt-3">Hours</label>
-                          <input type="hours" name="hours" id="hours" value={editedLecturer.hours} onChange={handleChange} className="p-2 bg-blue-50 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 " />
+                          <input type="number" name="hours" id="hours" value={editedLecturer.hours} onChange={handleChange} className="p-2 bg-blue-50 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 " />
                         </div>
                         <div className="col-span-6">
                           <label htmlFor="startDate" className="block text-sm font-medium text-gray-700 mt-3">Start Date</label>
-                          <input type="startDate" name="startDate" id="startDate" value={(editedLecturer.startDate).substring(0, 10)} onChange={handleChange} className="p-2 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 bg-blue-50" />
+                          <input type="date" name="startDate" id="startDate" value={(editedLecturer.startDate).substring(0, 10)} onChange={handleChange} className="p-2 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 bg-blue-50" />
                         </div>
                         <div className="col-span-6">
                           <label htmlFor="proposedRate" className="block text-sm font-medium text-gray-700 mt-3">Proposed Rate</label>
-                          <input type="proposedRate" name="proposedRate" id="proposedRate" placeholder={editedLecturer.qualifications.ug ? "upto 800 only" : editedLecturer.qualifications.pg ? "800 - 1000 only" : "1000 - 1200 only"} value={editedLecturer.proposedRate} onChange={handleChange} className="p-2 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 bg-blue-50" />
+                          <input type="text" name="proposedRate" id="proposedRate" placeholder={editedLecturer.qualifications.ug ? "upto 800 only" : editedLecturer.qualifications.pg ? "800 - 1000 only" : "1000 - 1200 only"} value={editedLecturer.proposedRate} onChange={handleChange} className="p-2 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 bg-blue-50" />
                         </div>
                         <div className="col-span-6">
                           <label htmlFor="totalAmount" className="block text-sm font-medium text-gray-700 mt-3">Total Amount</label>
-                          <input type="totalAmount" name="totalAmount" id="totalAmount" value={editedLecturer.totalAmount} className="p-2 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 bg-blue-50" />
+                          <input type="number" name="totalAmount" id="totalAmount" value={editedLecturer.totalAmount} className="cursor-not-allowed p-2 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 bg-blue-50" />
                         </div>
                       </div>
                       <div>

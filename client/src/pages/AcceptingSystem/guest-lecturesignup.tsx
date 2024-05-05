@@ -187,7 +187,7 @@ const SignupPageLect = () => {
                   <input autoComplete='no' className='w-80 border-black border rounded p-2 outline-blue-600 text-blue-700' placeholder="Phone" type="text" name='phone' value={formData.phone} onChange={handleChange} required />
                 </div>
                 <div className='m-2 p-1'>
-                  <input autoComplete='no' className='w-80 border-black border rounded p-2 outline-blue-600 text-blue-700' placeholder="Email"  type="text" name='email' value={formData.email} onChange={handleChange} required />
+                  <input autoComplete='no' className='w-80 border-black border rounded p-2 outline-blue-600 text-blue-700' placeholder="Email"  type="email" name='email' value={formData.email} onChange={handleChange} required />
                 </div>
                 <div className='m-2 p-1'>
                   <input autoComplete='no' className='w-80 border-black border rounded p-2 outline-blue-600 text-blue-700' placeholder="Password" type="password" name="password" value={formData.password} onChange={handleChange} required />
@@ -251,7 +251,7 @@ const SignupPageLect = () => {
                   <input autoComplete='no' className='w-80 border-black border rounded p-2 outline-blue-600' placeholder="Proposed Rate" type="number" name="proposedRate" value={formData.proposedRate} onChange={handleChange} required />
                 </div>
                 <div className='m-2 p-2'>
-                  <input autoComplete='no' className='w-80 border-black border rounded p-2 outline-blue-600' placeholder="Total Amount" type="number" name="totalAmount" value={formData.totalAmount} onChange={handleChange} required />
+                  <input autoComplete='no' className='w-80 border-black border rounded p-2 outline-blue-600 cursor-not-allowed' placeholder="Total Amount" type="number" name="totalAmount" value={formData.totalAmount} required />
                 </div>
               </div>
             </div>
